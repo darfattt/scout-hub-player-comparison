@@ -1,2 +1,12 @@
 data/wyscout/origin
 app.log
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints
+.env
+.venv
+env/
+venv/
+ENV/
+.DS_Store

@@ -136,6 +136,36 @@ Contributions to improve the tool are welcome:
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
+## Deployment to Streamlit Cloud
+
+You can deploy this application to [Streamlit Cloud](https://streamlit.io/cloud) for free to make it accessible online:
+
+1. Push your code to a GitHub repository
+   ```bash
+   git add .
+   git commit -m "Prepare for Streamlit deployment"
+   git push origin main
+   ```
+
+2. Visit [Streamlit Cloud](https://share.streamlit.io/) and sign in with your GitHub account
+
+3. Click "New app" and select:
+   - Repository: Your GitHub repository (e.g., darfattt/comparison)
+   - Branch: main
+   - Main file path: app.py
+   - Advanced settings:
+     - Python version: 3.10 (or your preferred version)
+
+4. Click "Deploy"
+
+5. Wait for the deployment process to complete (may take a few minutes)
+
+6. Your app will be available at `https://[your-username]-[repository-name].streamlit.app`
+
+7. If you have a private GitHub repository, you may need to give Streamlit Cloud permission to access it.
+
+Note: Since this application requires data files in the data/wyscout/ directory, make sure to include sample data files in your repository or adjust the code to handle missing files gracefully.
+
 ## Acknowledgments
 
 - Data format based on Wyscout statistics

@@ -63,8 +63,66 @@ def main():
     logger.info(f"Starting application - found {len(csv_files)} CSV files")
     
     if not csv_files:
-        st.error("No CSV files found in the data/wyscout/ directory. Please add player CSV files with the naming format 'Player stats <Player Name>.csv'")
-        logger.error("No CSV files found in data/wyscout/")
+        st.warning("No player data files found. This application requires Wyscout data in CSV format.")
+        
+        # Display instructions for adding data
+        st.markdown("""
+        ## How to Add Player Data
+        
+        This application requires player statistics files in CSV format from Wyscout or similar providers.
+        
+        To add player data:
+        
+        1. Place your CSV files in the `data/wyscout/` directory
+        2. Files should be named: `Player stats <Player Name>.csv`
+        3. Restart the application
+        
+        ### Sample Data Structure
+        
+        Your CSV files should contain columns such as:
+        - Date, Match, Competition (for match identification)
+        - Position (player's position)
+        - Various statistics (Goals, Assists, Passes, etc.)
+        
+        If you're using this in Streamlit Cloud, you'll need to:
+        1. Fork the repository
+        2. Add your data files to the repository
+        3. Deploy your own version of the app
+        """)
+        
+        # Add option to use sample data
+        if st.button("Use Demo Data"):
+            # Create sample data directory if it doesn't exist
+            os.makedirs('data/wyscout', exist_ok=True)
+            
+            # Create sample player data
+            sample_players = ["Sample Player 1", "Sample Player 2", "Sample Player 3"]
+            
+            for player in sample_players:
+                # Create a simple dataframe with basic stats
+                sample_df = pd.DataFrame({
+                    'Date': ['2023-01-01', '2023-01-08', '2023-01-15'],
+                    'Match': [f'Match {i+1}' for i in range(3)],
+                    'Competition': ['League A', 'League A', 'Cup'],
+                    'Position': ['Forward', 'Forward', 'Forward'],
+                    'Minutes played': [90, 85, 90],
+                    'Goals': [1, 0, 2],
+                    'Assists': [0, 1, 0],
+                    'Shots': [3, 2, 4],
+                    'Passes accurate': [25, 30, 22],
+                    'Dribbles successful': [4, 5, 3],
+                    'Duels won': [8, 7, 9],
+                    'Recoveries': [5, 6, 4]
+                })
+                
+                # Save to CSV
+                sample_file = f'data/wyscout/Player stats {player}.csv'
+                sample_df.to_csv(sample_file, index=False)
+                
+                logger.info(f"Created sample data file: {sample_file}")
+                
+            st.success("Sample data has been created. Please refresh the page to load it.")
+            
         return
         
     player_dfs = []

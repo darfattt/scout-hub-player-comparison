@@ -126,11 +126,54 @@ def load_css(css_file):
         str: CSS content as a string
     """
     try:
-        with open(css_file, 'r', encoding='utf-8') as f:
-            return f.read()
+        # Check if the file exists
+        if os.path.exists(css_file):
+            with open(css_file, 'r', encoding='utf-8') as f:
+                return f.read()
+        else:
+            print(f"CSS file not found: {css_file}")
+            # Return default CSS if file not found
+            return """
+            /* Default CSS styles that will be used if the CSS file is missing */
+            .title {
+                color: #ffffff;
+                font-size: 24px;
+                font-weight: bold;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+            .stats-table-header {
+                font-size: 18px;
+                font-weight: bold;
+                margin: 10px 0;
+                color: white;
+                background-color: #333;
+                padding: 8px;
+                border-radius: 5px;
+                text-align: center;
+            }
+            .explanation-box {
+                background-color: rgba(70, 70, 70, 0.2);
+                border-radius: 5px;
+                padding: 10px;
+                margin: 10px 0;
+                font-size: 14px;
+                color: #eee;
+            }
+            .section-divider {
+                height: 3px;
+                background-color: #444;
+                margin: 30px 0;
+                border-radius: 2px;
+            }
+            """
     except Exception as e:
         print(f"Error loading CSS file: {str(e)}")
-        return ""
+        # Return minimal CSS in case of error
+        return """
+        .title { color: white; font-size: 24px; font-weight: bold; }
+        .stats-table-header { font-size: 18px; font-weight: bold; color: white; }
+        """
 
 # Function to convert image to base64 for HTML embedding
 def image_to_base64(image_path):
