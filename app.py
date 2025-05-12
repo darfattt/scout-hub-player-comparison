@@ -7,14 +7,9 @@ import os
 import re
 import io
 import logging
-from matplotlib.patches import Patch, Circle, RegularPolygon
-from matplotlib.path import Path
-from matplotlib.colors import LinearSegmentedColormap
-from PIL import Image
-import matplotlib.image as mpimg
-from matplotlib.projections.polar import PolarAxes
-from matplotlib.projections import register_projection
-import matplotlib.cm as cm
+from utils import load_css, get_player_image
+from data_utils import extract_player_name, extract_player_info, ensure_numeric_columns, calculate_percentile_ranks
+from visualization import generate_unified_player_chart, generate_radar_chart
 
 # Configure logging
 logging.basicConfig(
@@ -34,926 +29,8 @@ st.set_page_config(
     layout="wide"
 )
 
-# Add custom CSS
-st.markdown("""
-<style>
-    .main {
-        padding: 1rem;
-        background-color: #F9F7F2;
-    }
-    .title {
-        font-size: 2.8rem;
-        font-weight: bold;
-        margin-bottom: 2rem;
-        color: #333;
-        text-align: center;
-        font-family: 'Arial', sans-serif;
-    }
-    .subtitle {
-        font-size: 1.5rem;
-        font-weight: bold;
-        margin-bottom: 1rem;
-        color: #555;
-    }
-    .player-card {
-        padding: 1rem 1rem 1rem 1.5rem;
-        border-radius: 10px;
-        margin-bottom: 1.5rem;
-        background-color: #FFFFFF;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        display: flex;
-        align-items: center;
-        border-left: 4px solid #333;
-    }
-    .player-image {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-right: 1.5rem;
-        border: 2px solid #f0f0f0;
-    }
-    .player-info-container {
-        flex-grow: 1;
-    }
-    .player-name {
-        font-size: 2rem;
-        font-weight: bold;
-        margin: 0;
-        padding: 0;
-        color: #222;
-        font-family: 'Arial', sans-serif;
-    }
-    .player-info {
-        font-size: 1.3rem;
-        color: #666;
-        margin: 0.3rem 0 0 0;
-        padding: 0;
-        font-family: 'Arial', sans-serif;
-    }
-    .chart-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-        margin-top: 2rem;
-    }
-    .stDownloadButton button {
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 4px;
-        font-weight: bold;
-    }
-    .stDownloadButton button:hover {
-        background-color: #45a049;
-    }
-    .st-emotion-cache-1y4p8pa {
-        padding-top: 2rem;
-    }
-    .st-emotion-cache-16txtl3 h1 {
-        font-weight: 800;
-        font-family: 'Arial', sans-serif;
-    }
-    /* Customize the download section */
-    .download-section {
-        margin-top: 3rem;
-        padding: 1.5rem;
-        border-radius: 10px;
-        background-color: #FFFFFF;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    .download-title {
-        font-size: 1.5rem;
-        font-weight: bold;
-        margin-bottom: 1rem;
-        color: #333;
-        font-family: 'Arial', sans-serif;
-    }
-</style>
-""", unsafe_allow_html=True)
-
-# Function to extract player information from filename
-def extract_player_name(filename):
-    match = re.search(r"Player stats (.*?)\.csv", os.path.basename(filename))
-    if match:
-        return match.group(1)
-    return os.path.basename(filename)
-
-# Function to extract player info from dataframe
-def extract_player_info(df):
-    # Get player position (most common one)
-    position = "Unknown"
-    if 'Position' in df.columns:
-        positions = df['Position'].dropna().astype(str)
-        if not positions.empty:
-            position = positions.value_counts().index[0]
-    
-    # Get total match count
-    total_matches = len(df)
-    
-    # Get clubs and seasons from competition column
-    clubs = []
-    seasons = set()
-    competitions = set()
-    
-    if 'Competition' in df.columns:
-        for _, row in df.iterrows():
-            if pd.notna(row['Competition']):
-                competition = str(row['Competition'])
-                comp_parts = competition.split('.')[0].strip() if '.' in competition else competition
-                competitions.add(comp_parts)
-                
-                # Try to extract season from date if available
-                if 'Date' in df.columns and pd.notna(row['Date']):
-                    date_str = str(row['Date'])
-                    if '-' in date_str:
-                        # Extract year from date (assuming yyyy-mm-dd or dd-mm-yyyy format)
-                        date_parts = date_str.split('-')
-                        for part in date_parts:
-                            if len(part) == 4 and part.isdigit():
-                                year = int(part)
-                                if 2000 <= year <= 2030:  # Reasonable year range
-                                    seasons.add(str(year))
-                    elif '/' in date_str:
-                        # For formats like yyyy/yyyy
-                        seasons.add(date_str.strip())
-                
-                if " - " in competition:
-                    teams = competition.split(" - ")
-                    for team in teams:
-                        # Remove score if present (e.g., "Team 2:1")
-                        team = re.sub(r'\s+\d+:\d+.*$', '', team.strip())
-                        if team not in clubs:
-                            clubs.append(team)
-    
-    # If we couldn't find clubs/seasons from the data, check if there are specific club columns
-    if not clubs and 'Club' in df.columns:
-        clubs_from_col = df['Club'].dropna().astype(str).unique()
-        for club in clubs_from_col:
-            if club and club.strip():
-                clubs.append(club.strip())
-    
-    # If we couldn't find seasons from the data, check if there are specific season columns
-    if not seasons and 'Season' in df.columns:
-        seasons_from_col = df['Season'].dropna().astype(str).unique()
-        for season in seasons_from_col:
-            if season and season.strip():
-                seasons.add(season.strip())
-    
-    # Get the main club
-    club = clubs[0] if clubs else "Unknown"
-    
-    # Calculate total minutes played
-    total_minutes = 0
-    if 'Minutes played' in df.columns:
-        total_minutes = pd.to_numeric(df['Minutes played'], errors='coerce').fillna(0).sum()
-    
-    # Calculate total goals
-    total_goals = 0
-    if 'Goals' in df.columns:
-        total_goals = pd.to_numeric(df['Goals'], errors='coerce').fillna(0).sum()
-    
-    # Calculate total seasons and total competitions
-    total_seasons = len(seasons)
-    total_competitions = len(competitions)
-    
-    # Set default club values if none found in data
-    club_map = {
-        "Gustavo Henrique": "Zhako",
-        "Ribamar": "Dhing A Thanh Hoa",
-        "Uilliam": "Al-Fahaleel SC"
-    }
-    
-    player_name = df['player_name'].iloc[0] if 'player_name' in df.columns else "Unknown"
-    # Use the mapped club if the default "Unknown" was detected
-    if club == "Unknown" and player_name in club_map:
-        club = club_map[player_name]
-    
-    # Set a default age based on some common values from the sample
-    # In a real app, you would extract this from the data
-    age_map = {
-        "Gustavo Henrique": 29,
-        "Ribamar": 27,
-        "Uilliam": 30
-    }
-    
-    age = age_map.get(player_name, 25)  # Default age 25 if not found
-    
-    # Try to extract age from Age column if it exists
-    if 'Age' in df.columns:
-        age_values = pd.to_numeric(df['Age'].dropna(), errors='coerce')
-        if not age_values.empty and age_values.notna().any():
-            try:
-                # Get the most common age value
-                age = int(age_values.mode().iloc[0])
-            except:
-                pass
-    
-    return {
-        "position": position,
-        "club": club,
-        "age": age,
-        "total_matches": total_matches,
-        "total_minutes": int(total_minutes),
-        "total_goals": int(total_goals),
-        "total_seasons": total_seasons,
-        "total_competitions": total_competitions
-    }
-
-# Function to handle cleaning data to ensure columns are numeric
-def ensure_numeric_columns(df, exclude_columns=None):
-    """
-    Ensure that all columns in a dataframe are numeric, excluding specified columns.
-    Returns a new dataframe with only the numeric columns.
-    """
-    if exclude_columns is None:
-        exclude_columns = ["Match", "Competition", "Date", "Position"]
-    
-    # First exclude the non-numeric columns
-    cols_to_check = [col for col in df.columns if col not in exclude_columns]
-    
-    # Create a new dataframe with only convertible numeric columns
-    numeric_df = pd.DataFrame(index=df.index)
-    
-    for col in cols_to_check:
-        try:
-            # Try to convert to numeric
-            numeric_series = pd.to_numeric(df[col], errors='coerce')
-            # Only add if not all NaN
-            if not numeric_series.isna().all():
-                numeric_df[col] = numeric_series
-        except Exception as e:
-            # Log the error and skip this column
-            logger.warning(f"Could not convert column '{col}' to numeric: {str(e)}")
-            pass
-    
-    # If no numeric columns were found, log a warning
-    if numeric_df.empty:
-        logger.warning("No numeric columns found in the dataframe after filtering")
-    
-    return numeric_df
-
-# Function to calculate percentile ranks
-def calculate_percentile_ranks(df_list, stat_cols):
-    # Define columns that should never be treated as numeric
-    non_numeric_columns = ["Match", "Competition", "Date", "Position"]
-    
-    # Remove any non-numeric columns from stat_cols
-    numeric_stat_cols = [col for col in stat_cols if col not in non_numeric_columns]
-    
-    # If no numeric columns are left, return empty
-    if not numeric_stat_cols:
-        logger.warning("No numeric columns found for percentile calculation")
-        return [], []
-    
-    # Combine all player stats for ranking
-    combined_stats = pd.DataFrame()
-    
-    # Filter to include only numeric columns
-    for i, df in enumerate(df_list):
-        # First ensure we have numeric data only
-        numeric_df = ensure_numeric_columns(df, non_numeric_columns)
-        
-        # Filter to only include the requested stats
-        valid_cols = [col for col in numeric_stat_cols if col in numeric_df.columns]
-        
-        if valid_cols:
-            player_stats = numeric_df[valid_cols].mean().to_frame().T
-            player_stats['player_index'] = i
-            combined_stats = pd.concat([combined_stats, player_stats], ignore_index=True)
-    
-    # If no valid numeric columns found, return empty
-    if combined_stats.empty:
-        logger.warning(f"No valid numeric columns found in the datasets")
-        return [], []
-    
-    # Filter out columns that don't exist in all dataframes or have no variance
-    valid_cols = []
-    for col in numeric_stat_cols:
-        if col in combined_stats.columns and combined_stats[col].nunique() > 1:
-            valid_cols.append(col)
-    
-    if not valid_cols:
-        logger.warning(f"No valid columns with variance found")
-        return [], []
-    
-    # Check if we have enough data to rank
-    if len(combined_stats) < 2:
-        logger.warning(f"Not enough data to calculate percentile ranks")
-        return [], []
-    
-    # Calculate percentile ranks
-    percentile_ranks = pd.DataFrame()
-    actual_values = pd.DataFrame()  # Store actual values
-    
-    for col in valid_cols:
-        if col in combined_stats.columns:
-            # Store the actual values
-            actual_values[col] = combined_stats[col]
-            
-            # Determine if higher is better (default) or lower is better
-            higher_is_better = True
-            lower_is_better_cols = [
-                'Losses', 'Losses own half', 'Yellow card', 'Red card'
-            ]
-            
-            # Check if any of the lower_is_better substrings are in the column name
-            for lower_col in lower_is_better_cols:
-                if lower_col in col:
-                    higher_is_better = False
-                    break
-            
-            # Calculate percentile rank
-            if higher_is_better:
-                # Create a normalized percentile (0-100 scale) based on min-max
-                min_val = combined_stats[col].min()
-                max_val = combined_stats[col].max()
-                
-                if min_val == max_val:  # If all values are the same
-                    percentile_ranks[col] = 50  # Assign mid-range value
-                else:
-                    percentile_ranks[col] = 100 * (combined_stats[col] - min_val) / (max_val - min_val)
-            else:
-                # For metrics where lower is better, invert the percentile
-                min_val = combined_stats[col].min()
-                max_val = combined_stats[col].max()
-                
-                if min_val == max_val:  # If all values are the same
-                    percentile_ranks[col] = 50  # Assign mid-range value
-                else:
-                    percentile_ranks[col] = 100 * (max_val - combined_stats[col]) / (max_val - min_val)
-    
-    percentile_ranks['player_index'] = combined_stats['player_index']
-    actual_values['player_index'] = combined_stats['player_index']
-    
-    # Split back into individual player percentile ranks and actual values
-    player_percentiles = []
-    player_actual_values = []
-    
-    for i in range(len(df_list)):
-        player_percentiles.append(
-            percentile_ranks[percentile_ranks['player_index'] == i].drop(columns=['player_index'])
-        )
-        player_actual_values.append(
-            actual_values[actual_values['player_index'] == i].drop(columns=['player_index'])
-        )
-    
-    return player_percentiles, player_actual_values
-
-# Function to generate a unified player stat chart
-def generate_unified_player_chart(player_name, percentile_df, player_color, player_info, player_image_path=None, actual_values_df=None):
-    # Get all stats from the percentile dataframe
-    if percentile_df.empty:
-        return None
-    
-    # Create figure
-    fig = plt.figure(figsize=(6, 12))
-    
-    # Create a gridspec layout with space for player info at top
-    gs = fig.add_gridspec(2, 1, height_ratios=[1.5, 9], hspace=0.05)
-    
-    # Add player info at top
-    ax_info = fig.add_subplot(gs[0])
-    ax_info.axis('off')  # Turn off axis
-    ax_info.set_facecolor('#F9F7F2')
-    
-    # Add player name as title
-    ax_info.text(0.02, 0.8, player_name, fontsize=14, fontweight='bold', color="#333333")
-    
-    # Add player details
-    position = player_info.get('position', 'Unknown')
-    club = player_info.get('club', 'Unknown')
-    age = player_info.get('age', 'Unknown')
-    
-    # Add basic info
-    ax_info.text(0.02, 0.6, f"{age} | {position} | {club}", fontsize=10, color="#555555")
-    
-    # Add stats info (matches, seasons, clubs)
-    total_matches = player_info.get('total_matches', 0)
-    total_seasons = player_info.get('total_seasons', 0)
-    total_minutes = player_info.get('total_minutes', 0)
-    total_goals = player_info.get('total_goals', 0)
-    
-    stats_info_text = f"Matches: {total_matches} | Seasons: {total_seasons} | Minutes: {total_minutes} | Goals: {total_goals}"
-    ax_info.text(0.02, 0.4, stats_info_text, fontsize=9, color="#666666")
-    
-    # If player image is available, add it
-    if player_image_path and os.path.exists(player_image_path):
-        try:
-            img = mpimg.imread(player_image_path)
-            # Add a small inset axes for the image
-            ax_img = fig.add_axes([0.7, 0.92, 0.2, 0.2], frameon=True)
-            ax_img.imshow(img)
-            ax_img.axis('off')
-        except Exception as e:
-            print(f"Error loading image: {e}")
-    
-    # Create the main chart
-    ax = fig.add_subplot(gs[1])
-    ax.set_facecolor('#F9F7F2')
-    fig.patch.set_facecolor('#F9F7F2')  # Light cream background
-    
-    # Get all stats
-    all_stats = list(percentile_df.columns)
-    
-    # Define category for each stat
-    stat_categories = {
-        "General": [
-            "Minutes played", 
-            "Total actions",
-            "Total actions successful",
-            "Match",
-            "Competition",
-            "Date",
-            "Position"
-        ],
-        "Defensive": [
-            "Duels",
-            "Duels won", 
-            "Aerial duels", 
-            "Aerial duels won", 
-            "Interceptions", 
-            "Losses", 
-            "Losses own half", 
-            "Recoveries", 
-            "Recoveries opp. half", 
-            "Yellow card", 
-            "Red card"
-        ],
-        "Progressive": [
-            "Passes",
-            "Passes accurate", 
-            "Long passes", 
-            "Long passes accurate", 
-            "Crosses", 
-            "Crosses accurate", 
-            "Dribbles",
-            "Dribbles successful"
-        ],
-        "Offensive": [
-            "Goals", 
-            "Assists", 
-            "Shots", 
-            "Shots On Target", 
-            "xG"
-        ]
-    }
-    
-    # Add any other stats from the original list
-    original_stats = [
-        "Match", 
-        "Competition", 
-        "Date", 
-        "Position", 
-        "Minutes played", 
-        "Total actions", 
-        "Total actions successful", 
-        "Goals", 
-        "Assists", 
-        "Shots", 
-        "Shots On Target", 
-        "xG", 
-        "Passes", 
-        "Passes accurate", 
-        "Long passes", 
-        "Long passes accurate", 
-        "Crosses", 
-        "Crosses accurate", 
-        "Dribbles", 
-        "Dribbles successful", 
-        "Duels", 
-        "Duels won", 
-        "Aerial duels", 
-        "Aerial duels won", 
-        "Interceptions", 
-        "Losses", 
-        "Losses own half", 
-        "Recoveries", 
-        "Recoveries opp. half", 
-        "Yellow card", 
-        "Red card"
-    ]
-    
-    # Map original stats to categories
-    for stat in original_stats:
-        if stat in ["Match", "Competition", "Date", "Position", "Minutes played", 
-                   "Total actions", "Total actions successful"]:
-            if stat not in stat_categories["General"]:
-                stat_categories["General"].append(stat)
-        elif any(defensive_term in stat for defensive_term in 
-                ["Duel", "Interception", "Loss", "Recover", "Yellow card", "Red card"]):
-            if stat not in stat_categories["Defensive"]:
-                stat_categories["Defensive"].append(stat)
-        elif any(progressive_term in stat for progressive_term in 
-                ["Pass", "Dribble", "Cross"]):
-            if stat not in stat_categories["Progressive"]:
-                stat_categories["Progressive"].append(stat)
-        elif any(offensive_term in stat for offensive_term in 
-                ["Goal", "Assist", "Shot", "xG"]):
-            if stat not in stat_categories["Offensive"]:
-                stat_categories["Offensive"].append(stat)
-    
-    # Categorize all stats
-    categorized_stats = []
-    category_dividers = []
-    current_pos = 0
-    
-    for category, category_stats in stat_categories.items():
-        category_stats_present = [stat for stat in category_stats if stat in all_stats]
-        if category_stats_present:
-            categorized_stats.extend(category_stats_present)
-            current_pos += len(category_stats_present)
-            category_dividers.append((current_pos, category))
-    
-    # Handle stats that aren't in any category
-    general_stats = [stat for stat in all_stats if stat not in categorized_stats]
-    if general_stats:
-        categorized_stats = general_stats + categorized_stats
-        # Shift all category dividers
-        category_dividers = [(pos + len(general_stats), cat) for pos, cat in category_dividers]
-        # Add general category if needed
-        if general_stats:
-            category_dividers.insert(0, (len(general_stats), "General"))
-    
-    # Filter out stats that are in categorized_stats but not in all_stats
-    valid_stats = [stat for stat in categorized_stats if stat in all_stats]
-    
-    # Get percentile values
-    percentile_values = []
-    for stat in valid_stats:
-        if stat in percentile_df.columns:
-            val = float(percentile_df[stat].iloc[0]) if not pd.isna(percentile_df[stat].iloc[0]) else 0
-            percentile_values.append(val)
-        else:
-            percentile_values.append(0)
-    
-    # Get actual values if provided
-    actual_values = []
-    if actual_values_df is not None:
-        for stat in valid_stats:
-            if stat in actual_values_df.columns:
-                val = float(actual_values_df[stat].iloc[0]) if not pd.isna(actual_values_df[stat].iloc[0]) else 0
-                # Round to 2 decimal places for display
-                val = round(val, 2)
-                actual_values.append(val)
-            else:
-                actual_values.append(0)
-    else:
-        actual_values = [0] * len(percentile_values)
-    
-    # Calculate positions for bars
-    y_positions = np.arange(len(valid_stats))
-    
-    # Generate colors for bars based on percentile values
-    bar_colors = []
-    for value in percentile_values:
-        bar_colors.append(get_percentile_color(value))
-    
-    # Plot horizontal bars - make them more compact (smaller height)
-    bars = ax.barh(
-        y_positions,
-        percentile_values,
-        height=0.4,  # More compact bars
-        color=bar_colors,
-        alpha=0.9
-    )
-    
-    # Add value labels to bars
-    for i, (bar, percentile_val, actual_val) in enumerate(zip(bars, percentile_values, actual_values)):
-        if percentile_val > 5:  # Only add text if bar is wide enough
-            # Display both the percentile and actual value
-            display_text = f"{int(percentile_val)}% | {actual_val}"
-            ax.text(
-                min(percentile_val - 3, 95),  # Position text inside the bar near the end
-                bar.get_y() + bar.get_height()/2,
-                display_text,
-                va='center',
-                ha='right',
-                fontsize=7,
-                fontweight='bold',
-                color='white'
-            )
-    
-    # Set labels and ticks
-    ax.set_yticks(y_positions)
-    ax.set_yticklabels(valid_stats, fontsize=8)  # Smaller font for more compact view
-    ax.set_xlabel('Percentile Rank', fontsize=8)
-    
-    # Set x-axis range and ticks
-    ax.set_xlim(0, 100)
-    ax.set_xticks([0, 20, 40, 60, 80, 100])
-    ax.tick_params(axis='x', labelsize=7)  # Smaller tick font size
-    
-    # Add gridlines
-    ax.grid(axis='x', linestyle='--', alpha=0.2, color='gray')
-    
-    # Add vertical lines at 0, 20, 40, 60, 80, 100
-    for x in [0, 20, 40, 60, 80, 100]:
-        ax.axvline(x=x, color='gray', linestyle='-', alpha=0.15)
-    
-    # Add category dividers and labels
-    for i, (pos, category) in enumerate(category_dividers):
-        if i > 0:  # Skip the first divider
-            y_pos = y_positions[pos-1] + 0.5 if pos < len(y_positions) else len(y_positions) - 0.5
-            ax.axhline(y=y_pos, color='black', linestyle='-', linewidth=0.8, alpha=0.5)
-        
-        # Calculate middle position for category label
-        start_idx = 0 if i == 0 else category_dividers[i-1][0]
-        end_idx = pos
-        if start_idx < end_idx and end_idx <= len(y_positions):
-            mid_pos = (y_positions[start_idx] + y_positions[min(end_idx-1, len(y_positions)-1)]) / 2
-            
-            # Add category label on the right side
-            rect_height = 0.7 * (end_idx - start_idx)
-            rect_y = mid_pos - rect_height/2
-            
-            # Use different colors for different categories
-            rect_color = '#2E86C1' if category == 'Defensive' else '#D35400' if category == 'Offensive' else '#8E44AD' if category == 'Progressive' else '#1ABC9C'
-            
-            # Add colored rectangle on the right
-            rect = plt.Rectangle((1.01, rect_y), 0.03, rect_height, 
-                                transform=ax.transAxes, color=rect_color, alpha=0.8)
-            ax.add_patch(rect)
-            
-            # Add text - change to black for better readability
-            ax.text(1.04, mid_pos, category, transform=ax.get_yaxis_transform(), 
-                    rotation=270, fontsize=10, fontweight='bold', 
-                    ha='center', va='center', color='black')
-    
-    # Add horizontal lines at each position for better readability
-    for y in y_positions:
-        ax.axhline(y=y-0.3, color='lightgray', linestyle='-', linewidth=0.5, alpha=0.3)
-    
-    # Remove spines
-    ax.spines['top'].set_visible(False)
-    ax.spines['right'].set_visible(False)
-    ax.spines['bottom'].set_linewidth(0.5)
-    ax.spines['left'].set_linewidth(0.5)
-    ax.spines['bottom'].set_color('#555555')
-    ax.spines['left'].set_color('#555555')
-    
-    # Add legend at the bottom
-    legend_elements = [
-        Patch(facecolor='#CD5C5C', label='0-20'),
-        Patch(facecolor='#FF8C00', label='21-40'),
-        Patch(facecolor='#FFC107', label='41-60'),
-        Patch(facecolor='#9ACD32', label='61-80'),
-        Patch(facecolor='#4CAF50', label='81-100')
-    ]
-    
-    # Create a separate axes for the legend at the bottom
-    legend_ax = fig.add_axes([0.1, 0.02, 0.8, 0.02], frameon=False)
-    legend_ax.axis('off')
-    legend = legend_ax.legend(handles=legend_elements, loc='center', 
-                             ncol=5, frameon=False, fontsize=7,
-                             title="Percentile Rank", title_fontsize=8)
-    
-    plt.tight_layout()
-    # Adjust the main plot to make room for the legend
-    plt.subplots_adjust(bottom=0.07)
-    
-    return fig
-
-# Custom class for Radar chart display
-class RadarAxes(PolarAxes):
-    name = 'radar'
-    
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.set_theta_zero_location('N')
-    
-    def fill(self, *args, closed=True, **kwargs):
-        return super().fill(closed=closed, *args, **kwargs)
-    
-    def plot(self, *args, **kwargs):
-        lines = super().plot(*args, **kwargs)
-        for line in lines:
-            self._close_line(line)
-        return lines
-    
-    def _close_line(self, line):
-        x, y = line.get_data()
-        if x[0] != x[-1]:
-            x = np.concatenate((x, [x[0]]))
-            y = np.concatenate((y, [y[0]]))
-            line.set_data(x, y)
-
-# Register the RadarAxes projection
-register_projection(RadarAxes)
-
-# Function to generate radar chart for player comparison
-def generate_radar_chart(player_names, player_percentiles, player_colors, player_actual_values=None):
-    if not player_names or not player_percentiles:
-        logger.warning("No player data provided for radar chart")
-        return None
-    
-    try:
-        logger.info(f"Generating radar chart for players: {', '.join(player_names)}")
-        
-        # Find common stats across all players
-        common_stats = set(player_percentiles[0].columns)
-        for percentile_df in player_percentiles[1:]:
-            common_stats &= set(percentile_df.columns)
-        
-        logger.info(f"Found {len(common_stats)} common stats across all players")
-        
-        if not common_stats:
-            logger.warning("No common statistics found across selected players")
-            # If no common stats found, return a simple figure with an error message
-            fig, ax = plt.subplots(figsize=(10, 6))
-            ax.text(0.5, 0.5, "No common statistics found across selected players.", 
-                    ha='center', va='center', fontsize=14, color='red')
-            ax.axis('off')
-            return fig
-        
-        # Define key stats to prioritize in radar chart
-        key_stats = [
-            'Goals', 'Assists', 'Shots On Target',
-            'Passes accurate', 'Dribbles successful',
-            'Duels won', 'Interceptions',
-            'Recoveries', 'xG', 'Minutes played'
-        ]
-        
-        # Filter for key stats that exist in common stats
-        selected_stats = [stat for stat in key_stats if stat in common_stats]
-        logger.info(f"Found {len(selected_stats)} key stats in common stats")
-        
-        # If we don't have enough key stats, add more from common_stats
-        if len(selected_stats) < 6:
-            logger.info(f"Adding more stats to reach minimum of 6 stats")
-            other_stats = list(common_stats - set(selected_stats))
-            # Sort by name to ensure consistent order
-            other_stats.sort()
-            # Add more until we have at least 6 or run out
-            selected_stats.extend(other_stats[:max(6 - len(selected_stats), 0)])
-        
-        # Limit to max 12 stats for readability
-        if len(selected_stats) > 12:
-            logger.info(f"Limiting to max 12 stats from {len(selected_stats)} available")
-            selected_stats = selected_stats[:12]
-        
-        # Ensure we have at least 3 stats for the radar chart to work
-        if len(selected_stats) < 3:
-            logger.warning(f"Only {len(selected_stats)} stats available - need at least 3 for radar chart")
-            # Not enough stats for radar chart, return a simple figure with error
-            fig, ax = plt.subplots(figsize=(10, 6))
-            ax.text(0.5, 0.5, "Insufficient statistics for radar chart. Need at least 3 common metrics.", 
-                    ha='center', va='center', fontsize=14, color='red')
-            ax.axis('off')
-            return fig
-        
-        # Set up radar chart using a simpler approach
-        N = len(selected_stats)
-        logger.info(f"Creating radar chart with {N} axes")
-        
-        # Calculate angles for each feature
-        angles = np.linspace(0, 2 * np.pi, N, endpoint=False).tolist()
-        # Close the polygon by repeating the first angle
-        angles += angles[:1]
-        
-        # Create figure
-        fig, ax = plt.subplots(figsize=(10, 8), subplot_kw={'polar': True})
-        
-        # Background styling
-        fig.patch.set_facecolor('#F9F7F2')  # Light cream background
-        
-        # Create a table to display actual values below the chart
-        if player_actual_values:
-            actual_data = []
-            for i, (name, actual_df) in enumerate(zip(player_names, player_actual_values)):
-                row = [name]
-                for stat in selected_stats:
-                    if stat in actual_df.columns:
-                        val = round(float(actual_df[stat].iloc[0]) if not pd.isna(actual_df[stat].iloc[0]) else 0, 2)
-                        row.append(val)
-                    else:
-                        row.append(0)
-                actual_data.append(row)
-        
-        # Loop over each player and plot their data
-        for i, (name, percentile_df) in enumerate(zip(player_names, player_percentiles)):
-            color = player_colors[i % len(player_colors)]
-            
-            # Get percentile values for selected stats
-            values = []
-            for stat in selected_stats:
-                if stat in percentile_df.columns:
-                    val = float(percentile_df[stat].iloc[0]) if not pd.isna(percentile_df[stat].iloc[0]) else 0
-                    # Convert to 0-1 scale for radar chart
-                    values.append(val / 100.0)
-                else:
-                    values.append(0)
-            
-            # Add the first value again to close the polygon
-            values += values[:1]
-            
-            logger.info(f"Plotting data for player: {name}")
-            # Plot the player data
-            ax.plot(angles, values, color=color, linewidth=2.5, label=name)
-            ax.fill(angles, values, color=color, alpha=0.25)
-        
-        # Set the angle labels (feature names)
-        ax.set_xticks(angles[:-1])  # Exclude the last angle which is a duplicate
-        ax.set_xticklabels([stat[:20] + '...' if len(stat) > 20 else stat for stat in selected_stats], 
-                          fontsize=9)
-        
-        # Set y-ticks (concentric circles) to show percentile values
-        ax.set_yticks([0.2, 0.4, 0.6, 0.8, 1.0])
-        ax.set_yticklabels(['20%', '40%', '60%', '80%', '100%'], fontsize=8)
-        
-        # Set the limit of the radar chart
-        ax.set_ylim(0, 1)
-        
-        # Add grid lines
-        ax.grid(True, alpha=0.3)
-        
-        # Add a legend with title
-        legend = plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.05),
-                          ncol=3, fontsize=11, frameon=True, title="Player Comparison")
-        legend.get_title().set_fontweight('bold')
-        
-        # Add title
-        plt.figtext(0.5, 0.965, 'Player Comparison: Percentile Ranks', 
-                   ha='center', color='#333333', weight='bold', size=16)
-        plt.figtext(0.5, 0.93, ', '.join(player_names), 
-                   ha='center', color='#666666', size=12)
-        
-        # If we have actual values, add a table below the chart
-        if player_actual_values and 'actual_data' in locals():
-            # Add the actual values in a text box below
-            table_text = "Actual Values:\n\n"
-            
-            # Add header row
-            header = ["Player"] + [stat[:10] + '...' if len(stat) > 10 else stat for stat in selected_stats]
-            table_text += " | ".join(header) + "\n"
-            table_text += "-" * len(table_text) + "\n"
-            
-            # Add data rows
-            for row in actual_data:
-                table_text += " | ".join([str(x) for x in row]) + "\n"
-            
-            # Add text box with actual values
-            plt.figtext(0.5, -0.15, table_text, 
-                      ha='center', fontsize=8, family='monospace',
-                      bbox=dict(boxstyle='round,pad=0.5', facecolor='white', alpha=0.8))
-            
-            # Adjust the figure to make room for the table
-            plt.subplots_adjust(bottom=0.25)
-        
-        # Adjust layout
-        try:
-            plt.tight_layout(rect=[0, 0.05, 1, 0.95])  # Adjust to make room for the values table
-        except Exception as layout_error:
-            logger.warning(f"tight_layout failed: {str(layout_error)}")
-            # If tight_layout fails, use a standard adjustment
-            plt.subplots_adjust(top=0.9, bottom=0.25)  # More space at bottom for the table
-        
-        logger.info("Radar chart generation completed successfully")
-        return fig
-    except Exception as e:
-        logger.error(f"Error generating radar chart: {str(e)}", exc_info=True)
-        # Create a figure with error message
-        fig, ax = plt.subplots(figsize=(10, 6))
-        ax.text(0.5, 0.5, f"Error generating radar chart: {str(e)}", 
-                ha='center', va='center', fontsize=14, color='red')
-        ax.axis('off')
-        return fig
-
-# Function to get player image
-def get_player_image(player_name):
-    # Check if there's an image file with the player's name in the data/pics directory
-    image_path = f"data/pics/{player_name}.png"
-    if os.path.exists(image_path):
-        return image_path
-    
-    # If not, check for other image formats
-    for ext in ['.png', '.jpeg', '.gif']:
-        alt_path = f"data/pics/{player_name}{ext}"
-        if os.path.exists(alt_path):
-            return alt_path
-    
-    # If no specific player image is found, use a default image
-    default_image = "data/pics/default_player.jpg"
-    if os.path.exists(default_image):
-        return default_image
-    
-    # If no default image either, return None
-    return None
-
-# Function to get color based on percentile
-def get_percentile_color(value):
-    """Return a color based on the percentile value using a gradient scale."""
-    if value < 20:
-        return '#CD5C5C'  # Red
-    elif value < 40:
-        return '#FF8C00'  # Dark Orange
-    elif value < 60:
-        return '#FFC107'  # Amber/Yellow
-    elif value < 80:
-        return '#9ACD32'  # Light Green (Yellow-Green)
-    else:
-        return '#4CAF50'  # Green
+# Load custom CSS
+st.markdown(f'<style>{load_css("styles.css")}</style>', unsafe_allow_html=True)
 
 # Main app
 def main():
@@ -989,7 +66,7 @@ def main():
     # Create a configuration section
     with st.expander("⚙️ Configuration", expanded=True):
         st.markdown("""
-        <div style="background-color: #EBF5FB; border-radius: 8px; padding: 10px; margin-bottom: 10px;">
+        <div style=" border-radius: 8px; padding: 10px; margin-bottom: 10px;">
             <p style="margin: 0; font-size: 14px;">Select players to compare and customize visualization settings</p>
         </div>
         """, unsafe_allow_html=True)
@@ -1288,31 +365,279 @@ def main():
             mime="image/png"
         )
     
-    # Add explanatory text about percentile ranks
-    st.markdown("""
-    <div style="background-color: #f0f4f8; border-radius: 8px; padding: 16px; margin: 20px 0; border-left: 4px solid #3498db;">
-        <h3 style="margin-top: 0; color: #333;">About Percentile Ranks</h3>
-        <p style="color: #555; font-size: 16px;">
-            Each player's chart shows their normalized percentile rank (0-100) across various performance metrics.
-            The percentiles are calculated based on the min-max values of each metric across all players.
-            <br><br>
-            Higher values (closer to 100) indicate better performance relative to other players in the comparison.
-            For metrics where lower values are better (e.g., losses, yellow cards), the scale is inverted.
-            <br><br>
-            <b>Color Scale:</b>
-            <br>
-            <span style="display: inline-block; width: 12px; height: 12px; background-color: #CD5C5C; margin-right: 5px;"></span> <b>Red</b> (0-20): Poor performance
-            <br>
-            <span style="display: inline-block; width: 12px; height: 12px; background-color: #FF8C00; margin-right: 5px;"></span> <b>Orange</b> (21-40): Below average performance
-            <br>
-            <span style="display: inline-block; width: 12px; height: 12px; background-color: #FFC107; margin-right: 5px;"></span> <b>Yellow</b> (41-60): Average performance
-            <br>
-            <span style="display: inline-block; width: 12px; height: 12px; background-color: #9ACD32; margin-right: 5px;"></span> <b>Light Green</b> (61-80): Good performance
-            <br>
-            <span style="display: inline-block; width: 12px; height: 12px; background-color: #4CAF50; margin-right: 5px;"></span> <b>Green</b> (81-100): Excellent performance
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
+    # Add new table view for player stats comparison
+    st.markdown('<div class="stats-table-container">', unsafe_allow_html=True)
+    st.markdown('<p class="stats-table-header">Player Statistics Comparison Table</p>', unsafe_allow_html=True)
+    
+    # Create category filters for the table view
+    table_category_options = ["All"] + list(filtered_stat_categories.keys())
+    selected_table_category = st.radio(
+        "Filter table metrics by category:",
+        options=table_category_options,
+        horizontal=True
+    )
+    
+    # Filter stats based on selected category
+    filtered_table_stats = []
+    if selected_table_category == "All":
+        filtered_table_stats = available_numeric_stats
+    else:
+        # Get stats from the selected category
+        for stat in available_numeric_stats:
+            if stat in filtered_stat_categories.get(selected_table_category, []):
+                filtered_table_stats.append(stat)
+    
+    # Create a filter for the stats to display in the table
+    selected_stats_for_table = st.multiselect(
+        "Select metrics to display in the table:",
+        options=filtered_table_stats,
+        default=filtered_table_stats[:10] if len(filtered_table_stats) > 10 else filtered_table_stats
+    )
+    
+    # Add a checkbox to toggle between seeing all stat details or just percentile ranks
+    show_all_stat_details = st.checkbox("Show detailed stats (Sum & Avg)", value=True)
+    
+    if selected_stats_for_table:
+        # Create a combined table with all players' stats
+        table_data = []
+        
+        # Get stats organized by category for better visualization
+        categorized_table_stats = []
+        for category, stats_list in filtered_stat_categories.items():
+            category_stats = [stat for stat in stats_list if stat in selected_stats_for_table]
+            if category_stats:
+                # If category has any selected stats, add them to the list
+                # Add a category header row if more than one category is being displayed
+                if selected_table_category == "All" or len(selected_categories) > 1:
+                    categorized_table_stats.append((category, None))  # Category header
+                # Add all stats for this category
+                for stat in category_stats:
+                    categorized_table_stats.append((category, stat))
+        
+        # If no categorized stats (unusual case), just use the flat list
+        if not categorized_table_stats:
+            for stat in selected_stats_for_table:
+                categorized_table_stats.append(("General", stat))
+        
+        # Process stats in category order
+        current_category = None
+        for category, stat in categorized_table_stats:
+            # If this is a category header row
+            if stat is None:
+                # Add a category header row
+                category_row = {
+                    "Metric": f"--- {category} Statistics ---",
+                    "_category": category  # For styling
+                }
+                for name in selected_players:
+                    # Add empty cells for each player column
+                    if show_all_stat_details:
+                        category_row[f"{name} (Rank)"] = ""
+                        category_row[f"{name} (Sum)"] = ""
+                        category_row[f"{name} (Avg)"] = ""
+                    else:
+                        category_row[f"{name} (Rank)"] = ""
+                
+                table_data.append(category_row)
+                current_category = category
+                continue
+            
+            # Normal stat row
+            stat_row = {
+                "Metric": stat,
+                "_category": category  # Store category for styling
+            }
+            
+            # Get sum, avg and percentile rank for each player
+            for i, (name, percentile_df, actual_df) in enumerate(zip(selected_players, player_percentiles, player_actual_values)):
+                if stat in percentile_df.columns and stat in actual_df.columns:
+                    percentile = float(percentile_df[stat].iloc[0]) if not pd.isna(percentile_df[stat].iloc[0]) else 0
+                    actual_val = float(actual_df[stat].iloc[0]) if not pd.isna(actual_df[stat].iloc[0]) else 0
+                    
+                    # Calculate sum by multiplying average by number of matches
+                    matches = player_info[i].get('total_matches', 1)
+                    sum_val = round(actual_val * matches, 2) if matches > 0 else actual_val
+                    
+                    # Format and add to the row
+                    stat_row[f"{name} (Rank)"] = f"{int(percentile)}%"
+                    
+                    # Only add sum and avg if detailed view is enabled
+                    if show_all_stat_details:
+                        stat_row[f"{name} (Sum)"] = f"{sum_val}"
+                        stat_row[f"{name} (Avg)"] = f"{round(actual_val, 2)}"
+                else:
+                    stat_row[f"{name} (Rank)"] = "N/A"
+                    # Only add sum and avg if detailed view is enabled
+                    if show_all_stat_details:
+                        stat_row[f"{name} (Sum)"] = "N/A"
+                        stat_row[f"{name} (Avg)"] = "N/A"
+            
+            table_data.append(stat_row)
+        
+        # Convert to DataFrame for display
+        table_df = pd.DataFrame(table_data)
+        
+        # Style the DataFrame
+        def highlight_cells(val):
+            if isinstance(val, str) and val.endswith('%'):
+                try:
+                    percentile = int(val.rstrip('%'))
+                    if percentile >= 81:
+                        return 'background-color: #4CAF50; color: white'
+                    elif percentile >= 61:
+                        return 'background-color: #9ACD32; color: black'
+                    elif percentile >= 41:
+                        return 'background-color: #FFC107; color: black'
+                    elif percentile >= 21:
+                        return 'background-color: #FF8C00; color: black'
+                    else:
+                        return 'background-color: #CD5C5C; color: white'
+                except:
+                    return ''
+            return ''
+        
+        # Define category styling
+        def category_style(row):
+            if "--- Statistics ---" in str(row["Metric"]):
+                return ['background-color: #f0f0f0; font-weight: bold; text-align: center; color: #333;'] * len(row)
+            
+            # Add category-specific styling based on _category column
+            category = row.get("_category", "")
+            
+            if category == "General":
+                return ['border-left: 4px solid #1ABC9C;' if col == "Metric" else '' for col in row.index]
+            elif category == "Defensive":
+                return ['border-left: 4px solid #2E86C1;' if col == "Metric" else '' for col in row.index]
+            elif category == "Progressive":
+                return ['border-left: 4px solid #8E44AD;' if col == "Metric" else '' for col in row.index]
+            elif category == "Offensive":
+                return ['border-left: 4px solid #D35400;' if col == "Metric" else '' for col in row.index]
+            
+            return [''] * len(row)
+        
+        # Apply styling to cells ending with "(Rank)"
+        rank_columns = [col for col in table_df.columns if "(Rank)" in col]
+        
+        # Create a styled table with both cell and row styling
+        styled_table = table_df.style.applymap(highlight_cells, subset=rank_columns)
+        
+        # Apply row-level styling for categories
+        if "_category" in table_df.columns:
+            styled_table = styled_table.apply(category_style, axis=1)
+            # Drop the helper column used for styling before display
+            table_df = table_df.drop(columns=["_category"])
+        
+        # Add a description of the table contents
+        st.markdown(f"""
+        <div style="margin-bottom: 10px; font-size: 14px;">
+          <p>Table showing stats as rows with players in columns:</p>
+          <ul style="margin-top: 5px; margin-bottom: 10px;">
+            <li><strong>Rank</strong> - Percentile rank (0-100%) showing how the player compares to others</li>
+            {"<li><strong>Sum</strong> - Total accumulated statistic across all matches</li>" if show_all_stat_details else ""}
+            {"<li><strong>Avg</strong> - Average value per match</li>" if show_all_stat_details else ""}
+          </ul>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # Display the table with custom styling
+        st.markdown("""
+        <div style="margin-bottom: 8px; font-style: italic; font-size: 12px; color: #666;">
+            Click on column headers to sort the table. Scroll horizontally to see all metrics.
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # Add additional styling to make the table more readable
+        styled_table = styled_table.set_properties(**{
+            'font-family': 'Arial, sans-serif',
+            'text-align': 'center'
+        })
+        
+        # Change the Metric column to left align
+        styled_table = styled_table.set_properties(
+            subset=['Metric'], **{'text-align': 'left', 'font-weight': 'bold'}
+        )
+        
+        # Format the DataFrame for better display
+        styled_table = styled_table.set_table_styles([
+            {'selector': 'th', 'props': [
+                ('text-align', 'center'),
+                ('background-color', '#f0f0f0'),
+                ('font-size', '13px'),
+                ('border-bottom', '1px solid #ddd')
+            ]}
+        ])
+        
+        # Group player columns visually
+        # Get column indices for each player
+        for player in selected_players:
+            player_cols = [col for col in table_df.columns if player in col]
+            if player_cols:
+                styled_table = styled_table.set_table_styles([
+                    {'selector': f'td:nth-child({table_df.columns.get_loc(player_cols[0]) + 2})', 
+                     'props': [('border-left', '2px solid #ddd')]}
+                ], overwrite=False)
+        
+        # Display the table with ability to sort
+        st.dataframe(styled_table, use_container_width=True, height=400)
+        
+        # Add download button for the table
+        csv = table_df.to_csv(index=False)
+        st.download_button(
+            label="📊 Download Comparison Table",
+            data=csv,
+            file_name="player_comparison_table.csv",
+            mime="text/csv"
+        )
+    else:
+        st.info("Please select at least one metric to display in the table")
+    
+    st.markdown('</div>', unsafe_allow_html=True)
+    
+    # Add explanatory text about performance metrics (now collapsible)
+    with st.expander("About Performance Metrics", expanded=False):
+        st.markdown("""
+        <div style="background-color: #ffffff; border-radius: 8px; padding: 16px; margin: 10px 0;">
+            <h3 style="margin-top: 0; color: #333; font-size: 18px;">Understanding Performance Metrics</h3>
+            <p style="color: #555; font-size: 14px;">
+                Each player's performance is measured across various metrics and displayed in both charts and tables:
+            </p>
+            
+            <h4 style="margin-top: 15px; color: #444; font-size: 16px;">Stat Types</h4>
+            <ul style="color: #555; font-size: 14px;">
+                <li><strong>Sum</strong> - The total accumulated statistic across all matches (e.g., total goals scored)</li>
+                <li><strong>Average</strong> - The average value per match (e.g., average goals per match)</li>
+            </ul>
+            
+            <h4 style="margin-top: 15px; color: #444; font-size: 16px;">Percentile Ranking</h4>
+            <p style="color: #555; font-size: 14px;">
+                Percentile ranks show how a player compares to others in the comparison. With only 3 players in the dataset, the ranks are calculated using min-max normalization to create a 0-100 scale.
+            </p>
+            
+            <h4 style="margin-top: 15px; color: #444; font-size: 16px;">Color Scale</h4>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
+                <div style="display: flex; align-items: center;">
+                    <span style="display: inline-block; width: 16px; height: 16px; background-color: #CD5C5C; margin-right: 5px;"></span>
+                    <span style="font-size: 14px;"><strong>Red</strong> (0-20%): Poor</span>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <span style="display: inline-block; width: 16px; height: 16px; background-color: #FF8C00; margin-right: 5px;"></span>
+                    <span style="font-size: 14px;"><strong>Orange</strong> (21-40%): Below Average</span>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <span style="display: inline-block; width: 16px; height: 16px; background-color: #FFC107; margin-right: 5px;"></span>
+                    <span style="font-size: 14px;"><strong>Yellow</strong> (41-60%): Average</span>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <span style="display: inline-block; width: 16px; height: 16px; background-color: #9ACD32; margin-right: 5px;"></span>
+                    <span style="font-size: 14px;"><strong>Light Green</strong> (61-80%): Good</span>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <span style="display: inline-block; width: 16px; height: 16px; background-color: #4CAF50; margin-right: 5px;"></span>
+                    <span style="font-size: 14px;"><strong>Green</strong> (81-100%): Excellent</span>
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
     
     # Add a better-styled section for downloading the processed data
     st.markdown("<div class='download-section'>", unsafe_allow_html=True)
@@ -1334,12 +659,6 @@ def main():
                 )
     
     st.markdown("</div>", unsafe_allow_html=True)
-
-# Function to convert image to base64 for HTML embedding
-def image_to_base64(image_path):
-    import base64
-    with open(image_path, "rb") as img_file:
-        return base64.b64encode(img_file.read()).decode()
 
 if __name__ == "__main__":
     main() 
