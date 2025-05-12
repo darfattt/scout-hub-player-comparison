@@ -1,0 +1,163 @@
+Match,Competition,Date,Position,Minutes played,Total actions,Total actions successful,Goals,Assists,Shots,Shots On Target,xG,Passes,Passes accurate,Long passes,Long passes accurate,Crosses,Crosses accurate,Dribbles,Dribbles successful,Duels,Duels won,Aerial duels,Aerial duels won,Interceptions,Losses,Losses own half,Recoveries,Recoveries opp. half,Yellow card,Red card
+Corinthians - América RN 2:1,Brazil. Copa do Brasil,23/5/2024,CF,92,39,12,0,0,0,0,0,4,3,0,0,1,1,3,1,30,9,12,4,2,12,2,1,1,0,0
+América RN - Corinthians 1:2,Brazil. Copa do Brasil,2/5/2024,CF,91,35,12,0,0,0,0,0,6,6,0,0,0,0,0,0,21,6,9,3,0,11,3,1,0,0,0
+América RN - ABC 1:0,Brazil. Copa do Nordeste,20/3/2024,"LW, RW",78,43,14,0,0,3,1,0.87,5,4,0,0,0,0,6,1,26,8,4,3,1,8,1,2,1,0,0
+América RN - São Luiz 3:0,Brazil. Copa do Brasil,14/3/2024,CF,78,30,13,0,0,2,0,1.08,5,4,0,0,0,0,6,1,19,8,3,1,1,10,2,2,2,0,0
+Costa Rica - América RN 1:2,Brazil. Copa do Brasil,22/2/2024,CF,74,43,19,0,0,1,0,0.31,10,8,0,0,2,0,2,2,20,11,11,6,1,12,2,1,0,0,0
+América RN - Itabaiana 1:2,Brazil. Copa do Nordeste,11/2/2024,"CF, RW",72,51,17,0,0,3,1,0.16,9,7,0,0,1,0,2,1,27,9,13,8,0,5,0,2,1,0,66
+Fortaleza - América RN 2:1,Brazil. Copa do Nordeste,3/2/2024,CF,76,42,16,0,0,3,0,0.26,5,4,0,0,0,0,7,5,27,11,8,3,0,11,5,2,1,0,0
+Công An Nhân Dân - FLC Thanh Hoa 1:1,Vietnam. V.League 1,27/8/2023,"CF, RW",69,11,5,1,0,2,1,0.2,3,1,0,0,0,0,1,0,5,3,2,1,0,5,1,0,0,0,0
+Viettel - Công An Nhân Dân 0:3,Vietnam. V.League 1,12/8/2023,"CF, RWF",67,20,9,0,0,2,1,0.21,8,7,0,0,0,0,0,0,7,1,2,1,1,6,3,0,0,0,0
+Công An Nhân Dân - Ha Noi 2:1,Vietnam. V.League 1,6/8/2023,CF,64,36,21,2,0,5,3,0.95,12,10,0,0,0,0,1,0,18,8,3,1,1,8,3,0,0,0,0
+Nam Dinh - Công An Nhân Dân 1:2,Vietnam. V.League 1,2/8/2023,CF,46,19,12,0,0,2,1,0.13,4,4,0,0,0,0,1,1,10,7,4,3,1,2,0,0,0,0,0
+Công An Nhân Dân - Hai Phong 0:2,Vietnam. V.League 1,29/7/2023,CF,97,40,14,0,0,4,2,0.51,11,6,0,0,2,1,5,2,19,6,5,3,2,11,2,2,2,0,0
+Binh Dinh - Công An Nhân Dân 0:1,Vietnam. V.League 1,22/7/2023,CF,98,52,18,0,0,4,2,0.9,13,9,1,0,0,0,6,2,28,7,10,2,4,10,2,2,1,0,0
+Công An Nhân Dân - H?ng L?nh Hà T?nh 1:1,Vietnam. V.League 1,16/7/2023,"RAMF, CF",35,14,5,0,0,0,0,0,3,2,0,0,0,0,1,0,7,3,0,0,0,4,1,1,0,0,0
+Da Nang - Công An Nhân Dân 1:0,Vietnam. V.League 1,2/7/2023,CF,101,32,9,0,0,3,0,0.19,5,3,0,0,0,0,1,1,21,6,12,1,0,9,2,0,0,0,0
+Công An Nhân Dân - H?ng L?nh Hà T?nh 4:2,Vietnam. V.League 1,24/6/2023,"CF, RWF",98,35,17,0,0,2,0,0.25,11,10,0,0,0,0,4,0,19,7,4,2,3,13,1,1,1,0,0
+FLC Thanh Hoa - Công An Nhân Dân 1:4,Vietnam. V.League 1,5/6/2023,CF,98,49,22,1,0,6,2,0.87,8,4,0,0,0,0,5,4,31,16,8,6,4,9,3,2,1,0,0
+Công An Nhân Dân - Sanna Khanh Hoa 0:0,Vietnam. V.League 1,30/5/2023,CF,106,46,22,0,0,4,3,0.33,14,9,0,0,1,0,3,2,23,10,9,4,1,9,2,3,3,0,0
+Công An Nhân Dân - Song Lam Nghe An 2:1,Vietnam. V.League 1,26/5/2023,CF,100,41,17,0,0,4,2,1.16,12,8,0,0,0,0,2,2,21,7,7,1,2,10,2,2,2,0,0
+H? Chí Minh City - Công An Nhân Dân 3:5,Vietnam. V.League 1,21/5/2023,CF,76,36,19,0,0,4,1,1.27,11,9,0,0,0,0,4,2,18,9,5,5,0,5,0,3,2,0,0
+Công An Nhân Dân - Nam Dinh 4:0,Vietnam. V.League 1,16/4/2023,CF,84,45,27,0,1,2,0,0.4,18,18,0,0,0,0,5,3,22,9,4,2,2,6,3,4,4,0,0
+Binh Duong - Công An Nhân Dân 1:2,Vietnam. V.League 1,12/4/2023,CF,71,33,19,0,1,1,1,0.09,15,11,1,0,2,0,0,0,14,7,3,0,0,7,1,2,2,0,0
+Công An Nhân Dân - Hai Phong 1:1,Vietnam. V.League 1,8/4/2023,CF,86,54,24,1,0,5,4,0.9,14,8,1,0,0,0,7,4,27,11,9,4,1,9,1,1,1,7,0
+Hoang Anh Gia Lai - Công An Nhân Dân 1:1,Vietnam. V.League 1,19/2/2023,CF,99,61,22,0,0,2,0,0.3,12,11,0,0,0,0,5,2,40,11,12,4,1,11,0,1,1,0,0
+Công An Nhân Dân - Viettel 1:2,Vietnam. V.League 1,14/2/2023,CF,99,46,17,0,0,3,1,0.56,11,7,0,0,1,0,3,1,21,9,10,6,0,10,1,1,1,0,0
+Ha Noi - Công An Nhân Dân 2:0,Vietnam. V.League 1,9/2/2023,CF,95,17,8,0,0,0,0,0,3,3,0,0,0,0,2,1,9,4,4,1,2,6,1,2,1,0,0
+Công An Nhân Dân - Binh Dinh 5:0,Vietnam. V.League 1,3/2/2023,CF,86,40,21,1,1,4,3,0.27,9,5,0,0,0,0,3,1,22,12,8,7,0,6,2,3,3,0,0
+Figueirense - ABC 0:0,Brazil. Serie C,24/9/2022,LCMF,35,13,6,0,0,1,0,0.09,1,1,0,0,0,0,2,2,8,4,2,1,0,4,0,0,0,0,0
+Paysandu - Figueirense 1:0,Brazil. Serie C,11/9/2022,CF,36,10,3,0,0,0,0,0,0,0,0,0,0,0,1,0,9,3,4,2,1,3,1,1,1,0,0
+Figueirense - Paysandu 2:1,Brazil. Serie C,3/9/2022,CF,35,17,5,1,0,1,1,0.18,3,2,0,0,0,0,1,1,9,2,1,0,0,4,2,1,1,71,0
+Figueirense - Vitória 5:1,Brazil. Serie C,28/8/2022,CF,21,7,3,1,0,1,1,0.5,1,1,0,0,0,0,1,1,3,1,2,0,0,2,0,0,0,0,0
+ABC - Figueirense 2:1,Brazil. Serie C,20/8/2022,0,13,5,1,0,0,0,0,0,2,1,0,0,0,0,0,0,3,0,1,0,0,2,0,0,0,0,0
+Figueirense - ABC 2:1,Brazil. Serie C,13/8/2022,CF,25,15,8,0,0,0,0,0,3,2,0,0,0,0,3,1,10,5,3,3,0,3,0,2,2,0,0
+Figueirense - EC São José 3:2,Brazil. Serie C,1/8/2022,CF,22,15,4,0,0,0,0,0,1,1,0,0,0,0,1,0,9,3,3,1,1,3,1,1,1,0,0
+Paysandu - Figueirense 1:1,Brazil. Serie C,25/7/2022,CF,34,17,5,1,0,1,1,0.19,2,2,0,0,0,0,2,1,8,2,2,1,0,5,1,1,0,0,0
+Figueirense - Botafogo SP 2:1,Brazil. Serie C,16/7/2022,CF,14,9,6,0,0,2,1,0.33,1,1,0,0,0,0,2,2,3,3,0,0,0,1,0,0,0,0,0
+Figueirense - Campinense 4:0,Brazil. Serie C,9/7/2022,CF,57,35,13,0,0,0,0,0,6,6,0,0,0,0,6,1,20,6,4,2,0,9,0,2,2,0,0
+Vitória - Figueirense 2:0,Brazil. Serie C,3/7/2022,CF,99,43,13,0,0,1,0,0.23,7,7,0,0,0,0,2,1,19,4,5,1,0,8,0,0,0,0,0
+Figueirense - Remo 0:0,Brazil. Serie C,28/6/2022,CF,43,16,7,0,0,0,0,0,7,5,1,0,0,0,1,0,6,2,0,0,0,3,0,0,0,0,0
+Manaus - Figueirense 1:1,Brazil. Serie C,18/6/2022,CF,80,47,13,0,0,2,1,0.34,10,7,0,0,0,0,2,0,23,5,8,2,3,11,4,1,1,0,0
+Figueirense - Confiança 0:0,Brazil. Serie C,12/6/2022,CF,36,14,5,0,0,1,0,0.07,3,3,0,0,0,0,0,0,7,2,1,0,1,3,0,1,1,0,0
+Ypiranga Erechim - Figueirense 3:3,Brazil. Serie C,4/6/2022,CF,72,41,11,0,0,1,1,0.39,6,5,2,2,1,0,4,1,22,5,6,2,0,9,3,2,1,0,0
+Figueirense - Ferroviário 1:0,Brazil. Serie C,28/5/2022,CF,54,15,4,0,0,3,0,0.35,3,2,0,0,1,0,1,0,7,2,1,0,0,1,0,0,0,0,0
+Brasil de Pelotas - Figueirense 0:1,Brazil. Serie C,21/5/2022,CF,67,26,9,0,0,2,0,0.04,7,6,0,0,0,0,2,0,13,2,3,1,2,9,1,1,1,0,0
+Figueirense - Aparecidense 2:1,Brazil. Serie C,15/5/2022,RW,27,16,7,1,0,1,1,0.21,5,4,0,0,0,0,0,0,9,2,5,1,1,6,2,1,0,0,0
+Atlético Cearense - Figueirense 1:1,Brazil. Serie C,8/5/2022,CF,28,17,3,0,0,0,0,0,2,2,0,0,0,0,0,0,6,1,2,0,2,4,3,0,0,0,0
+Floresta EC - Figueirense 0:0,Brazil. Serie C,24/4/2022,CF,34,30,8,0,0,1,0,0,1,0,0,0,0,0,3,0,27,8,11,3,0,19,10,0,0,0,0
+Figueirense - Altos 4:1,Brazil. Serie C,19/4/2022,CF,14,8,5,0,0,0,0,0,0,0,0,0,0,0,1,1,6,4,3,2,0,4,0,0,0,0,0
+Volta Redonda - Figueirense 1:1,Brazil. Serie C,10/4/2022,CF,74,38,12,0,0,1,1,0.18,7,6,0,0,0,0,1,0,19,5,4,1,1,6,0,2,1,52,0
+Camboriú - Figueirense 2:0,Brazil. Catarinense 1,26/3/2022,CF,97,34,14,0,0,0,0,0,6,6,0,0,0,0,2,1,22,8,8,2,2,11,3,3,1,0,0
+Figueirense - Camboriú 1:1,Brazil. Catarinense 1,24/3/2022,CF,81,59,18,1,0,4,2,1.32,6,5,0,0,1,0,4,3,35,11,10,3,3,13,1,5,3,0,0
+Hercílio Luz - Figueirense 0:0,Brazil. Catarinense 1,20/3/2022,CF,99,57,26,0,0,1,0,0.13,13,10,0,0,1,0,6,3,37,16,13,5,1,20,6,1,1,0,0
+Figueirense - Hercílio Luz 1:0,Brazil. Catarinense 1,12/3/2022,CF,81,25,5,0,0,1,0,0.08,4,3,0,0,0,0,2,0,12,2,5,1,0,5,0,1,1,46,0
+Figueirense - Cuiabá 2:2 (P),Brazil. Copa do Brasil,9/3/2022,CF,97,48,15,0,0,3,1,0.23,6,4,0,0,1,0,3,1,29,10,6,4,0,14,4,1,1,30,0
+Figueirense - Avaí 4:1,Brazil. Catarinense 1,26/2/2022,CF,74,40,20,0,0,2,1,0.17,8,7,0,0,1,0,2,2,26,10,5,2,0,9,2,3,3,68,0
+Lagarto - Figueirense 0:0,Brazil. Copa do Brasil,22/2/2022,CF,77,37,13,0,0,2,0,0.13,6,5,0,0,0,0,1,1,19,6,11,4,5,11,2,2,1,0,0
+Juventus Jaraguá - Figueirense 0:2,Brazil. Catarinense 1,19/2/2022,CF,33,25,9,0,0,1,0,0.09,6,5,0,0,0,0,1,0,13,4,3,1,1,5,5,2,1,0,0
+Figueirense - Prospera Criciuma 1:2,Brazil. Catarinense 1,16/2/2022,CF,98,32,11,0,0,6,1,0.91,7,5,0,0,0,0,2,1,13,5,3,2,1,4,2,0,0,0,0
+Chapecoense - Figueirense 1:0,Brazil. Catarinense 1,13/2/2022,CF,81,36,14,0,0,0,0,0,5,3,0,0,0,0,2,0,22,9,7,3,3,8,0,1,1,0,0
+Figueirense - Marcílio Dias 3:2,Brazil. Catarinense 1,11/2/2022,CF,99,38,13,1,0,8,1,1,5,4,0,0,0,0,4,1,21,7,13,4,0,7,1,2,2,0,0
+Hercílio Luz - Figueirense 4:1,Brazil. Catarinense 1,6/2/2022,CF,94,29,13,1,0,1,1,0.2,7,7,0,0,0,0,0,0,16,5,11,4,0,10,0,0,0,0,0
+Figueirense - Camboriú 2:1,Brazil. Catarinense 1,4/2/2022,CF,96,51,13,0,0,2,0,0.43,4,3,0,0,0,0,4,3,34,10,9,3,2,18,5,2,2,0,0
+ABC - Sousa 2:1,Brazil. Copa do Nordeste,10/11/2021,CF,50,24,3,0,0,1,0,0.49,1,1,0,0,0,0,0,0,11,2,2,0,0,3,0,0,0,0,0
+Sousa - ABC 3:0,Brazil. Copa do Nordeste,27/10/2021,CF,83,18,6,0,0,0,0,0,2,2,0,0,0,0,0,0,10,4,6,2,0,4,1,0,0,0,0
+Aparecidense - ABC 4:2,Brazil. Serie D,24/10/2021,CF,48,19,6,0,0,0,0,0,2,2,0,0,0,0,2,0,11,4,5,4,0,6,0,0,0,37,0
+ABC - Jacuipense 4:2,Brazil. Copa do Nordeste,21/10/2021,CF,88,44,10,0,0,1,0,0.15,7,5,0,0,1,0,3,0,20,3,2,1,1,7,0,1,0,0,0
+ABC - Caxias 3:0,Brazil. Serie D,17/10/2021,CF,90,33,12,0,0,2,2,1.06,3,2,0,0,0,0,0,0,22,8,4,1,0,15,3,1,1,0,0
+ABC - Flamengo 0:1,Brazil. Copa do Brasil,6/8/2021,CF,25,14,7,0,0,0,0,0,3,2,0,0,1,0,2,2,10,5,5,1,0,5,1,0,0,0,0
+Flamengo - ABC 6:0,Brazil. Copa do Brasil,30/7/2021,CF,97,61,20,0,0,0,0,0,8,6,1,0,0,0,3,0,38,12,14,5,2,26,4,2,0,0,0
+São Bernardo FC - Atibaia 1:0,Brazil. Paulista A2,18/5/2021,CF,61,40,21,0,0,1,0,0.12,11,10,0,0,0,0,7,4,23,11,2,2,1,6,1,2,1,0,0
+Água Santa - Atibaia 2:1,Brazil. Paulista A2,10/5/2021,CF,37,24,8,0,0,1,0,0.07,1,1,0,0,0,0,2,1,17,6,3,0,0,3,1,0,0,0,0
+Atibaia - Velo Clube 0:0,Brazil. Paulista A2,7/5/2021,"RW, CF",37,12,4,0,0,1,0,0.23,3,0,0,0,1,0,1,1,6,4,1,1,0,3,1,0,0,0,0
+Oeste - Atibaia 1:0,Brazil. Paulista A2,4/5/2021,CF,23,13,4,0,0,0,0,0,2,2,0,0,0,0,0,0,8,2,1,0,1,1,0,1,1,0,0
+Atibaia - Osasco Audax 0:1,Brazil. Paulista A2,1/5/2021,CF,68,39,12,0,0,0,0,0,8,7,0,0,0,0,6,2,23,5,4,0,0,13,2,1,1,0,0
+São Bernardo - Atibaia 0:0,Brazil. Paulista A2,29/4/2021,"CF, RAMF",29,20,3,0,0,0,0,0,4,2,0,0,0,0,1,0,9,0,2,0,0,7,2,0,0,0,0
+Rio Claro - Atibaia 1:4,Brazil. Paulista A2,27/4/2021,LW,20,15,5,1,0,1,1,0.27,3,2,0,0,1,0,1,0,8,2,0,0,1,4,2,2,0,82,0
+Atibaia - Sertãozinho 2:0,Brazil. Paulista A2,25/4/2021,CF,77,67,13,1,0,2,1,0.22,7,4,0,0,0,0,5,3,39,8,16,2,4,19,6,1,0,0,0
+RB Brasil - Atibaia 1:2,Brazil. Paulista A2,23/4/2021,AMF,28,7,4,0,0,0,0,0,2,2,0,0,0,0,1,1,3,2,1,0,0,0,0,0,0,0,0
+Atibaia - Portuguesa Santista 2:0,Brazil. Paulista A2,21/4/2021,CF,21,21,5,0,0,1,0,0.02,3,2,0,0,0,0,1,1,12,3,4,1,0,4,0,0,0,0,0
+Portuguesa - Atibaia 1:1,Brazil. Paulista A2,6/3/2021,CF,21,14,6,0,0,1,1,0.03,0,0,0,0,0,0,1,0,10,4,5,1,1,5,1,1,0,0,0
+Atibaia - Monte Azul 1:0,Brazil. Paulista A2,27/2/2021,RAMF,35,12,0,0,0,0,0,0,0,0,0,0,0,0,3,0,10,1,3,0,0,5,1,0,0,0,0
+Mirassol - Floresta EC 1:0,Brazil. Serie D,6/2/2021,CF,30,15,10,0,0,1,0,0.17,3,3,0,0,0,0,1,0,8,6,2,1,0,3,0,1,0,0,0
+Mirassol - Altos 4:0,Brazil. Serie D,17/1/2021,CF,12,9,2,0,0,0,0,0,1,1,0,0,0,0,1,0,7,1,2,0,0,3,0,1,1,0,0
+Mirassol - Caxias (P) 1:0,Brazil. Serie D,13/12/2020,CF,24,5,1,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,2,0,0,0,0,0
+Ferroviária - Mirassol 1:0,Brazil. Serie D,2/11/2020,CF,21,10,7,0,0,1,1,0.03,3,3,0,0,0,0,0,0,6,3,3,1,0,2,0,0,0,0,0
+Mirassol - Portuguesa RJ 1:0,Brazil. Serie D,25/10/2020,CF,29,18,7,1,0,3,1,0.44,3,2,0,0,1,1,4,0,9,4,2,1,1,4,0,1,1,0,0
+Cascavel - Mirassol 0:0,Brazil. Serie D,4/10/2020,CF,99,40,16,0,0,2,0,0.36,8,6,1,1,0,0,2,0,26,10,9,3,0,12,4,1,0,0,0
+Mirassol - Toledo 6:0,Brazil. Serie D,1/10/2020,CF,65,56,23,1,0,4,2,1.36,8,7,1,1,0,0,4,3,25,13,4,3,1,6,2,3,2,0,0
+Cabofriense - Mirassol 3:1,Brazil. Serie D,26/9/2020,CF,99,56,21,1,0,3,2,0.59,12,11,0,0,0,0,2,0,29,8,9,1,2,9,2,1,1,0,0
+Mirassol - Bangu 1:1,Brazil. Serie D,21/9/2020,CF,97,50,22,0,0,3,1,0.2,9,8,0,0,1,1,3,2,27,12,10,7,3,12,0,1,1,0,0
+Botafogo SP - Cuiabá 1:1,Brazil. Serie B,1/9/2020,CF,47,25,7,0,0,0,0,0,4,4,0,0,0,0,2,1,14,3,5,0,1,6,3,1,0,0,0
+Juventude - Botafogo SP 0:0,Brazil. Serie B,29/8/2020,CF,88,65,21,0,0,3,0,0.79,5,4,0,0,0,0,6,2,41,15,19,7,4,20,8,5,2,0,0
+Botafogo SP - Figueirense 0:1,Brazil. Serie B,22/8/2020,CF,18,11,5,0,0,1,0,0.18,2,1,0,0,0,0,4,3,8,4,1,0,0,5,1,1,1,0,0
+Botafogo SP - Guarani 0:1,Brazil. Serie B,15/8/2020,CF,35,13,4,0,0,0,0,0,2,2,0,0,0,0,1,0,9,2,0,0,1,2,0,1,1,0,0
+Cruzeiro - Botafogo SP 2:1,Brazil. Serie B,9/8/2020,CF,13,7,4,0,0,1,1,0.09,2,2,0,0,0,0,0,0,3,1,2,0,0,0,0,1,0,0,0
+Botafogo SP - Guarani 2:0,Brazil. Paulista A1,24/7/2020,CF,47,40,13,0,0,1,0,0.03,7,7,0,0,0,0,2,0,21,6,1,1,2,4,0,2,1,0,0
+Botafogo SP - Água Santa 1:1,Brazil. Paulista A1,15/2/2020,CF,31,22,11,0,0,0,0,0,3,1,0,0,0,0,3,3,14,8,5,3,0,3,0,1,1,0,0
+Botafogo SP - Mirassol 0:6,Brazil. Paulista A1,4/2/2020,CF,45,16,4,0,0,1,0,0.16,4,3,0,0,1,0,0,0,6,1,4,1,0,3,0,0,0,0,0
+Ituano - Botafogo SP 2:2,Brazil. Paulista A1,29/1/2020,CF,15,5,3,0,0,0,0,0,1,1,0,0,0,0,0,0,3,2,1,0,1,0,0,1,0,0,0
+Botafogo SP - Ponte Preta 0:1,Brazil. Paulista A1,26/1/2020,CF,98,54,15,0,0,2,1,0.21,7,6,0,0,0,0,6,2,29,8,12,4,0,13,1,1,1,0,0
+Corinthians - Botafogo SP 4:1,Brazil. Paulista A1,24/1/2020,CF,95,66,19,0,1,0,0,0,13,12,1,1,0,0,6,1,27,4,11,0,4,19,6,1,0,0,0
+Cuiabá - Vila Nova 1:2,Brazil. Serie B,30/11/2019,LAMF,47,34,19,0,0,1,1,0.09,3,3,0,0,0,0,5,3,22,13,5,3,4,7,2,5,3,0,0
+Vila Nova - Oeste 1:1,Brazil. Serie B,20/11/2019,CF,102,42,10,0,0,2,0,0.25,8,4,0,0,1,0,3,0,25,5,7,1,3,16,3,0,0,0,0
+Sport Recife - Vila Nova 0:0,Brazil. Serie B,17/11/2019,CF,60,37,13,0,0,2,0,0.19,6,4,0,0,0,0,4,0,23,9,12,8,1,14,2,3,3,0,0
+Vila Nova - Operário PR 0:0,Brazil. Serie B,9/11/2019,"CF, RW",72,35,11,0,0,0,0,0,5,4,0,0,0,0,4,0,25,6,13,6,0,13,2,1,1,0,0
+Figueirense - Vila Nova 0:0,Brazil. Serie B,6/11/2019,CF,97,76,23,0,0,2,0,0.75,10,7,1,1,0,0,4,3,46,15,19,4,2,21,3,0,0,0,0
+Vila Nova - Brasil de Pelotas 0:2,Brazil. Serie B,29/10/2019,CF,97,60,18,0,0,0,0,0,4,4,0,0,0,0,5,1,41,14,16,8,1,21,1,2,2,0,0
+Bragantino - Vila Nova 3:1,Brazil. Serie B,26/10/2019,CF,48,37,9,0,0,0,0,0,3,3,0,0,0,0,0,0,26,6,17,2,2,16,1,1,0,0,0
+Vila Nova - Coritiba 2:2,Brazil. Serie B,19/10/2019,CF,71,47,8,1,0,2,1,0.13,7,2,0,0,1,0,7,2,29,4,8,0,1,15,2,2,2,0,0
+América Mineiro - Vila Nova 2:0,Brazil. Serie B,16/10/2019,"LAMF, LWF",97,38,19,0,0,1,0,0.05,6,4,1,1,0,0,6,6,24,13,4,2,3,10,4,0,0,0,0
+Vila Nova - Atlético GO 1:1,Brazil. Serie B,12/10/2019,"LAMF, LWF, CF",97,44,18,0,0,1,0,0,10,5,0,0,1,0,9,5,29,12,8,4,0,14,0,2,2,42,0
+São Bento - Vila Nova 3:1,Brazil. Serie B,8/10/2019,CF,66,47,11,0,0,0,0,0,5,2,0,0,0,0,5,3,29,8,10,3,1,17,4,0,0,0,0
+Vila Nova - Criciúma 1:1,Brazil. Serie B,2/10/2019,CF,17,9,2,0,0,0,0,0,0,0,0,0,0,0,0,0,6,2,6,2,1,2,0,1,1,0,0
+Vila Nova - CRB 2:2,Brazil. Serie B,25/9/2019,CF,49,38,9,0,0,2,1,0.05,5,2,0,0,0,0,1,1,24,6,9,2,0,12,4,0,0,0,0
+Vila Nova - Botafogo SP 0:2,Brazil. Serie B,18/9/2019,CF,96,44,17,0,0,3,1,0.46,13,10,0,0,0,0,3,1,23,6,8,4,1,9,1,4,4,0,0
+Ponte Preta - Vila Nova 0:1,Brazil. Serie B,13/9/2019,CF,98,58,16,0,0,0,0,0,6,5,0,0,1,0,5,3,32,10,12,4,2,11,1,1,1,0,0
+Vila Nova - Vitória 0:2,Brazil. Serie B,4/9/2019,CF,97,43,12,0,0,1,0,0.02,10,7,0,0,0,0,0,0,22,4,7,2,1,5,2,0,0,0,0
+Paraná - Vila Nova 1:1,Brazil. Serie B,31/8/2019,CF,96,55,16,1,0,1,1,0.21,7,6,0,0,0,0,3,1,33,9,18,4,2,24,9,1,0,0,0
+Vila Nova - Cuiabá 0:0,Brazil. Serie B,28/8/2019,CF,98,67,23,0,0,2,0,0.12,10,6,0,0,2,0,6,5,39,16,13,5,0,19,5,1,1,0,0
+Paysandu - Boa 2:2,Brazil. Serie C,30/7/2019,CF,82,36,11,0,0,0,0,0,3,2,0,0,0,0,5,2,25,9,10,5,1,11,3,4,0,0,0
+Boa - Juventude 2:0,Brazil. Serie C,21/7/2019,CF,87,65,22,0,1,2,0,0.13,14,10,0,0,0,0,3,2,37,11,14,5,3,19,1,4,4,0,0
+Volta Redonda - Boa 1:0,Brazil. Serie C,7/7/2019,CF,97,49,14,0,0,0,0,0,8,6,0,0,0,0,6,1,26,7,5,2,3,15,3,0,0,0,0
+Boa - Paysandu 2:0,Brazil. Serie C,26/5/2019,CF,83,58,21,1,0,3,1,0.43,14,9,0,0,1,0,3,2,25,10,13,3,2,20,3,4,4,79,0
+Remo - Boa 1:0,Brazil. Serie C,28/4/2019,CF,98,45,13,0,0,2,1,0.77,4,3,0,0,0,0,4,0,27,9,7,3,1,12,2,0,0,0,0
+Atlético Mineiro - Boa 5:0,Brazil. Mineiro 1,7/4/2019,CF,99,48,13,0,0,0,0,0,13,10,0,0,0,0,1,0,28,3,13,2,1,17,7,2,1,0,0
+Boa - Atlético Mineiro 0:0,Brazil. Mineiro 1,30/3/2019,CF,100,41,14,0,0,3,0,0.38,8,7,0,0,1,0,3,1,23,7,6,3,0,11,3,0,0,0,0
+Boa - Tombense (P) 1:1,Brazil. Mineiro 1,24/3/2019,CF,96,51,21,1,0,4,4,1.2,5,3,0,0,0,0,5,3,29,13,13,5,2,14,3,3,3,0,0
+Boa - Cruzeiro 2:2,Brazil. Mineiro 1,31/1/2019,CF,97,51,17,1,0,1,1,0.13,10,8,0,0,1,0,7,3,29,8,9,3,2,13,1,1,1,0,0
+Atlético Mineiro - Boa 5:0,Brazil. Mineiro 1,20/1/2019,CF,91,37,15,0,0,0,0,0,6,2,1,0,1,0,5,4,21,12,6,3,2,9,5,2,0,0,0
+Votuporanguense - Atibaia 3:0,Brazil. Copa Paulista,18/11/2018,CF,93,32,16,0,0,3,0,0.25,8,6,0,0,1,0,2,1,18,10,8,6,0,6,1,1,1,0,0
+Atibaia - Votuporanguense 1:1,Brazil. Copa Paulista,10/11/2018,CF,67,40,14,1,0,1,1,0.55,2,2,1,1,0,0,2,1,28,9,17,4,2,11,5,2,0,0,0
+Olímpia - Atibaia 1:1,Brazil. Copa Paulista,4/11/2018,CF,97,47,16,0,0,1,0,0.03,9,7,0,0,0,0,2,0,29,8,8,3,0,16,3,1,0,0,0
+Atibaia - Olímpia 2:1,Brazil. Copa Paulista,27/10/2018,CF,95,57,19,0,0,2,0,0.27,15,12,0,0,1,0,6,3,31,6,10,1,2,13,2,2,0,0,0
+Rio Claro - Atibaia 0:0,Brazil. Copa Paulista,17/10/2018,CF,80,60,27,0,0,3,2,0.69,9,7,0,0,0,0,6,2,36,16,11,6,2,16,3,2,1,76,0
+Atibaia - São Caetano 1:0,Brazil. Copa Paulista,8/10/2018,CF,73,47,13,0,0,1,0,0.53,6,4,0,0,1,0,2,2,35,9,14,3,0,18,4,1,1,48,0
+Atibaia - Rio Claro 0:0,Brazil. Copa Paulista,3/10/2018,CF,83,44,14,0,0,1,1,0.12,9,7,0,0,0,0,2,0,23,5,8,1,3,12,3,1,1,24,0
+Votuporanguense - Atibaia 0:1,Brazil. Copa Paulista,29/9/2018,CF,77,39,14,1,0,3,1,0.56,6,4,0,0,1,0,4,3,20,9,8,4,1,8,3,1,0,0,0
+Atibaia - Taboão da Serra 4:2,Brazil. Copa Paulista,19/9/2018,CF,98,54,21,1,0,6,1,1.6,9,6,0,0,1,0,2,2,24,13,6,5,1,5,0,3,3,0,0
+Portuguesa - Atibaia 1:2,Brazil. Copa Paulista,9/9/2018,CF,98,73,30,1,0,3,1,0.24,15,11,1,0,1,0,4,3,42,17,12,4,1,8,1,2,2,0,0
+Osasco Audax - Atibaia 1:2,Brazil. Copa Paulista,6/9/2018,CF,96,59,20,0,1,5,2,0.74,14,8,0,0,3,0,4,1,32,8,10,4,0,14,3,5,4,0,0
+Atibaia - Juventus 2:0,Brazil. Copa Paulista,2/9/2018,CF,89,38,14,0,0,1,1,0.14,7,5,0,0,0,0,5,1,22,8,10,4,1,12,1,0,0,68,0
+Atibaia - Nacional SP 2:3,Brazil. Copa Paulista,25/8/2018,CF,85,50,22,0,0,2,1,0.13,13,12,0,0,1,1,5,2,29,9,11,5,0,12,3,3,2,0,0
+Atibaia - Portuguesa 1:2,Brazil. Copa Paulista,11/8/2018,CF,88,62,19,1,0,1,1,0.13,9,9,0,0,0,0,5,2,35,8,13,4,1,22,5,8,5,0,0
+Atibaia - Osasco Audax 0:1,Brazil. Copa Paulista,8/8/2018,CF,72,42,14,0,0,0,0,0,5,5,0,0,0,0,4,1,22,8,8,3,3,10,1,1,0,0,0
+Juventus - Atibaia 0:1,Brazil. Copa Paulista,5/8/2018,CF,96,41,16,0,0,1,0,0.11,7,6,0,0,0,0,0,0,27,10,14,5,0,15,5,1,1,0,0
+Portuguesa Santista - São Carlos 2:1,Brazil. Paulista A3,8/4/2018,CF,99,33,13,0,0,2,2,0.2,6,4,1,0,1,0,6,0,23,7,9,5,2,11,1,1,1,0,0
+São Carlos - Portuguesa Santista 2:2,Brazil. Paulista A3,31/3/2018,CF,97,62,23,0,0,1,1,0.03,11,6,0,0,1,0,13,5,43,14,6,1,1,10,0,0,0,0,0
+São Carlos - Capivariano 2:4,Brazil. Paulista A3,21/3/2018,"CF, LAMF, RWF",98,63,28,0,0,4,4,0.91,13,11,0,0,1,0,14,2,38,11,6,3,0,12,0,2,2,0,0
+São Carlos - Noroeste 1:1,Brazil. Paulista A3,24/2/2018,CF,76,41,17,1,0,2,2,0.39,7,5,0,0,0,0,6,0,30,10,12,4,2,17,4,1,1,0,0
+Portuguesa Santista - São Carlos 1:0,Brazil. Paulista A3,31/1/2018,CF,96,53,12,0,0,0,0,0,7,4,0,0,0,0,11,2,39,8,11,2,4,25,6,4,2,87,0
+Atibaia - São Carlos 0:1,Brazil. Paulista A3,27/1/2018,CF,100,61,17,1,0,1,1,0.05,10,7,0,0,0,0,12,4,46,8,15,1,0,20,6,1,1,0,0
+Noroeste - Velo Clube 1:1,Brazil. Copa Paulista,1/7/2017,CF,97,44,19,0,0,1,1,0.06,11,8,3,3,0,0,1,1,27,10,16,5,3,13,6,0,0,0,0
+São Carlos - Portuguesa Santista 0:0,Brazil. Paulista A3,1/4/2017,LWF,71,47,22,0,0,1,1,0.12,12,10,0,0,1,1,5,2,24,9,7,3,1,14,2,4,2,63,0
+São Carlos - Flamengo SP 1:1,Brazil. Paulista A3,29/3/2017,CF,57,24,11,0,0,0,0,0,8,6,0,0,1,0,2,1,14,4,5,2,1,6,0,1,1,0,0
+São Carlos - Olímpia 2:1,Brazil. Paulista A3,22/3/2017,CF,65,25,7,0,0,0,0,0,3,3,0,0,0,0,3,0,20,4,2,1,1,8,1,1,1,0,0
+São Carlos - Matonense 2:0,Brazil. Paulista A3,15/3/2017,CF,74,42,13,1,0,2,1,0.3,6,3,0,0,0,0,6,3,29,9,6,1,2,6,0,1,1,0,0
+São Carlos - Paulista 3:1,Brazil. Paulista A3,11/3/2017,CF,96,54,23,2,0,5,4,1.26,15,9,0,0,0,0,7,2,27,8,9,4,2,22,5,2,2,68,0
+São Carlos - Atibaia 1:0,Brazil. Paulista A3,4/3/2017,CF,38,12,4,1,0,1,1,0.11,2,1,1,0,0,0,3,0,8,1,3,1,0,5,2,0,0,0,0
+São Carlos - Desportivo Brasil 1:0,Brazil. Paulista A3,15/2/2017,LW,34,14,7,0,0,1,0,0.01,5,4,1,0,0,0,1,1,8,3,3,2,0,2,0,0,0,0,0
+Comercial - São Carlos 0:1,Brazil. Paulista A3,12/2/2017,CF,60,36,8,0,0,0,0,0,4,4,1,1,0,0,0,0,28,4,10,2,1,16,3,0,0,0,0
+São Carlos - Inter de Limeira 0:1,Brazil. Paulista A3,4/2/2017,"LAMF, LW, RAMF",101,53,19,0,0,2,0,0.53,12,6,1,0,5,0,8,3,35,10,5,0,3,15,3,2,2,0,0
+Noroeste - São Carlos 1:0,Brazil. Paulista A3,29/1/2017,LWF,98,44,21,0,0,2,2,0.13,16,12,1,1,1,0,4,1,20,7,2,0,4,11,1,2,1,0,0

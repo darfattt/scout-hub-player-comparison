@@ -1,0 +1,147 @@
+Match,Competition,Date,Position,Minutes played,Total actions,Total actions successful,Goals,Assists,Shots,Shots On Target,xG,Passes,Passes accurate,Long passes,Long passes accurate,Crosses,Crosses accurate,Dribbles,Dribbles successful,Duels,Duels won,Aerial duels,Aerial duels won,Interceptions,Losses,Losses own half,Recoveries,Recoveries opp. half,Yellow card,Red card
+Al Faisaly - Al Kholood 1:1,Saudi Arabia. Division 1,12/3/2023,CF,35,23,9,1,0,1,1,0.76,3,3,0,0,0,0,2,1,15,5,7,1,0,4,3,1,0,33,0
+Al Kholood - Al Shoalah 2:0,Saudi Arabia. Division 1,7/3/2023,"CF, RW",110,42,17,2,0,2,2,0.56,18,10,2,1,1,0,0,0,14,4,5,2,5,14,5,4,1,0,0
+Al Sahel - Al Kholood 0:3,Saudi Arabia. Division 1,1/3/2023,CF,97,50,23,1,0,1,1,0.11,20,17,0,0,0,0,2,0,18,5,9,3,1,14,4,2,1,0,0
+Al Kholood - Al Hazem 0:2,Saudi Arabia. Division 1,20/2/2023,"CF, RAMF",94,47,23,0,0,3,1,0.22,26,18,2,1,1,0,1,1,9,3,4,1,4,11,1,1,0,0,0
+Al Arabi - Al Kholood 2:2,Saudi Arabia. Division 1,14/2/2023,"CF, RAMF",103,64,30,1,0,1,1,0.17,25,19,1,1,0,0,2,1,31,10,17,5,2,18,6,3,3,0,0
+Al Kholood - Al Ahli 1:2,Saudi Arabia. Division 1,7/2/2023,CF,101,66,24,0,0,2,1,0.1,18,12,0,0,0,0,1,0,34,11,14,5,1,20,3,4,4,0,0
+Al Riyadh - Al Kholood 1:1,Saudi Arabia. Division 1,31/1/2023,"CF, RAMF",108,66,31,0,0,0,0,0,28,19,4,3,0,0,1,0,30,12,11,5,1,18,2,5,2,0,0
+Al Hazem - Al Ain 2:0,Saudi Arabia. Division 1,28/12/2022,CF,101,64,31,0,0,4,2,0.74,19,13,1,0,0,0,2,1,32,16,18,9,2,16,1,3,1,0,0
+Al Hazem - Al Jabalain 2:2,Saudi Arabia. Division 1,15/11/2022,CF,99,47,19,0,0,4,3,0.75,13,10,1,0,0,0,2,2,23,6,7,2,2,9,0,4,4,50,0
+Al Shoalah - Al Hazem 0:0,Saudi Arabia. Division 1,9/11/2022,CF,97,71,35,0,0,4,0,0.36,23,19,5,4,2,1,1,1,31,16,10,6,3,9,1,3,3,0,0
+Al Hazem - Al Riyadh 2:1,Saudi Arabia. Division 1,31/10/2022,"CF, LW",89,43,17,0,0,1,1,0.56,10,5,2,0,0,0,1,0,22,11,7,5,2,16,4,1,0,81,0
+Al Hazem - Al Akhdoud 1:0,Saudi Arabia. Division 1,25/10/2022,CF,106,35,15,0,0,2,0,0.1,8,8,0,0,0,0,0,0,18,7,12,5,3,8,2,1,0,0,0
+Ohod - Al Hazem 2:1,Saudi Arabia. Division 1,19/10/2022,CF,26,12,5,0,0,0,0,0,7,4,1,0,0,0,0,0,3,1,1,0,1,4,0,1,1,0,0
+Al Qaisoma - Al Hazem 1:1,Saudi Arabia. Division 1,12/9/2022,CF,31,16,3,0,0,1,0,0,3,3,1,1,0,0,1,0,7,0,2,0,2,5,2,0,0,0,0
+Al Hazem - Najran 4:1,Saudi Arabia. Division 1,5/9/2022,CF,32,18,9,0,0,0,0,0,11,8,0,0,1,0,2,0,5,0,2,0,1,4,0,0,0,0,0
+Mirassol - Criciúma 2:0,Brazil. Serie C,17/7/2021,CF,19,6,2,0,0,0,0,0,1,1,0,0,0,0,0,0,4,1,1,0,0,0,0,0,0,0,0
+Botafogo SP - Criciúma 3:1,Brazil. Serie C,13/7/2021,AMF,14,14,5,0,0,0,0,0,3,1,0,0,0,0,0,0,9,4,5,2,0,5,1,3,3,0,0
+Criciúma - Paraná 2:0,Brazil. Serie C,4/7/2021,RW,31,20,7,0,0,0,0,0,6,2,1,0,2,0,2,1,11,5,4,2,1,9,4,3,2,0,0
+Criciúma - Grêmio Novorizontino 1:0,Brazil. Serie C,27/6/2021,LAMF,16,13,4,0,0,1,0,0.33,2,1,1,0,0,0,0,0,7,3,1,1,1,1,0,0,0,95,0
+Criciúma - Ypiranga Erechim 2:1,Brazil. Serie C,13/6/2021,CF,14,10,5,0,0,0,0,0,1,1,0,0,0,0,0,0,7,4,4,3,0,2,1,0,0,0,0
+Criciúma - América Mineiro (P) 2:2,Brazil. Copa do Brasil,10/6/2021,CF,65,52,23,0,0,1,0,0.03,17,15,0,0,0,0,2,1,27,8,8,4,2,11,1,4,3,60,0
+América Mineiro - Criciúma 0:0,Brazil. Copa do Brasil,3/6/2021,CF,82,52,25,0,0,0,0,0,13,10,0,0,0,0,1,1,32,15,16,8,0,15,4,4,1,0,0
+Criciúma - Ituano 1:0,Brazil. Serie C,29/5/2021,CF,13,14,6,0,0,0,0,0,3,2,0,0,1,0,0,0,10,4,5,3,0,4,0,0,0,0,0
+Criciúma - Avaí 0:1,Brazil. Catarinense 1,22/4/2021,CF,98,63,32,0,0,4,3,1.21,22,18,1,1,0,0,1,0,25,10,13,5,1,13,4,6,4,0,0
+Concórdia - Criciúma 0:0,Brazil. Catarinense 1,18/4/2021,CF,83,66,36,0,0,2,0,0.4,22,17,1,1,1,0,5,2,34,15,6,3,1,5,1,3,2,0,0
+Criciúma - Metropolitano 2:0,Brazil. Catarinense 1,13/4/2021,CF,87,49,22,1,0,2,1,0.8,10,8,2,1,0,0,1,1,29,13,11,7,0,11,1,1,1,71,0
+Criciúma - Ponte Preta (P) 1:1,Brazil. Copa do Brasil,9/4/2021,CF,89,49,13,0,0,1,0,0.03,10,6,0,0,0,0,1,1,24,6,8,2,1,15,1,4,2,54,0
+Marcílio Dias - Criciúma 1:1,Brazil. Catarinense 1,4/4/2021,CF,52,40,14,0,0,1,0,0.02,13,9,1,1,0,0,2,1,13,5,0,0,2,5,2,3,0,94,0
+Criciúma - Prospera Criciuma 0:1,Brazil. Catarinense 1,1/4/2021,CF,49,36,13,0,0,2,1,0.12,8,5,1,1,1,0,2,2,23,8,4,0,0,3,0,2,2,0,0
+Juventus Jaraguá - Criciúma 2:0,Brazil. Catarinense 1,27/2/2021,CF,81,77,26,0,0,1,0,0,17,10,4,2,1,0,4,0,49,16,26,10,2,30,5,6,5,0,0
+Criciúma - Hercílio Luz 1:1,Brazil. Catarinense 1,25/2/2021,CF,88,72,28,0,0,3,0,0.18,29,22,0,0,1,0,2,1,20,6,7,2,6,11,2,6,4,0,0
+Paysandu - Galvez 4:1,Brazil. Copa Verde,28/1/2021,CF,95,54,25,1,0,4,3,1.02,27,20,3,2,4,1,0,0,13,2,3,1,1,7,1,2,2,0,0
+Paysandu - Remo 0:1,Brazil. Serie C,10/1/2021,RWB,52,47,26,0,0,2,0,0.28,28,21,1,1,6,3,4,2,10,3,1,1,4,7,0,2,2,0,0
+Londrina - Paysandu 0:0,Brazil. Serie C,5/1/2021,"CF, RWF",38,23,12,0,0,0,0,0,10,6,0,0,0,0,0,0,10,6,6,2,0,6,0,2,1,0,0
+Paysandu - Ypiranga Erechim 2:1,Brazil. Serie C,13/12/2020,RAMF,33,15,7,0,0,0,0,0,4,2,1,0,1,0,2,1,7,5,2,1,1,1,0,2,2,0,0
+Paysandu - Ferroviário 3:0,Brazil. Serie C,22/11/2020,0,6,5,2,0,0,0,0,0,3,2,0,0,0,0,0,0,1,0,0,0,1,1,0,1,0,0,0
+Imperatriz - Paysandu 0:3,Brazil. Serie C,17/11/2020,RWF,68,51,31,0,1,0,0,0,31,25,5,4,1,1,1,1,17,5,0,0,2,8,1,3,1,0,0
+Jacuipense - Paysandu 0:1,Brazil. Serie C,9/11/2020,RAMF,97,65,32,1,0,4,3,1.22,29,18,3,0,1,1,1,1,20,8,8,3,5,15,3,4,2,0,0
+Paysandu - Manaus 1:1,Brazil. Serie C,31/10/2020,"CF, RAMF",98,52,20,1,0,4,1,0.99,18,12,0,0,2,0,2,2,16,6,1,0,2,9,5,2,1,60,0
+Treze - Paysandu 0:1,Brazil. Serie C,24/10/2020,"CF, LW, RW",94,67,23,0,0,0,0,0,23,13,1,0,2,0,2,1,30,9,7,3,4,18,7,4,1,0,0
+Paysandu - Vila Nova 0:0,Brazil. Serie C,18/10/2020,RW,71,40,26,0,0,1,0,0.03,19,15,1,1,0,0,5,4,16,9,1,1,1,5,1,2,1,0,0
+Santa Cruz - Paysandu 2:1,Brazil. Serie C,11/10/2020,RW,77,43,22,0,0,1,0,0.18,15,10,1,0,0,0,0,0,20,10,5,2,2,9,5,4,2,0,0
+Paysandu - Remo 2:3,Brazil. Serie C,4/10/2020,RAMF,66,44,20,0,0,2,1,0.12,13,11,0,0,0,0,3,2,18,7,6,1,4,10,2,1,1,55,0
+Botafogo PB - Paysandu 1:1,Brazil. Serie C,27/9/2020,CF,96,69,37,0,0,1,0,0.02,23,20,2,2,0,0,0,0,31,16,13,8,2,15,4,6,4,0,0
+Ferroviário - Paysandu 0:2,Brazil. Serie C,21/9/2020,"AMF, RAMF",78,50,32,0,0,1,0,0.01,25,17,1,0,2,1,6,5,21,15,0,0,0,7,3,5,2,0,0
+Paysandu - Imperatriz 6:1,Brazil. Serie C,13/9/2020,"CF, RAMF",93,53,25,1,0,3,1,0.8,22,17,4,2,2,1,0,0,19,7,2,1,2,10,4,1,0,0,0
+Paysandu - Jacuipense 1:2,Brazil. Serie C,10/9/2020,RAMF,33,20,14,1,0,2,2,0.61,11,9,0,0,0,0,1,1,3,3,0,0,1,1,0,1,1,0,0
+Remo - Paysandu 0:1,Brazil. Paraense,6/9/2020,"RAMF, RW",51,21,12,0,0,0,0,0,13,9,3,2,0,0,0,0,6,3,1,0,1,7,2,1,0,46,0
+Paysandu - Remo 2:1,Brazil. Paraense,3/9/2020,RAMF,24,19,13,1,0,2,2,0.33,10,7,1,1,2,0,1,0,6,4,2,1,0,6,3,0,0,0,0
+Manaus - Paysandu 2:1,Brazil. Serie C,30/8/2020,RAMF,39,16,6,0,0,0,0,0,5,2,0,0,0,0,0,0,10,4,6,3,1,10,1,2,2,0,0
+Paysandu - Treze 1:0,Brazil. Serie C,23/8/2020,RW,26,16,11,0,0,3,1,0.23,8,6,1,0,0,0,1,1,4,3,0,0,0,2,2,2,2,0,0
+Paysandu - Paragominas 2:0,Brazil. Paraense,20/8/2020,RAMF,40,33,14,1,0,2,1,0.18,15,10,0,0,0,0,2,0,11,3,2,1,3,5,1,4,0,0,0
+Vila Nova - Paysandu 2:0,Brazil. Serie C,15/8/2020,LW,39,20,9,0,0,0,0,0,11,7,1,0,1,0,2,0,5,2,0,0,1,2,0,1,1,0,0
+Paragominas - Paysandu 3:2,Brazil. Paraense,13/8/2020,"CF, RW",84,49,23,0,0,2,0,0.25,20,15,0,0,0,0,3,2,23,8,4,0,2,12,1,3,2,0,0
+Itupiranga - Paysandu 1:4,Brazil. Paraense,5/8/2020,CF,34,33,16,0,0,4,2,0.44,7,6,0,0,0,0,0,0,16,8,6,4,0,4,0,2,2,0,0
+Paysandu - Castanhal 1:0,Brazil. Paraense,15/3/2020,LW,37,30,9,0,0,0,0,0,6,3,2,1,0,0,1,0,17,6,2,1,0,4,1,0,0,92,0
+Paysandu - Remo 1:1,Brazil. Paraense,8/3/2020,RAMF,77,52,26,0,0,0,0,0,23,16,1,1,2,1,1,1,22,10,3,2,2,11,5,6,3,0,0
+Bragantino PA - Paysandu 0:2,Brazil. Paraense,29/2/2020,RW,46,32,13,0,0,0,0,0,17,10,2,0,1,0,0,0,11,3,2,0,5,10,3,2,0,0,0
+Paysandu - CRB 1:1 (P),Brazil. Copa do Brasil,19/2/2020,RAMF,73,47,25,0,1,2,0,0.21,19,15,3,2,1,1,6,3,22,9,8,2,2,15,6,5,2,0,0
+Paysandu - Paragominas 5:0,Brazil. Paraense,16/2/2020,RAMF,74,47,30,1,0,3,1,0.81,23,20,1,1,1,0,2,0,18,9,5,3,1,8,4,3,2,0,0
+Remo - Paysandu 1:2,Brazil. Paraense,9/2/2020,RAMF,72,47,30,1,1,2,2,0.8,21,18,0,0,0,0,0,0,23,10,8,3,1,13,6,3,1,0,0
+Brasiliense - Paysandu 1:1,Brazil. Copa do Brasil,6/2/2020,RAMF,62,36,18,0,0,1,1,0.02,15,10,1,0,1,0,2,1,15,7,2,0,1,10,5,4,0,6,0
+Castanhal - Paysandu 3:2,Brazil. Paraense,2/2/2020,RW,50,36,22,0,1,0,0,0,18,14,1,1,2,1,1,1,11,7,0,0,2,7,2,2,1,0,0
+Paysandu - Bragantino PA 1:0,Brazil. Paraense,28/1/2020,0,12,7,2,0,0,0,0,0,2,2,0,0,0,0,0,0,3,0,1,0,0,2,0,0,0,0,0
+Operário PR - Vitória 1:2,Brazil. Serie B,20/11/2019,LAMF,47,34,20,0,0,0,0,0,15,11,1,0,1,0,0,0,12,7,3,1,0,6,0,1,1,0,0
+Operário PR - Bragantino 0:2,Brazil. Serie B,13/11/2019,LW,32,18,8,0,0,3,1,0.43,7,5,0,0,1,0,2,1,5,2,1,1,2,3,1,3,2,0,0
+Vila Nova - Operário PR 0:0,Brazil. Serie B,9/11/2019,"CF, RAMF",97,56,23,0,0,3,0,0.17,21,16,1,0,0,0,0,0,24,7,11,5,2,18,5,3,1,0,0
+Operário PR - Criciúma 1:0,Brazil. Serie B,6/11/2019,RCMF3,23,14,10,0,0,0,0,0,7,6,1,1,1,0,0,0,7,4,2,1,0,1,0,1,0,0,0
+Operário PR - Atlético GO 1:1,Brazil. Serie B,2/11/2019,"LAMF, RW, RWF",52,30,19,0,0,0,0,0,17,10,0,0,0,0,2,1,13,9,6,4,1,12,2,2,2,0,0
+Coritiba - Operário PR 0:0,Brazil. Serie B,25/10/2019,LAMF,29,24,10,0,0,1,1,0.02,8,6,0,0,0,0,0,0,10,3,3,1,1,9,2,2,1,0,0
+Operário PR - São Bento 2:1,Brazil. Serie B,20/10/2019,RAMF,37,24,7,0,0,1,0,0.02,7,4,1,0,0,0,0,0,11,3,3,0,0,3,1,2,2,0,0
+CRB - Operário PR 0:0,Brazil. Serie B,16/10/2019,"CF, LAMF",97,84,40,0,0,2,0,0.04,28,22,0,0,2,1,1,1,38,17,12,5,4,23,3,2,2,88,0
+Londrina - Operário PR 1:2,Brazil. Serie B,12/10/2019,LAMF,87,45,27,1,0,2,1,0.88,20,17,0,0,0,0,1,0,21,9,10,4,1,15,7,3,1,0,0
+Operário PR - Paraná 0:1,Brazil. Serie B,9/10/2019,"LCMF3, RAMF, RW",50,32,11,0,0,1,1,0.25,13,6,1,0,1,0,0,0,14,4,7,1,2,8,0,2,0,89,0
+Operário PR - Brasil de Pelotas 1:2,Brazil. Serie B,6/10/2019,LW,25,13,6,0,0,1,1,0.02,7,5,0,0,2,0,0,0,5,0,4,0,0,4,0,1,1,0,0
+Operário PR - Londrina 2:0,Brazil. Serie B,14/7/2019,CF,70,51,27,0,0,1,1,0.04,17,11,0,0,0,0,2,1,28,14,17,8,2,21,7,2,2,0,0
+Paraná - Operário PR 1:0,Brazil. Serie B,12/6/2019,RAMF,10,9,3,0,0,1,0,0.09,1,1,0,0,0,0,2,1,5,2,1,1,1,1,0,0,0,0,0
+Operário PR - Botafogo SP 0:2,Brazil. Serie B,26/5/2019,RAMF,34,27,15,0,0,0,0,0,17,12,2,1,5,0,3,1,8,3,2,1,1,6,0,2,1,0,0
+Ponte Preta - Operário PR 1:0,Brazil. Serie B,18/5/2019,RAMF,30,18,6,0,0,3,1,0.17,4,3,1,1,1,0,4,2,7,2,0,0,2,3,1,1,1,0,0
+Operário PR - Oeste 0:0,Brazil. Serie B,12/5/2019,RW,82,40,26,0,0,2,1,0.33,22,16,2,0,1,0,2,2,15,9,7,2,2,6,2,2,1,0,0
+Cuiabá - Operário PR 2:1,Brazil. Serie B,5/5/2019,RAMF,99,43,26,0,1,1,0,0.09,19,14,1,1,2,2,0,0,18,12,8,7,6,13,4,9,6,0,0
+Operário PR - América Mineiro 1:0,Brazil. Serie B,27/4/2019,"RAMF, RW",96,60,27,1,0,2,1,0.72,20,11,2,1,2,0,3,2,29,15,8,6,2,18,2,5,3,0,0
+Corinthians - Ferroviária (P) 1:1,Brazil. Paulista A1,28/3/2019,LW,33,26,13,0,0,0,0,0,14,9,0,0,2,0,0,0,10,4,5,3,1,8,3,2,0,0,0
+Ferroviária - Corinthians 1:1,Brazil. Paulista A1,24/3/2019,RAMF,13,12,9,0,0,0,0,0,8,6,0,0,2,0,0,0,4,3,1,1,0,1,0,1,1,0,0
+Ferroviária - São Caetano 2:0,Brazil. Paulista A1,16/3/2019,RAMF,17,11,7,0,0,0,0,0,6,6,0,0,1,1,2,1,5,2,1,1,0,2,1,1,1,0,0
+São Bento - Ferroviária 0:0,Brazil. Paulista A1,9/2/2019,CF,84,52,23,0,0,4,1,0.47,17,12,0,0,1,1,1,1,19,10,8,6,1,14,1,1,1,0,0
+Ferroviária - RB Brasil 1:2,Brazil. Paulista A1,4/2/2019,CF,73,35,9,0,0,0,0,0,9,7,0,0,0,0,1,0,16,1,4,0,2,11,2,4,4,0,0
+Ferroviária - Ituano 2:1,Brazil. Paulista A1,1/2/2019,CF,96,51,20,0,0,1,1,0.48,13,12,0,0,0,0,2,0,25,6,10,1,4,10,6,5,2,0,0
+Botafogo SP - Ferroviária 1:2,Brazil. Paulista A1,28/1/2019,CF,98,66,23,0,0,3,0,0.38,19,16,1,0,0,0,1,1,28,7,9,2,0,11,3,4,3,0,0
+Ferroviária - Ponte Preta 0:0,Brazil. Paulista A1,23/1/2019,CF,36,43,17,0,0,1,0,0.22,16,11,1,0,0,0,0,0,18,6,7,1,1,12,4,2,1,0,0
+Santos - Ferroviária 1:0,Brazil. Paulista A1,19/1/2019,LW,37,17,8,0,0,0,0,0,4,4,0,0,0,0,1,0,8,4,2,1,1,6,2,0,0,0,0
+Criciúma - Sampaio Corrêa 2:0,Brazil. Serie B,24/11/2018,CF,19,11,2,0,0,0,0,0,2,2,0,0,0,0,1,0,7,0,2,0,0,2,0,0,0,0,0
+Sampaio Corrêa - Boa 1:0,Brazil. Serie B,17/11/2018,CF,98,64,36,1,0,4,3,1.66,31,26,1,0,0,0,3,2,21,7,8,1,5,15,5,5,3,0,0
+Goiás - Sampaio Corrêa 1:0,Brazil. Serie B,5/11/2018,RAMF,50,37,22,0,0,0,0,0,22,16,0,0,1,0,2,0,13,6,6,2,2,11,0,3,1,0,0
+Juventude - Sampaio Corrêa 1:0,Brazil. Serie B,27/10/2018,CF,58,44,11,0,0,0,0,0,12,8,0,0,0,0,1,1,24,3,13,0,3,18,2,3,3,0,0
+Sampaio Corrêa - Londrina 1:2,Brazil. Serie B,21/10/2018,CF,65,43,19,0,1,1,0,0.12,17,12,0,0,0,0,1,1,19,6,7,2,3,14,0,4,2,52,0
+Atlético GO - Sampaio Corrêa 1:2,Brazil. Serie B,13/10/2018,CF,98,74,29,0,0,0,0,0,20,16,1,0,0,0,2,0,47,13,28,9,4,33,7,5,4,0,0
+Sampaio Corrêa - Figueirense 1:0,Brazil. Serie B,3/10/2018,CF,66,41,22,0,0,3,0,0.48,16,11,3,1,1,1,1,1,20,11,10,5,0,18,4,2,2,0,0
+Oeste - Sampaio Corrêa 0:0,Brazil. Serie B,29/9/2018,CF,66,45,25,0,0,3,2,0.23,16,14,0,0,1,1,1,1,17,7,8,2,2,9,3,2,2,65,0
+Sampaio Corrêa - Fortaleza 1:0,Brazil. Serie B,15/9/2018,CF,96,64,24,0,0,1,0,0.09,19,15,1,0,0,0,5,3,28,7,11,3,2,12,1,1,1,7,0
+Ponte Preta - Sampaio Corrêa 0:0,Brazil. Serie B,9/9/2018,CF,96,89,29,0,0,1,0,0.06,26,17,1,0,3,0,3,1,48,11,24,4,3,27,2,6,3,24,0
+Sampaio Corrêa - Brasil de Pelotas 1:2,Brazil. Serie B,5/9/2018,CF,98,63,30,0,0,2,0,0.57,28,22,1,1,0,0,1,1,23,8,12,3,2,13,4,3,2,0,0
+CRB - Sampaio Corrêa 2:1,Brazil. Serie B,1/9/2018,CF,98,48,17,0,0,3,0,0.15,13,10,0,0,1,0,0,0,23,6,14,2,1,18,3,4,2,0,0
+Paysandu - Sampaio Corrêa 0:1,Brazil. Serie B,25/8/2018,CF,98,88,39,1,0,2,2,0.31,19,11,2,0,1,0,2,1,53,25,32,13,4,24,10,4,3,0,0
+Sampaio Corrêa - Vila Nova 0:0,Brazil. Serie B,22/8/2018,CF,36,21,12,0,0,1,0,0,9,8,0,0,0,0,0,0,11,4,4,0,0,3,1,1,0,0,0
+Sampaio Corrêa - Guarani 0:2,Brazil. Serie B,19/8/2018,CF,48,32,14,0,0,0,0,0,8,6,1,0,0,0,0,0,18,8,12,5,0,7,0,3,2,0,0
+Sampaio Corrêa - Criciúma 0:1,Brazil. Serie B,5/8/2018,CF,63,44,19,0,0,0,0,0,11,11,0,0,0,0,1,0,22,8,10,3,4,14,2,1,0,0,0
+Boa - Sampaio Corrêa 3:1,Brazil. Serie B,29/7/2018,CF,95,73,35,1,0,1,1,0.11,29,21,1,1,1,0,4,2,36,13,14,5,1,17,1,4,2,62,0
+São Bento - Sampaio Corrêa 2:1,Brazil. Serie B,25/7/2018,CF,95,65,35,0,1,2,0,0.11,21,18,0,0,0,0,2,2,25,16,15,9,7,13,1,2,2,0,0
+Sampaio Corrêa - Goiás 1:3,Brazil. Serie B,21/7/2018,CF,98,57,30,0,0,2,2,0.5,22,16,0,0,1,1,2,2,28,12,17,8,1,12,4,2,1,0,0
+Sampaio Corrêa - Juventude 0:0,Brazil. Serie B,18/7/2018,CF,99,53,24,0,0,1,0,0.04,15,10,0,0,1,0,3,1,31,14,10,5,1,14,1,3,3,0,0
+Bahia - Sampaio Corrêa 0:0,Brazil. Copa do Nordeste,7/7/2018,CF,94,60,20,0,0,2,0,0.06,14,11,0,0,0,0,0,0,31,8,14,3,2,22,5,2,0,18,90
+Sampaio Corrêa - Bahia 1:0,Brazil. Copa do Nordeste,5/7/2018,CF,92,59,25,1,0,2,1,0.34,15,12,1,0,0,0,2,1,35,12,24,7,1,21,7,3,2,0,0
+ABC - Sampaio Corrêa 1:1,Brazil. Copa do Nordeste,29/6/2018,CF,103,83,34,0,0,1,0,0.14,18,14,0,0,0,0,3,1,47,20,27,14,5,27,4,7,6,0,0
+Sampaio Corrêa - Atlético GO 2:3,Brazil. Serie B,24/6/2018,CF,28,27,14,0,0,1,0,0.39,13,9,0,0,0,0,1,0,10,5,4,2,0,5,0,0,0,0,0
+Sampaio Corrêa - ABC 1:0,Brazil. Copa do Nordeste,20/6/2018,CF,96,78,38,1,0,3,1,0.92,27,24,0,0,0,0,5,3,36,13,11,3,0,15,2,5,4,0,0
+Figueirense - Sampaio Corrêa 1:0,Brazil. Serie B,13/6/2018,CF,98,72,34,0,0,2,2,0.33,30,22,0,0,4,0,2,2,34,9,16,2,4,17,0,6,4,0,0
+Sampaio Corrêa - Oeste 2:0,Brazil. Serie B,9/6/2018,CF,29,22,10,0,0,1,0,0,9,6,0,0,0,0,2,1,9,4,1,0,1,4,1,3,1,0,0
+Sampaio Corrêa - Avaí 1:1,Brazil. Serie B,6/6/2018,CF,17,15,7,0,0,0,0,0,7,4,0,0,2,0,1,1,7,3,3,2,0,4,0,1,1,0,0
+Sampaio Corrêa - Ponte Preta 1:0,Brazil. Serie B,29/5/2018,CF,13,14,5,0,0,0,0,0,3,3,0,0,0,0,0,0,7,2,3,0,0,2,0,0,0,0,0
+Vitória - Sampaio Corrêa 0:0,Brazil. Copa do Nordeste,25/5/2018,CF,65,40,11,0,0,0,0,0,8,7,0,0,0,0,0,0,26,4,20,2,1,3,1,3,1,0,0
+Sampaio Corrêa - Vitória 3:0,Brazil. Copa do Nordeste,17/5/2018,CF,82,36,14,0,0,1,0,0.04,14,10,0,0,3,0,2,1,17,5,9,1,0,9,2,1,1,0,0
+Sampaio Corrêa - CRB 2:3,Brazil. Serie B,8/5/2018,CF,44,44,19,0,0,2,1,0.33,16,13,0,0,4,2,2,0,15,5,4,2,3,9,2,2,1,88,90
+Sampaio Corrêa - Paysandu 1:1,Brazil. Serie B,5/5/2018,CF,64,39,16,0,0,0,0,0,19,12,1,0,1,0,2,1,14,4,4,0,3,11,2,3,3,0,0
+Vila Nova - Sampaio Corrêa 3:1,Brazil. Serie B,28/4/2018,LW,19,16,11,0,0,1,0,0.05,10,9,0,0,0,0,1,1,4,2,1,0,1,2,0,2,2,0,0
+Guarani - Sampaio Corrêa 2:0,Brazil. Serie B,21/4/2018,"CF, LW",98,80,41,0,0,2,0,0.3,34,25,3,2,3,1,7,5,36,15,16,5,5,23,5,5,2,8,0
+Ríver - Sampaio Corrêa 2:2,Brazil. Copa do Nordeste,19/4/2018,CF,99,66,32,1,0,4,2,0.83,16,15,0,0,0,0,2,1,39,15,22,9,1,18,2,3,2,75,0
+Sampaio Corrêa - Coritiba 2:0,Brazil. Serie B,15/4/2018,CF,95,54,26,1,0,2,1,0.89,22,18,1,0,0,0,1,1,29,7,18,3,0,12,3,3,1,0,0
+Sampaio Corrêa - CSA 0:0,Brazil. Copa do Nordeste,30/3/2018,CF,95,38,19,0,0,3,0,0.61,15,11,2,1,0,0,4,3,13,6,7,2,4,11,2,2,2,0,0
+Salgueiro - Sampaio Corrêa 0:0,Brazil. Copa do Nordeste,20/3/2018,"CF, LW, RW",95,47,24,0,0,0,0,0,18,12,2,1,0,0,1,1,25,10,10,3,3,11,1,4,3,0,0
+Sampaio Corrêa - Ponte Preta 0:0 (P),Brazil. Copa do Brasil,15/3/2018,CF,94,54,26,0,0,1,0,0.04,20,16,0,0,1,0,1,1,27,9,9,4,4,13,3,3,2,0,0
+Ceará - Sampaio Corrêa 2:1,Brazil. Copa do Nordeste,10/3/2018,"CF, RW",74,48,28,1,0,3,1,0.17,16,14,1,1,0,0,0,0,22,12,14,9,4,12,3,4,1,0,0
+Ponte Preta - Sampaio Corrêa 0:0,Brazil. Copa do Brasil,28/2/2018,CF,97,78,38,0,0,3,1,0.27,20,16,0,0,1,0,1,1,46,19,24,11,2,19,4,1,0,0,0
+Sampaio Corrêa - Paraná 1:0,Brazil. Copa do Brasil,23/2/2018,CF,96,49,29,1,0,6,3,2.04,13,13,0,0,0,0,2,1,27,12,15,5,0,16,0,5,3,0,0
+Sampaio Corrêa - Ceará 1:0,Brazil. Copa do Nordeste,16/2/2018,CF,96,48,18,0,0,2,1,0.26,10,5,0,0,0,0,3,1,31,11,18,5,1,17,4,2,1,0,0
+Sampaio Corrêa - Salgueiro 4:0,Brazil. Copa do Nordeste,8/2/2018,"RW, CF",98,48,24,1,0,3,3,1.17,17,12,4,2,0,0,0,0,18,8,9,3,5,14,7,6,3,0,0
+CSA - Sampaio Corrêa 1:1,Brazil. Copa do Nordeste,18/1/2018,LW,29,16,9,0,0,1,0,0.07,8,6,2,1,0,0,0,0,5,3,1,1,2,3,1,2,1,0,0
+Sampaio Corrêa - Fortaleza 2:2,Brazil. Serie C,7/10/2017,"CF, RAMF",59,39,24,0,0,1,1,0.06,26,19,0,0,0,0,1,0,9,4,2,2,3,9,2,0,0,0,0
+Fortaleza - Sampaio Corrêa 1:0,Brazil. Serie C,3/10/2017,CF,39,19,8,0,0,1,0,0,7,5,0,0,0,0,1,1,8,3,2,1,2,4,2,0,0,0,0
+Remo - Sampaio Corrêa 1:2,Brazil. Serie C,2/9/2017,CF,97,44,23,1,0,2,2,0.54,14,8,1,0,0,0,5,2,26,13,7,4,1,11,2,1,0,0,0
+Sampaio Corrêa - Remo 1:1,Brazil. Serie C,4/7/2017,RAMF,7,6,4,0,0,1,0,0.03,3,3,0,0,1,1,0,0,1,0,1,0,0,1,0,0,0,0,0
+Confiança - Sampaio Corrêa 2:2,Brazil. Serie C,13/6/2017,"CF, LAMF",57,17,9,1,0,2,2,0.52,4,4,0,0,0,0,0,0,9,3,4,1,0,1,0,1,1,0,0
+Moto Club MA - Sampaio Corrêa 1:2,Brazil. Serie C,13/5/2017,RW,69,31,20,1,0,1,1,0.44,19,16,0,0,0,0,0,0,8,2,7,2,1,10,0,4,3,0,0
+Bahia - Altos 3:0,Brazil. Copa do Nordeste,3/3/2017,LAMF,25,14,5,0,0,1,1,0.06,7,4,0,0,0,0,0,0,6,0,0,0,0,3,0,0,0,0,0
+Altos - Bahia 0:0,Brazil. Copa do Nordeste,12/2/2017,"LW, RW",59,38,19,0,0,0,0,0,14,11,3,2,1,0,1,0,18,7,2,2,3,8,0,4,1,0,0
+Altos - Fortaleza 1:1,Brazil. Copa do Nordeste,5/2/2017,RWB,27,24,8,0,0,0,0,0,10,5,0,0,4,0,4,2,11,3,1,0,1,9,2,1,0,80,0

@@ -1,0 +1,1075 @@
+2025-05-12 15:19:27,927 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 15:19:27,931 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 15:19:27,932 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 15:19:27,933 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 15:19:27,935 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 15:19:27,936 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 15:19:27,948 - player_comparison_tool - INFO - Successfully loaded data for Gustavo Henrique: 162 rows, 32 columns
+2025-05-12 15:19:27,959 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 15:19:27,969 - player_comparison_tool - INFO - Successfully loaded data for Ribamar: 263 rows, 32 columns
+2025-05-12 15:19:27,970 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 15:19:27,976 - player_comparison_tool - INFO - Successfully loaded data for Uilliam: 146 rows, 32 columns
+2025-05-12 15:19:27,977 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 15:19:27,981 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 15:19:27,985 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 15:19:27,997 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 162, 'total_seasons': 8, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 15:19:28,020 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 263, 'total_seasons': 11, 'total_clubs': 0, 'total_competitions': 6}
+2025-05-12 15:19:28,033 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 146, 'total_seasons': 7, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 15:19:59,919 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 15:19:59,920 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 15:19:59,921 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 15:19:59,923 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 15:19:59,930 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 15:19:59,930 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 15:19:59,942 - player_comparison_tool - INFO - Successfully loaded data for Gustavo Henrique: 162 rows, 32 columns
+2025-05-12 15:19:59,942 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 15:19:59,953 - player_comparison_tool - INFO - Successfully loaded data for Ribamar: 263 rows, 32 columns
+2025-05-12 15:19:59,954 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 15:19:59,968 - player_comparison_tool - INFO - Successfully loaded data for Uilliam: 146 rows, 32 columns
+2025-05-12 15:19:59,970 - player_comparison_tool - INFO - Selected visualization type: Radar Chart
+2025-05-12 15:19:59,971 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 15:19:59,973 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 15:19:59,987 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 162, 'total_seasons': 8, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 15:20:00,016 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 263, 'total_seasons': 11, 'total_clubs': 0, 'total_competitions': 6}
+2025-05-12 15:20:00,034 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 146, 'total_seasons': 7, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 15:20:00,085 - player_comparison_tool - INFO - Generating radar chart for players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 15:20:00,085 - player_comparison_tool - INFO - Found 17 common stats across all players
+2025-05-12 15:20:00,086 - player_comparison_tool - INFO - Found 7 key stats in common stats
+2025-05-12 15:20:00,087 - player_comparison_tool - INFO - Using 7 stats for radar chart: Goals, Assists, Shots / on target, Passes / accurate, Dribbles / successful, Duels / won, Interceptions
+2025-05-12 15:20:00,087 - player_comparison_tool - INFO - Creating radar chart with 7 axes
+2025-05-12 15:20:00,099 - player_comparison_tool - ERROR - Error generating radar chart: RadarTransform() takes no arguments
+Traceback (most recent call last):
+  File "E:\darfat\persib\scouting hub\workspace\comparison\app.py", line 755, in generate_radar_chart
+    fig, ax = plt.subplots(figsize=(10, 8), subplot_kw=dict(projection='radar'))
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\pyplot.py", line 1760, in subplots
+    axs = fig.subplots(nrows=nrows, ncols=ncols, sharex=sharex, sharey=sharey,
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\figure.py", line 861, in subplots
+    axs = gs.subplots(sharex=sharex, sharey=sharey, squeeze=squeeze,
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\gridspec.py", line 283, in subplots
+    axarr[row, col] = figure.add_subplot(
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\figure.py", line 710, in add_subplot
+    ax = projection_class(self, *args, **pkw)
+  File "E:\darfat\persib\scouting hub\workspace\comparison\app.py", line 630, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\projections\polar.py", line 829, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\axes\_base.py", line 654, in __init__
+    self.set_figure(fig)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\axes\_base.py", line 834, in set_figure
+    self._set_lim_and_transforms()
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\projections\polar.py", line 898, in _set_lim_and_transforms
+    self.transProjection = self.PolarTransform(
+TypeError: RadarTransform() takes no arguments
+2025-05-12 15:20:08,593 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 15:20:08,597 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 15:20:08,598 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 15:20:08,599 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 15:20:08,601 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 15:20:08,603 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 15:20:08,621 - player_comparison_tool - INFO - Successfully loaded data for Gustavo Henrique: 162 rows, 32 columns
+2025-05-12 15:20:08,621 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 15:20:08,639 - player_comparison_tool - INFO - Successfully loaded data for Ribamar: 263 rows, 32 columns
+2025-05-12 15:20:08,640 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 15:20:08,652 - player_comparison_tool - INFO - Successfully loaded data for Uilliam: 146 rows, 32 columns
+2025-05-12 15:20:08,654 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 15:20:08,655 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 15:20:08,656 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 15:20:08,674 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 162, 'total_seasons': 8, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 15:20:08,707 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 263, 'total_seasons': 11, 'total_clubs': 0, 'total_competitions': 6}
+2025-05-12 15:20:08,732 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 146, 'total_seasons': 7, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 15:21:00,494 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 15:21:00,499 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 15:21:00,505 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 15:21:00,506 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 15:21:00,510 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 15:21:00,511 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 15:21:00,525 - player_comparison_tool - INFO - Successfully loaded data for Gustavo Henrique: 162 rows, 32 columns
+2025-05-12 15:21:00,526 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 15:21:00,537 - player_comparison_tool - INFO - Successfully loaded data for Ribamar: 263 rows, 32 columns
+2025-05-12 15:21:00,538 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 15:21:00,549 - player_comparison_tool - INFO - Successfully loaded data for Uilliam: 146 rows, 32 columns
+2025-05-12 15:21:00,552 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 15:21:00,553 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 15:21:00,554 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 15:21:00,565 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 162, 'total_seasons': 8, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 15:21:00,586 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 263, 'total_seasons': 11, 'total_clubs': 0, 'total_competitions': 6}
+2025-05-12 15:21:00,593 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 146, 'total_seasons': 7, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 15:24:02,960 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 15:24:02,962 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 15:24:02,964 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 15:24:02,965 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 15:24:02,968 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 15:24:02,969 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 15:24:02,984 - player_comparison_tool - INFO - Successfully loaded data for Gustavo Henrique: 162 rows, 32 columns
+2025-05-12 15:24:02,984 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 15:24:02,996 - player_comparison_tool - INFO - Successfully loaded data for Ribamar: 263 rows, 32 columns
+2025-05-12 15:24:02,996 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 15:24:03,008 - player_comparison_tool - INFO - Successfully loaded data for Uilliam: 146 rows, 32 columns
+2025-05-12 15:24:03,010 - player_comparison_tool - INFO - Selected visualization type: Radar Chart
+2025-05-12 15:24:03,011 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 15:24:03,012 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 15:24:03,044 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 162, 'total_seasons': 8, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 15:24:03,066 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 263, 'total_seasons': 11, 'total_clubs': 0, 'total_competitions': 6}
+2025-05-12 15:24:03,078 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 146, 'total_seasons': 7, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 15:24:03,107 - player_comparison_tool - INFO - Generating radar chart for players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 15:24:03,108 - player_comparison_tool - INFO - Found 17 common stats across all players
+2025-05-12 15:24:03,109 - player_comparison_tool - INFO - Found 7 key stats in common stats
+2025-05-12 15:24:03,109 - player_comparison_tool - INFO - Using 7 stats for radar chart: Goals, Assists, Shots / on target, Passes / accurate, Dribbles / successful, Duels / won, Interceptions
+2025-05-12 15:24:03,109 - player_comparison_tool - INFO - Creating radar chart with 7 axes
+2025-05-12 15:24:03,116 - player_comparison_tool - ERROR - Error generating radar chart: RadarTransform() takes no arguments
+Traceback (most recent call last):
+  File "E:\darfat\persib\scouting hub\workspace\comparison\app.py", line 781, in generate_radar_chart
+    fig, ax = plt.subplots(figsize=(10, 8), subplot_kw=dict(projection='radar'))
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\pyplot.py", line 1760, in subplots
+    axs = fig.subplots(nrows=nrows, ncols=ncols, sharex=sharex, sharey=sharey,
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\figure.py", line 861, in subplots
+    axs = gs.subplots(sharex=sharex, sharey=sharey, squeeze=squeeze,
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\gridspec.py", line 283, in subplots
+    axarr[row, col] = figure.add_subplot(
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\figure.py", line 710, in add_subplot
+    ax = projection_class(self, *args, **pkw)
+  File "E:\darfat\persib\scouting hub\workspace\comparison\app.py", line 656, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\projections\polar.py", line 829, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\axes\_base.py", line 654, in __init__
+    self.set_figure(fig)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\axes\_base.py", line 834, in set_figure
+    self._set_lim_and_transforms()
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\projections\polar.py", line 898, in _set_lim_and_transforms
+    self.transProjection = self.PolarTransform(
+TypeError: RadarTransform() takes no arguments
+2025-05-12 15:24:06,652 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 15:24:06,654 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 15:24:06,657 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 15:24:06,659 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 15:24:06,662 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 15:24:06,662 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 15:24:06,669 - player_comparison_tool - INFO - Successfully loaded data for Gustavo Henrique: 162 rows, 32 columns
+2025-05-12 15:24:06,669 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 15:24:06,677 - player_comparison_tool - INFO - Successfully loaded data for Ribamar: 263 rows, 32 columns
+2025-05-12 15:24:06,678 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 15:24:06,691 - player_comparison_tool - INFO - Successfully loaded data for Uilliam: 146 rows, 32 columns
+2025-05-12 15:24:06,692 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 15:24:06,693 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 15:24:06,694 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 15:24:06,704 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 162, 'total_seasons': 8, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 15:24:06,719 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 263, 'total_seasons': 11, 'total_clubs': 0, 'total_competitions': 6}
+2025-05-12 15:24:06,728 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 146, 'total_seasons': 7, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 15:26:12,011 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 15:26:12,013 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 15:26:12,014 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 15:26:12,014 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 15:26:12,018 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 15:26:12,018 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 15:26:12,026 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 15:26:12,026 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 15:26:12,030 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 15:26:12,031 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 15:26:12,036 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 15:26:12,052 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 15:26:12,054 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 15:26:12,055 - player_comparison_tool - INFO - Selected competition for Gustavo Henrique: All
+2025-05-12 15:26:12,061 - player_comparison_tool - INFO - Selected competition for Ribamar: All
+2025-05-12 15:26:12,070 - player_comparison_tool - INFO - Selected competition for Uilliam: All
+2025-05-12 15:26:12,076 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 15:26:12,090 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 162, 'total_seasons': 8, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 15:26:12,106 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 263, 'total_seasons': 11, 'total_clubs': 0, 'total_competitions': 6}
+2025-05-12 15:26:12,113 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 146, 'total_seasons': 7, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 15:26:19,743 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 15:26:19,744 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 15:26:19,746 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 15:26:19,747 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 15:26:19,753 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 15:26:19,754 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 15:26:19,757 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 15:26:19,758 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 15:26:19,764 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 15:26:19,764 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 15:26:19,770 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 15:26:19,771 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 15:26:19,773 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 15:26:19,776 - player_comparison_tool - INFO - Selected competition for Gustavo Henrique: All
+2025-05-12 15:26:19,788 - player_comparison_tool - INFO - Selected competition for Ribamar: Vietnam. V.League 1
+2025-05-12 15:26:19,806 - player_comparison_tool - INFO - Filtered Ribamar data to competition 'Vietnam. V.League 1': 16 rows
+2025-05-12 15:26:19,815 - player_comparison_tool - INFO - Selected competition for Uilliam: All
+2025-05-12 15:26:19,827 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 15:26:19,845 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 162, 'total_seasons': 8, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 15:26:19,848 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 16, 'total_seasons': 2, 'total_clubs': 0, 'total_competitions': 1}
+2025-05-12 15:26:19,867 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 146, 'total_seasons': 7, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 15:26:26,719 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 15:26:26,721 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 15:26:26,723 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 15:26:26,724 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 15:26:26,727 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 15:26:26,729 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 15:26:26,741 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 15:26:26,742 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 15:26:26,749 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 15:26:26,749 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 15:26:26,758 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 15:26:26,762 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 15:26:26,768 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 15:26:26,775 - player_comparison_tool - INFO - Selected competition for Gustavo Henrique: Brazil. Copa do Brasil
+2025-05-12 15:26:26,777 - player_comparison_tool - INFO - Filtered Gustavo Henrique data to competition 'Brazil. Copa do Brasil': 8 rows
+2025-05-12 15:26:26,792 - player_comparison_tool - INFO - Selected competition for Ribamar: Vietnam. V.League 1
+2025-05-12 15:26:26,795 - player_comparison_tool - INFO - Filtered Ribamar data to competition 'Vietnam. V.League 1': 16 rows
+2025-05-12 15:26:26,810 - player_comparison_tool - INFO - Selected competition for Uilliam: All
+2025-05-12 15:26:26,819 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 15:26:26,822 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 8, 'total_seasons': 3, 'total_clubs': 0, 'total_competitions': 1}
+2025-05-12 15:26:26,825 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 16, 'total_seasons': 2, 'total_clubs': 0, 'total_competitions': 1}
+2025-05-12 15:26:26,841 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 146, 'total_seasons': 7, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 15:26:31,492 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 15:26:31,494 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 15:26:31,495 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 15:26:31,495 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 15:26:31,499 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 15:26:31,501 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 15:26:31,506 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 15:26:31,506 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 15:26:31,512 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 15:26:31,513 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 15:26:31,518 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 15:26:31,521 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 15:26:31,523 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 15:26:31,526 - player_comparison_tool - INFO - Selected competition for Gustavo Henrique: Vietnam. V.League 1
+2025-05-12 15:26:31,528 - player_comparison_tool - INFO - Filtered Gustavo Henrique data to competition 'Vietnam. V.League 1': 20 rows
+2025-05-12 15:26:31,543 - player_comparison_tool - INFO - Selected competition for Ribamar: Vietnam. V.League 1
+2025-05-12 15:26:31,545 - player_comparison_tool - INFO - Filtered Ribamar data to competition 'Vietnam. V.League 1': 16 rows
+2025-05-12 15:26:31,556 - player_comparison_tool - INFO - Selected competition for Uilliam: All
+2025-05-12 15:26:31,563 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 15:26:31,568 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 20, 'total_seasons': 1, 'total_clubs': 0, 'total_competitions': 1}
+2025-05-12 15:26:31,571 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 16, 'total_seasons': 2, 'total_clubs': 0, 'total_competitions': 1}
+2025-05-12 15:26:31,585 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 146, 'total_seasons': 7, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 15:26:35,985 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 15:26:35,988 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 15:26:35,990 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 15:26:35,991 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 15:26:35,997 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 15:26:36,007 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 15:26:36,204 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 15:26:36,205 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 15:26:36,209 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 15:26:36,210 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 15:26:36,215 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 15:26:36,222 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 15:26:36,224 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 15:26:36,228 - player_comparison_tool - INFO - Selected competition for Gustavo Henrique: Vietnam. V.League 1
+2025-05-12 15:26:36,232 - player_comparison_tool - INFO - Filtered Gustavo Henrique data to competition 'Vietnam. V.League 1': 20 rows
+2025-05-12 15:26:36,244 - player_comparison_tool - INFO - Selected competition for Ribamar: Vietnam. V.League 1
+2025-05-12 15:26:36,249 - player_comparison_tool - INFO - Filtered Ribamar data to competition 'Vietnam. V.League 1': 16 rows
+2025-05-12 15:26:36,261 - player_comparison_tool - INFO - Selected competition for Uilliam: Saudi Arabia. Division 1
+2025-05-12 15:26:36,265 - player_comparison_tool - INFO - Filtered Uilliam data to competition 'Saudi Arabia. Division 1': 15 rows
+2025-05-12 15:26:36,277 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 15:26:36,281 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 20, 'total_seasons': 1, 'total_clubs': 0, 'total_competitions': 1}
+2025-05-12 15:26:36,287 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 16, 'total_seasons': 2, 'total_clubs': 0, 'total_competitions': 1}
+2025-05-12 15:26:36,290 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 15, 'total_seasons': 2, 'total_clubs': 0, 'total_competitions': 1}
+2025-05-12 15:27:33,536 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 15:27:33,538 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 15:27:33,539 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 15:27:33,540 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 15:27:33,542 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 15:27:33,543 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 15:27:33,552 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 15:27:33,552 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 15:27:33,558 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 15:27:33,559 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 15:27:33,567 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 15:27:33,570 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 15:27:33,572 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 15:27:33,575 - player_comparison_tool - INFO - Selected competition for Gustavo Henrique: All
+2025-05-12 15:27:33,590 - player_comparison_tool - INFO - Selected competition for Ribamar: Vietnam. V.League 1
+2025-05-12 15:27:33,592 - player_comparison_tool - INFO - Filtered Ribamar data to competition 'Vietnam. V.League 1': 16 rows
+2025-05-12 15:27:33,603 - player_comparison_tool - INFO - Selected competition for Uilliam: Saudi Arabia. Division 1
+2025-05-12 15:27:33,605 - player_comparison_tool - INFO - Filtered Uilliam data to competition 'Saudi Arabia. Division 1': 15 rows
+2025-05-12 15:27:33,611 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 15:27:33,633 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 162, 'total_seasons': 8, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 15:27:33,637 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 16, 'total_seasons': 2, 'total_clubs': 0, 'total_competitions': 1}
+2025-05-12 15:27:33,641 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 15, 'total_seasons': 2, 'total_clubs': 0, 'total_competitions': 1}
+2025-05-12 15:27:36,267 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 15:27:36,270 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 15:27:36,274 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 15:27:36,283 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 15:27:36,291 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 15:27:36,292 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 15:27:36,310 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 15:27:36,318 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 15:27:36,335 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 15:27:36,336 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 15:27:36,339 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 15:27:36,342 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 15:27:36,343 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 15:27:36,347 - player_comparison_tool - INFO - Selected competition for Gustavo Henrique: All
+2025-05-12 15:27:36,369 - player_comparison_tool - INFO - Selected competition for Ribamar: All
+2025-05-12 15:27:36,384 - player_comparison_tool - INFO - Selected competition for Uilliam: Saudi Arabia. Division 1
+2025-05-12 15:27:36,388 - player_comparison_tool - INFO - Filtered Uilliam data to competition 'Saudi Arabia. Division 1': 15 rows
+2025-05-12 15:27:36,394 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 15:27:36,414 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 162, 'total_seasons': 8, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 15:27:36,438 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 263, 'total_seasons': 11, 'total_clubs': 0, 'total_competitions': 6}
+2025-05-12 15:27:36,440 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 15, 'total_seasons': 2, 'total_clubs': 0, 'total_competitions': 1}
+2025-05-12 15:27:38,187 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 15:27:38,189 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 15:27:38,191 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 15:27:38,192 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 15:27:38,197 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 15:27:38,200 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 15:27:38,205 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 15:27:38,206 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 15:27:38,209 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 15:27:38,209 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 15:27:38,215 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 15:27:38,220 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 15:27:38,223 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 15:27:38,226 - player_comparison_tool - INFO - Selected competition for Gustavo Henrique: All
+2025-05-12 15:27:38,237 - player_comparison_tool - INFO - Selected competition for Ribamar: All
+2025-05-12 15:27:38,248 - player_comparison_tool - INFO - Selected competition for Uilliam: All
+2025-05-12 15:27:38,255 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 15:27:38,270 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 162, 'total_seasons': 8, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 15:27:38,290 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 263, 'total_seasons': 11, 'total_clubs': 0, 'total_competitions': 6}
+2025-05-12 15:27:38,306 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 146, 'total_seasons': 7, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 17:09:08,924 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 17:09:08,926 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 17:09:08,927 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 17:09:08,928 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 17:09:08,930 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 17:09:08,930 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 17:09:08,936 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 17:09:08,938 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 17:09:08,943 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 17:09:08,943 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 17:09:08,954 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 17:09:08,957 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 17:09:08,959 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 17:09:08,963 - player_comparison_tool - INFO - Selected competition for Gustavo Henrique: All
+2025-05-12 17:09:08,973 - player_comparison_tool - INFO - Selected competition for Ribamar: All
+2025-05-12 17:09:08,988 - player_comparison_tool - INFO - Selected competition for Uilliam: All
+2025-05-12 17:09:08,995 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 17:09:09,015 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 162, 'total_seasons': 8, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 17:09:09,040 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 263, 'total_seasons': 11, 'total_clubs': 0, 'total_competitions': 6}
+2025-05-12 17:09:09,052 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 146, 'total_seasons': 7, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 17:27:23,390 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 17:27:23,402 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 17:27:23,402 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 17:27:23,405 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 17:27:23,407 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 17:27:23,408 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 17:27:23,414 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 17:27:23,415 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 17:27:23,420 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 17:27:23,420 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 17:27:23,425 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 17:27:23,427 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 17:27:23,428 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 17:27:23,433 - player_comparison_tool - INFO - Selected competition for Gustavo Henrique: All
+2025-05-12 17:27:23,448 - player_comparison_tool - INFO - Selected competition for Ribamar: Vietnam. V.League 1
+2025-05-12 17:27:23,451 - player_comparison_tool - INFO - Filtered Ribamar data to competition 'Vietnam. V.League 1': 16 rows
+2025-05-12 17:27:23,460 - player_comparison_tool - INFO - Selected competition for Uilliam: All
+2025-05-12 17:27:23,484 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 17:27:23,503 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 162, 'total_seasons': 8, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 17:27:23,507 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 16, 'total_seasons': 2, 'total_clubs': 0, 'total_competitions': 1}
+2025-05-12 17:27:23,521 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 146, 'total_seasons': 7, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 17:27:25,613 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 17:27:25,617 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 17:27:25,623 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 17:27:25,628 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 17:27:25,639 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 17:27:25,645 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 17:27:25,747 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 17:27:25,748 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 17:27:25,758 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 17:27:25,758 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 17:27:25,764 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 17:27:25,770 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 17:27:25,776 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 17:27:25,783 - player_comparison_tool - INFO - Selected competition for Gustavo Henrique: Brazil. Copa do Brasil
+2025-05-12 17:27:25,785 - player_comparison_tool - INFO - Filtered Gustavo Henrique data to competition 'Brazil. Copa do Brasil': 8 rows
+2025-05-12 17:27:25,808 - player_comparison_tool - INFO - Selected competition for Ribamar: Vietnam. V.League 1
+2025-05-12 17:27:25,810 - player_comparison_tool - INFO - Filtered Ribamar data to competition 'Vietnam. V.League 1': 16 rows
+2025-05-12 17:27:25,839 - player_comparison_tool - INFO - Selected competition for Uilliam: All
+2025-05-12 17:27:25,847 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 17:27:25,850 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 8, 'total_seasons': 3, 'total_clubs': 0, 'total_competitions': 1}
+2025-05-12 17:27:25,857 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 16, 'total_seasons': 2, 'total_clubs': 0, 'total_competitions': 1}
+2025-05-12 17:27:25,873 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 146, 'total_seasons': 7, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 17:27:32,740 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 17:27:32,741 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 17:27:32,743 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 17:27:32,744 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 17:27:32,747 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 17:27:32,748 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 17:27:32,752 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 17:27:32,753 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 17:27:32,756 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 17:27:32,757 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 17:27:32,760 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 17:27:32,765 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 17:27:32,768 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 17:27:32,772 - player_comparison_tool - INFO - Selected competition for Gustavo Henrique: Brazil. Copa do Brasil
+2025-05-12 17:27:32,773 - player_comparison_tool - INFO - Filtered Gustavo Henrique data to competition 'Brazil. Copa do Brasil': 8 rows
+2025-05-12 17:27:32,785 - player_comparison_tool - INFO - Selected competition for Ribamar: Vietnam. V.League 1
+2025-05-12 17:27:32,792 - player_comparison_tool - INFO - Filtered Ribamar data to competition 'Vietnam. V.League 1': 16 rows
+2025-05-12 17:27:32,808 - player_comparison_tool - INFO - Selected competition for Uilliam: Saudi Arabia. Division 1
+2025-05-12 17:27:32,814 - player_comparison_tool - INFO - Filtered Uilliam data to competition 'Saudi Arabia. Division 1': 15 rows
+2025-05-12 17:27:32,825 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 17:27:32,827 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 8, 'total_seasons': 3, 'total_clubs': 0, 'total_competitions': 1}
+2025-05-12 17:27:32,829 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 16, 'total_seasons': 2, 'total_clubs': 0, 'total_competitions': 1}
+2025-05-12 17:27:32,832 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 15, 'total_seasons': 2, 'total_clubs': 0, 'total_competitions': 1}
+2025-05-12 17:27:43,574 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 17:27:43,576 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 17:27:43,578 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 17:27:43,579 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 17:27:43,581 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 17:27:43,582 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 17:27:43,587 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 17:27:43,588 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 17:27:43,595 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 17:27:43,595 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 17:27:43,599 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 17:27:43,602 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 17:27:43,610 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 17:27:43,617 - player_comparison_tool - INFO - Selected competition for Gustavo Henrique: Brazil. Copa do Nordeste
+2025-05-12 17:27:43,619 - player_comparison_tool - INFO - Filtered Gustavo Henrique data to competition 'Brazil. Copa do Nordeste': 6 rows
+2025-05-12 17:27:43,632 - player_comparison_tool - INFO - Selected competition for Ribamar: Vietnam. V.League 1
+2025-05-12 17:27:43,634 - player_comparison_tool - INFO - Filtered Ribamar data to competition 'Vietnam. V.League 1': 16 rows
+2025-05-12 17:27:43,650 - player_comparison_tool - INFO - Selected competition for Uilliam: Saudi Arabia. Division 1
+2025-05-12 17:27:43,658 - player_comparison_tool - INFO - Filtered Uilliam data to competition 'Saudi Arabia. Division 1': 15 rows
+2025-05-12 17:27:43,664 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 17:27:43,668 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 6, 'total_seasons': 2, 'total_clubs': 0, 'total_competitions': 1}
+2025-05-12 17:27:43,674 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 16, 'total_seasons': 2, 'total_clubs': 0, 'total_competitions': 1}
+2025-05-12 17:27:43,676 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 15, 'total_seasons': 2, 'total_clubs': 0, 'total_competitions': 1}
+2025-05-12 17:27:52,162 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 17:27:52,164 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 17:27:52,165 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 17:27:52,167 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 17:27:52,172 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 17:27:52,173 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 17:27:52,177 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 17:27:52,178 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 17:27:52,182 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 17:27:52,182 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 17:27:52,186 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 17:27:52,190 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 17:27:52,191 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 17:27:52,195 - player_comparison_tool - INFO - Selected competition for Gustavo Henrique: Brazil. Serie C
+2025-05-12 17:27:52,197 - player_comparison_tool - INFO - Filtered Gustavo Henrique data to competition 'Brazil. Serie C': 27 rows
+2025-05-12 17:27:52,218 - player_comparison_tool - INFO - Selected competition for Ribamar: Vietnam. V.League 1
+2025-05-12 17:27:52,220 - player_comparison_tool - INFO - Filtered Ribamar data to competition 'Vietnam. V.League 1': 16 rows
+2025-05-12 17:27:52,239 - player_comparison_tool - INFO - Selected competition for Uilliam: Saudi Arabia. Division 1
+2025-05-12 17:27:52,240 - player_comparison_tool - INFO - Filtered Uilliam data to competition 'Saudi Arabia. Division 1': 15 rows
+2025-05-12 17:27:52,250 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 17:27:52,256 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 27, 'total_seasons': 2, 'total_clubs': 0, 'total_competitions': 1}
+2025-05-12 17:27:52,258 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 16, 'total_seasons': 2, 'total_clubs': 0, 'total_competitions': 1}
+2025-05-12 17:27:52,260 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 15, 'total_seasons': 2, 'total_clubs': 0, 'total_competitions': 1}
+2025-05-12 17:28:13,568 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 17:28:13,570 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 17:28:13,573 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 17:28:13,573 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 17:28:13,575 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 17:28:13,576 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 17:28:13,579 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 17:28:13,580 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 17:28:13,585 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 17:28:13,586 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 17:28:13,589 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 17:28:13,591 - player_comparison_tool - INFO - Selected visualization type: Radar Chart
+2025-05-12 17:28:13,593 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 17:28:13,600 - player_comparison_tool - INFO - Selected competition for Gustavo Henrique: Brazil. Serie C
+2025-05-12 17:28:13,602 - player_comparison_tool - INFO - Filtered Gustavo Henrique data to competition 'Brazil. Serie C': 27 rows
+2025-05-12 17:28:13,616 - player_comparison_tool - INFO - Selected competition for Ribamar: Vietnam. V.League 1
+2025-05-12 17:28:13,621 - player_comparison_tool - INFO - Filtered Ribamar data to competition 'Vietnam. V.League 1': 16 rows
+2025-05-12 17:28:13,633 - player_comparison_tool - INFO - Selected competition for Uilliam: Saudi Arabia. Division 1
+2025-05-12 17:28:13,639 - player_comparison_tool - INFO - Filtered Uilliam data to competition 'Saudi Arabia. Division 1': 15 rows
+2025-05-12 17:28:13,645 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 17:28:13,649 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 27, 'total_seasons': 2, 'total_clubs': 0, 'total_competitions': 1}
+2025-05-12 17:28:13,655 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 16, 'total_seasons': 2, 'total_clubs': 0, 'total_competitions': 1}
+2025-05-12 17:28:13,658 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 15, 'total_seasons': 2, 'total_clubs': 0, 'total_competitions': 1}
+2025-05-12 17:28:13,691 - player_comparison_tool - INFO - Generating radar chart for players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 17:28:13,692 - player_comparison_tool - INFO - Found 16 common stats across all players
+2025-05-12 17:28:13,692 - player_comparison_tool - INFO - Found 7 key stats in common stats
+2025-05-12 17:28:13,692 - player_comparison_tool - INFO - Using 7 stats for radar chart: Goals, Assists, Shots / on target, Passes / accurate, Dribbles / successful, Duels / won, Interceptions
+2025-05-12 17:28:13,693 - player_comparison_tool - INFO - Creating radar chart with 7 axes
+2025-05-12 17:28:13,695 - player_comparison_tool - ERROR - Error generating radar chart: RadarTransform() takes no arguments
+Traceback (most recent call last):
+  File "E:\darfat\persib\scouting hub\workspace\comparison\app.py", line 781, in generate_radar_chart
+    fig, ax = plt.subplots(figsize=(10, 8), subplot_kw=dict(projection='radar'))
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\pyplot.py", line 1760, in subplots
+    axs = fig.subplots(nrows=nrows, ncols=ncols, sharex=sharex, sharey=sharey,
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\figure.py", line 861, in subplots
+    axs = gs.subplots(sharex=sharex, sharey=sharey, squeeze=squeeze,
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\gridspec.py", line 283, in subplots
+    axarr[row, col] = figure.add_subplot(
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\figure.py", line 710, in add_subplot
+    ax = projection_class(self, *args, **pkw)
+  File "E:\darfat\persib\scouting hub\workspace\comparison\app.py", line 656, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\projections\polar.py", line 829, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\axes\_base.py", line 654, in __init__
+    self.set_figure(fig)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\axes\_base.py", line 834, in set_figure
+    self._set_lim_and_transforms()
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\projections\polar.py", line 898, in _set_lim_and_transforms
+    self.transProjection = self.PolarTransform(
+TypeError: RadarTransform() takes no arguments
+2025-05-12 17:28:16,531 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 17:28:16,533 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 17:28:16,537 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 17:28:16,538 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 17:28:16,542 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 17:28:16,543 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 17:28:16,548 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 17:28:16,548 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 17:28:16,554 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 17:28:16,554 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 17:28:16,564 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 17:28:16,568 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 17:28:16,569 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 17:28:16,572 - player_comparison_tool - INFO - Selected competition for Gustavo Henrique: Brazil. Serie C
+2025-05-12 17:28:16,575 - player_comparison_tool - INFO - Filtered Gustavo Henrique data to competition 'Brazil. Serie C': 27 rows
+2025-05-12 17:28:16,591 - player_comparison_tool - INFO - Selected competition for Ribamar: Vietnam. V.League 1
+2025-05-12 17:28:16,592 - player_comparison_tool - INFO - Filtered Ribamar data to competition 'Vietnam. V.League 1': 16 rows
+2025-05-12 17:28:16,606 - player_comparison_tool - INFO - Selected competition for Uilliam: Saudi Arabia. Division 1
+2025-05-12 17:28:16,608 - player_comparison_tool - INFO - Filtered Uilliam data to competition 'Saudi Arabia. Division 1': 15 rows
+2025-05-12 17:28:16,612 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 17:28:16,618 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 27, 'total_seasons': 2, 'total_clubs': 0, 'total_competitions': 1}
+2025-05-12 17:28:16,623 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 16, 'total_seasons': 2, 'total_clubs': 0, 'total_competitions': 1}
+2025-05-12 17:28:16,625 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 15, 'total_seasons': 2, 'total_clubs': 0, 'total_competitions': 1}
+2025-05-12 18:01:54,768 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 18:01:54,770 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 18:01:54,772 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 18:01:54,772 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 18:01:54,779 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 18:01:54,779 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 18:01:54,786 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 18:01:54,787 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 18:01:54,793 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 18:01:54,793 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 18:01:54,801 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 18:01:54,806 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 18:01:54,808 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 18:01:54,816 - player_comparison_tool - INFO - Selected competition for Gustavo Henrique: All
+2025-05-12 18:01:54,835 - player_comparison_tool - INFO - Selected competition for Ribamar: All
+2025-05-12 18:01:54,846 - player_comparison_tool - INFO - Selected competition for Uilliam: All
+2025-05-12 18:01:54,854 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 18:01:54,869 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 162, 'total_seasons': 162, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 18:01:54,887 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 263, 'total_seasons': 263, 'total_clubs': 0, 'total_competitions': 6}
+2025-05-12 18:01:54,901 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 146, 'total_seasons': 146, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 18:04:03,467 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 18:04:03,472 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 18:04:03,473 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 18:04:03,474 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 18:04:03,477 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 18:04:03,478 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 18:04:03,492 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 18:04:03,492 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 18:04:03,495 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 18:04:03,496 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 18:04:03,500 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 18:04:03,502 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 18:04:03,506 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 18:04:03,508 - player_comparison_tool - INFO - Selected competition for Gustavo Henrique: All
+2025-05-12 18:04:03,515 - player_comparison_tool - INFO - Selected competition for Ribamar: All
+2025-05-12 18:04:03,524 - player_comparison_tool - INFO - Selected competition for Uilliam: All
+2025-05-12 18:04:03,531 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 18:04:03,543 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 162, 'total_seasons': 162, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 18:04:03,559 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 263, 'total_seasons': 263, 'total_clubs': 0, 'total_competitions': 6}
+2025-05-12 18:04:03,568 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 146, 'total_seasons': 146, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 20:07:07,667 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 20:07:07,669 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 20:07:07,670 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 20:07:07,672 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 20:07:07,674 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 20:07:07,675 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 20:07:07,679 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 20:07:07,680 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 20:07:07,683 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 20:07:07,683 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 20:07:07,686 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 20:07:07,688 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 20:07:07,690 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 20:07:07,694 - player_comparison_tool - INFO - Selected competition for Gustavo Henrique: All
+2025-05-12 20:07:07,705 - player_comparison_tool - INFO - Selected competition for Ribamar: All
+2025-05-12 20:07:07,714 - player_comparison_tool - INFO - Selected competition for Uilliam: All
+2025-05-12 20:07:07,723 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 20:07:07,739 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 162, 'total_seasons': 162, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 20:07:07,765 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 263, 'total_seasons': 263, 'total_clubs': 0, 'total_competitions': 6}
+2025-05-12 20:07:07,785 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 146, 'total_seasons': 146, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 20:10:10,500 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 20:10:10,502 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 20:10:10,503 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 20:10:10,503 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 20:10:10,506 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 20:10:10,507 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 20:10:10,514 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 20:10:10,515 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 20:10:10,522 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 20:10:10,522 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 20:10:10,525 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 20:10:10,527 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 20:10:10,528 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 20:10:10,533 - player_comparison_tool - INFO - Selected competition for Gustavo Henrique: All
+2025-05-12 20:10:10,546 - player_comparison_tool - INFO - Selected competition for Ribamar: All
+2025-05-12 20:10:10,555 - player_comparison_tool - INFO - Selected competition for Uilliam: All
+2025-05-12 20:10:10,569 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 20:10:10,584 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 162, 'total_seasons': 162, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 20:10:10,607 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 263, 'total_seasons': 263, 'total_clubs': 0, 'total_competitions': 6}
+2025-05-12 20:10:10,670 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 146, 'total_seasons': 146, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 20:12:17,560 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 20:12:17,564 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 20:12:17,565 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 20:12:17,565 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 20:12:17,567 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 20:12:17,567 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 20:12:17,572 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 20:12:17,573 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 20:12:17,577 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 20:12:17,580 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 20:12:17,582 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 20:12:17,584 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 20:12:17,586 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 20:12:17,588 - player_comparison_tool - INFO - Selected competition for Gustavo Henrique: All
+2025-05-12 20:12:17,600 - player_comparison_tool - INFO - Selected competition for Ribamar: All
+2025-05-12 20:12:17,609 - player_comparison_tool - INFO - Selected competition for Uilliam: All
+2025-05-12 20:12:17,617 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 20:12:17,631 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 162, 'total_seasons': 162, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 20:12:17,657 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 263, 'total_seasons': 263, 'total_clubs': 0, 'total_competitions': 6}
+2025-05-12 20:12:17,671 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 146, 'total_seasons': 146, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 20:12:17,680 - player_comparison_tool - INFO - Found 28 numeric stats for analysis: Long passes accurate, Passes, Assists, Passes accurate, Recoveries opp. half, xG, Long passes, Interceptions, Duels won, Recoveries, Dribbles successful, Crosses, Position, Losses own half, Shots On Target, Goals, Aerial duels, Yellow card, Total actions successful, Aerial duels won, Red card, Shots, Crosses accurate, Minutes played, Duels, Losses, Total actions, Dribbles
+2025-05-12 20:14:48,017 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 20:14:48,018 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 20:14:48,019 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 20:14:48,020 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 20:14:48,027 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 20:14:48,027 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 20:14:48,034 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 20:14:48,035 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 20:14:48,037 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 20:14:48,038 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 20:14:48,044 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 20:14:48,047 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 20:14:48,048 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 20:14:48,052 - player_comparison_tool - INFO - Selected competition for Gustavo Henrique: All
+2025-05-12 20:14:48,063 - player_comparison_tool - INFO - Selected competition for Ribamar: All
+2025-05-12 20:14:48,070 - player_comparison_tool - INFO - Selected competition for Uilliam: All
+2025-05-12 20:14:48,078 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 20:14:48,088 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 162, 'total_seasons': 162, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 20:14:48,107 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 263, 'total_seasons': 263, 'total_clubs': 0, 'total_competitions': 6}
+2025-05-12 20:14:48,120 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 146, 'total_seasons': 146, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 20:14:48,129 - player_comparison_tool - INFO - Found 28 numeric stats for analysis: Losses own half, Long passes, Interceptions, Dribbles, Aerial duels won, Duels won, Losses, Aerial duels, Shots, Total actions successful, Total actions, Long passes accurate, Passes accurate, Goals, Yellow card, Assists, Duels, Shots On Target, Crosses accurate, Red card, Position, xG, Passes, Dribbles successful, Minutes played, Crosses, Recoveries, Recoveries opp. half
+2025-05-12 20:14:52,001 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 20:14:52,003 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 20:14:52,004 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 20:14:52,005 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 20:14:52,010 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 20:14:52,010 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 20:14:52,016 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 20:14:52,016 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 20:14:52,020 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 20:14:52,021 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 20:14:52,031 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 20:14:52,034 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 20:14:52,035 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 20:14:52,040 - player_comparison_tool - INFO - Selected competition for Gustavo Henrique: All
+2025-05-12 20:14:52,050 - player_comparison_tool - INFO - Selected competition for Ribamar: All
+2025-05-12 20:14:52,067 - player_comparison_tool - INFO - Selected competition for Uilliam: All
+2025-05-12 20:14:52,081 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 20:14:52,096 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 162, 'total_seasons': 162, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 20:14:52,125 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 263, 'total_seasons': 263, 'total_clubs': 0, 'total_competitions': 6}
+2025-05-12 20:14:52,142 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 146, 'total_seasons': 146, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 20:14:52,150 - player_comparison_tool - INFO - Found 28 numeric stats for analysis: Losses own half, Long passes, Interceptions, Dribbles, Aerial duels won, Duels won, Losses, Aerial duels, Shots, Total actions successful, Total actions, Long passes accurate, Passes accurate, Goals, Yellow card, Assists, Duels, Shots On Target, Crosses accurate, Red card, Position, xG, Passes, Dribbles successful, Minutes played, Crosses, Recoveries, Recoveries opp. half
+2025-05-12 20:20:28,299 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 20:20:28,301 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 20:20:28,302 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 20:20:28,303 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 20:20:28,305 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 20:20:28,306 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 20:20:28,313 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 20:20:28,314 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 20:20:28,318 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 20:20:28,318 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 20:20:28,322 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 20:20:28,325 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 20:20:28,327 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 20:20:28,332 - player_comparison_tool - INFO - Selected competition for Gustavo Henrique: All
+2025-05-12 20:20:28,340 - player_comparison_tool - INFO - Selected competition for Ribamar: All
+2025-05-12 20:20:28,353 - player_comparison_tool - INFO - Selected competition for Uilliam: All
+2025-05-12 20:20:28,358 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 20:20:28,371 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 162, 'total_seasons': 162, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 20:20:28,388 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 263, 'total_seasons': 263, 'total_clubs': 0, 'total_competitions': 6}
+2025-05-12 20:20:28,403 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 146, 'total_seasons': 146, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 20:20:28,435 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Shots On Target, Dribbles successful, Minutes played, Aerial duels, Yellow card, Goals, Long passes accurate, Duels, Shots, Red card, Duels won, Interceptions, Total actions, Recoveries opp. half, Long passes, Passes, Dribbles, Losses, Crosses, Crosses accurate, Recoveries, Total actions successful, Losses own half, Assists, Passes accurate, Aerial duels won, xG
+2025-05-12 20:21:28,711 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 20:21:28,713 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 20:21:28,714 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 20:21:28,715 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 20:21:28,719 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 20:21:28,719 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 20:21:28,724 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 20:21:28,724 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 20:21:28,727 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 20:21:28,728 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 20:21:28,731 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 20:21:28,733 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 20:21:28,734 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 20:21:28,738 - player_comparison_tool - INFO - Selected competition for Gustavo Henrique: Brazil. Copa do Brasil
+2025-05-12 20:21:28,741 - player_comparison_tool - INFO - Filtered Gustavo Henrique data to competition 'Brazil. Copa do Brasil': 8 rows
+2025-05-12 20:21:28,753 - player_comparison_tool - INFO - Selected competition for Ribamar: All
+2025-05-12 20:21:28,767 - player_comparison_tool - INFO - Selected competition for Uilliam: All
+2025-05-12 20:21:28,773 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 20:21:28,775 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 8, 'total_seasons': 8, 'total_clubs': 0, 'total_competitions': 1}
+2025-05-12 20:21:28,796 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 263, 'total_seasons': 263, 'total_clubs': 0, 'total_competitions': 6}
+2025-05-12 20:21:28,804 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 146, 'total_seasons': 146, 'total_clubs': 0, 'total_competitions': 2}
+2025-05-12 20:21:28,831 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Shots On Target, Dribbles successful, Minutes played, Aerial duels, Yellow card, Goals, Long passes accurate, Duels, Shots, Red card, Duels won, Interceptions, Total actions, Recoveries opp. half, Long passes, Passes, Dribbles, Losses, Crosses, Crosses accurate, Recoveries, Total actions successful, Losses own half, Assists, Passes accurate, Aerial duels won, xG
+2025-05-12 20:23:27,479 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 20:23:27,490 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 20:23:27,496 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 20:23:27,496 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 20:23:27,499 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 20:23:27,500 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 20:23:27,511 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 20:23:27,511 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 20:23:27,518 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 20:23:27,518 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 20:23:27,528 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 20:23:27,532 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 20:23:27,533 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 20:23:27,537 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: All
+2025-05-12 20:23:27,552 - player_comparison_tool - INFO - Selected competitions for Ribamar: All
+2025-05-12 20:23:27,569 - player_comparison_tool - INFO - Selected competitions for Uilliam: All
+2025-05-12 20:23:27,614 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 20:23:27,702 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 162, 'total_minutes': 11288, 'total_goals': 34, 'total_seasons': 162, 'total_competitions': 2}
+2025-05-12 20:23:27,935 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 263, 'total_minutes': 15492, 'total_goals': 45, 'total_seasons': 263, 'total_competitions': 6}
+2025-05-12 20:23:28,053 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 146, 'total_minutes': 9418, 'total_goals': 30, 'total_seasons': 146, 'total_competitions': 2}
+2025-05-12 20:23:28,092 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Total actions, Aerial duels, Passes, Yellow card, Duels, Passes accurate, Recoveries opp. half, Losses, Goals, xG, Crosses, Interceptions, Dribbles successful, Shots On Target, Red card, Duels won, Minutes played, Dribbles, Crosses accurate, Long passes, Assists, Recoveries, Total actions successful, Aerial duels won, Shots, Long passes accurate, Losses own half
+2025-05-12 20:24:15,159 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 20:24:15,160 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 20:24:15,161 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 20:24:15,162 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 20:24:15,164 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 20:24:15,164 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 20:24:15,169 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 20:24:15,169 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 20:24:15,176 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 20:24:15,176 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 20:24:15,180 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 20:24:15,182 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 20:24:15,183 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 20:24:15,186 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: All, Brazil. Copa do Brasil
+2025-05-12 20:24:15,199 - player_comparison_tool - INFO - Selected competitions for Ribamar: All
+2025-05-12 20:24:15,214 - player_comparison_tool - INFO - Selected competitions for Uilliam: All
+2025-05-12 20:24:15,229 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 20:24:15,243 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 162, 'total_minutes': 11288, 'total_goals': 34, 'total_seasons': 162, 'total_competitions': 2}
+2025-05-12 20:24:15,264 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 263, 'total_minutes': 15492, 'total_goals': 45, 'total_seasons': 263, 'total_competitions': 6}
+2025-05-12 20:24:15,274 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 146, 'total_minutes': 9418, 'total_goals': 30, 'total_seasons': 146, 'total_competitions': 2}
+2025-05-12 20:24:15,300 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Total actions, Aerial duels, Passes, Yellow card, Duels, Passes accurate, Recoveries opp. half, Losses, Goals, xG, Crosses, Interceptions, Dribbles successful, Shots On Target, Red card, Duels won, Minutes played, Dribbles, Crosses accurate, Long passes, Assists, Recoveries, Total actions successful, Aerial duels won, Shots, Long passes accurate, Losses own half
+2025-05-12 20:24:15,887 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 20:24:15,891 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 20:24:15,893 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 20:24:15,895 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 20:24:15,897 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 20:24:15,897 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 20:24:15,905 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 20:24:15,907 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 20:24:15,912 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 20:24:15,912 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 20:24:15,916 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 20:24:15,920 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 20:24:15,923 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 20:24:15,929 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: All, Brazil. Copa do Brasil, Brazil. Copa do Nordeste
+2025-05-12 20:24:15,938 - player_comparison_tool - INFO - Selected competitions for Ribamar: All
+2025-05-12 20:24:15,947 - player_comparison_tool - INFO - Selected competitions for Uilliam: All
+2025-05-12 20:24:15,954 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 20:24:15,964 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 162, 'total_minutes': 11288, 'total_goals': 34, 'total_seasons': 162, 'total_competitions': 2}
+2025-05-12 20:24:15,993 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 263, 'total_minutes': 15492, 'total_goals': 45, 'total_seasons': 263, 'total_competitions': 6}
+2025-05-12 20:24:16,002 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 146, 'total_minutes': 9418, 'total_goals': 30, 'total_seasons': 146, 'total_competitions': 2}
+2025-05-12 20:24:16,027 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Total actions, Aerial duels, Passes, Yellow card, Duels, Passes accurate, Recoveries opp. half, Losses, Goals, xG, Crosses, Interceptions, Dribbles successful, Shots On Target, Red card, Duels won, Minutes played, Dribbles, Crosses accurate, Long passes, Assists, Recoveries, Total actions successful, Aerial duels won, Shots, Long passes accurate, Losses own half
+2025-05-12 20:24:17,056 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 20:24:17,059 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 20:24:17,061 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 20:24:17,063 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 20:24:17,065 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 20:24:17,066 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 20:24:17,070 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 20:24:17,070 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 20:24:17,073 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 20:24:17,073 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 20:24:17,076 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 20:24:17,078 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 20:24:17,081 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 20:24:17,086 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: All, Brazil. Copa do Brasil, Brazil. Copa do Nordeste, Vietnam. V.League 1
+2025-05-12 20:24:17,098 - player_comparison_tool - INFO - Selected competitions for Ribamar: All
+2025-05-12 20:24:17,106 - player_comparison_tool - INFO - Selected competitions for Uilliam: All
+2025-05-12 20:24:17,115 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 20:24:17,126 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 162, 'total_minutes': 11288, 'total_goals': 34, 'total_seasons': 162, 'total_competitions': 2}
+2025-05-12 20:24:17,146 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 263, 'total_minutes': 15492, 'total_goals': 45, 'total_seasons': 263, 'total_competitions': 6}
+2025-05-12 20:24:17,156 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 146, 'total_minutes': 9418, 'total_goals': 30, 'total_seasons': 146, 'total_competitions': 2}
+2025-05-12 20:24:17,183 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Total actions, Aerial duels, Passes, Yellow card, Duels, Passes accurate, Recoveries opp. half, Losses, Goals, xG, Crosses, Interceptions, Dribbles successful, Shots On Target, Red card, Duels won, Minutes played, Dribbles, Crosses accurate, Long passes, Assists, Recoveries, Total actions successful, Aerial duels won, Shots, Long passes accurate, Losses own half
+2025-05-12 20:24:18,483 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 20:24:18,493 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 20:24:18,496 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 20:24:18,497 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 20:24:18,512 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 20:24:18,512 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 20:24:18,528 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 20:24:18,528 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 20:24:18,544 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 20:24:18,544 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 20:24:18,549 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 20:24:18,553 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 20:24:18,555 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 20:24:18,561 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: Brazil. Copa do Brasil, Brazil. Copa do Nordeste, Vietnam. V.League 1
+2025-05-12 20:24:18,565 - player_comparison_tool - INFO - Filtered Gustavo Henrique data to competitions 'Brazil. Copa do Brasil, Brazil. Copa do Nordeste, Vietnam. V.League 1': 34 rows
+2025-05-12 20:24:18,576 - player_comparison_tool - INFO - Selected competitions for Ribamar: All
+2025-05-12 20:24:18,584 - player_comparison_tool - INFO - Selected competitions for Uilliam: All
+2025-05-12 20:24:18,593 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 20:24:18,597 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 34, 'total_minutes': 2753, 'total_goals': 6, 'total_seasons': 34, 'total_competitions': 2}
+2025-05-12 20:24:18,622 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 263, 'total_minutes': 15492, 'total_goals': 45, 'total_seasons': 263, 'total_competitions': 6}
+2025-05-12 20:24:18,631 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 146, 'total_minutes': 9418, 'total_goals': 30, 'total_seasons': 146, 'total_competitions': 2}
+2025-05-12 20:24:18,651 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Total actions, Aerial duels, Passes, Yellow card, Duels, Passes accurate, Recoveries opp. half, Losses, Goals, xG, Crosses, Interceptions, Dribbles successful, Shots On Target, Red card, Duels won, Minutes played, Dribbles, Crosses accurate, Long passes, Assists, Recoveries, Total actions successful, Aerial duels won, Shots, Long passes accurate, Losses own half
+2025-05-12 20:24:20,477 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 20:24:20,479 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 20:24:20,480 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 20:24:20,481 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 20:24:20,483 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 20:24:20,483 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 20:24:20,488 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 20:24:20,488 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 20:24:20,584 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 20:24:20,584 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 20:24:20,588 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 20:24:20,590 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 20:24:20,592 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 20:24:20,594 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: Brazil. Copa do Brasil, Brazil. Copa do Nordeste, Vietnam. V.League 1
+2025-05-12 20:24:20,596 - player_comparison_tool - INFO - Filtered Gustavo Henrique data to competitions 'Brazil. Copa do Brasil, Brazil. Copa do Nordeste, Vietnam. V.League 1': 34 rows
+2025-05-12 20:24:20,608 - player_comparison_tool - INFO - Selected competitions for Ribamar: All
+2025-05-12 20:24:20,617 - player_comparison_tool - INFO - Selected competitions for Uilliam: All
+2025-05-12 20:24:20,629 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 20:24:20,633 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 34, 'total_minutes': 2753, 'total_goals': 6, 'total_seasons': 34, 'total_competitions': 2}
+2025-05-12 20:24:20,649 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 263, 'total_minutes': 15492, 'total_goals': 45, 'total_seasons': 263, 'total_competitions': 6}
+2025-05-12 20:24:20,660 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 146, 'total_minutes': 9418, 'total_goals': 30, 'total_seasons': 146, 'total_competitions': 2}
+2025-05-12 20:24:20,685 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Total actions, Aerial duels, Passes, Yellow card, Duels, Passes accurate, Recoveries opp. half, Losses, Goals, xG, Crosses, Interceptions, Dribbles successful, Shots On Target, Red card, Duels won, Minutes played, Dribbles, Crosses accurate, Long passes, Assists, Recoveries, Total actions successful, Aerial duels won, Shots, Long passes accurate, Losses own half
+2025-05-12 20:24:23,082 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 20:24:23,086 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 20:24:23,089 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 20:24:23,091 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 20:24:23,094 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 20:24:23,095 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 20:24:23,102 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 20:24:23,105 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 20:24:23,114 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 20:24:23,114 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 20:24:23,118 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 20:24:23,124 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 20:24:23,127 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 20:24:23,131 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: Brazil. Copa do Brasil, Brazil. Copa do Nordeste, Vietnam. V.League 1
+2025-05-12 20:24:23,133 - player_comparison_tool - INFO - Filtered Gustavo Henrique data to competitions 'Brazil. Copa do Brasil, Brazil. Copa do Nordeste, Vietnam. V.League 1': 34 rows
+2025-05-12 20:24:23,147 - player_comparison_tool - INFO - Selected competitions for Ribamar: Vietnam. V.League 1
+2025-05-12 20:24:23,148 - player_comparison_tool - INFO - Filtered Ribamar data to competitions 'Vietnam. V.League 1': 16 rows
+2025-05-12 20:24:23,159 - player_comparison_tool - INFO - Selected competitions for Uilliam: All
+2025-05-12 20:24:23,176 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 20:24:23,181 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 34, 'total_minutes': 2753, 'total_goals': 6, 'total_seasons': 34, 'total_competitions': 2}
+2025-05-12 20:24:23,184 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 16, 'total_minutes': 1600, 'total_goals': 9, 'total_seasons': 16, 'total_competitions': 1}
+2025-05-12 20:24:23,196 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 146, 'total_minutes': 9418, 'total_goals': 30, 'total_seasons': 146, 'total_competitions': 2}
+2025-05-12 20:24:23,219 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Total actions, Aerial duels, Passes, Yellow card, Duels, Passes accurate, Recoveries opp. half, Losses, Goals, xG, Crosses, Interceptions, Dribbles successful, Shots On Target, Red card, Duels won, Minutes played, Dribbles, Crosses accurate, Long passes, Assists, Recoveries, Total actions successful, Aerial duels won, Shots, Long passes accurate, Losses own half
+2025-05-12 20:24:24,152 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 20:24:24,154 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 20:24:24,155 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 20:24:24,158 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 20:24:24,162 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 20:24:24,162 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 20:24:24,166 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 20:24:24,166 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 20:24:24,170 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 20:24:24,170 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 20:24:24,174 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 20:24:24,176 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 20:24:24,179 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 20:24:24,184 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: Brazil. Copa do Brasil, Brazil. Copa do Nordeste, Vietnam. V.League 1
+2025-05-12 20:24:24,190 - player_comparison_tool - INFO - Filtered Gustavo Henrique data to competitions 'Brazil. Copa do Brasil, Brazil. Copa do Nordeste, Vietnam. V.League 1': 34 rows
+2025-05-12 20:24:24,331 - player_comparison_tool - INFO - Selected competitions for Ribamar: Vietnam. V.League 1
+2025-05-12 20:24:24,334 - player_comparison_tool - INFO - Filtered Ribamar data to competitions 'Vietnam. V.League 1': 16 rows
+2025-05-12 20:24:24,340 - player_comparison_tool - INFO - Selected competitions for Uilliam: All
+2025-05-12 20:24:24,351 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 20:24:24,354 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 34, 'total_minutes': 2753, 'total_goals': 6, 'total_seasons': 34, 'total_competitions': 2}
+2025-05-12 20:24:24,359 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 16, 'total_minutes': 1600, 'total_goals': 9, 'total_seasons': 16, 'total_competitions': 1}
+2025-05-12 20:24:24,368 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 146, 'total_minutes': 9418, 'total_goals': 30, 'total_seasons': 146, 'total_competitions': 2}
+2025-05-12 20:24:24,397 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Total actions, Aerial duels, Passes, Yellow card, Duels, Passes accurate, Recoveries opp. half, Losses, Goals, xG, Crosses, Interceptions, Dribbles successful, Shots On Target, Red card, Duels won, Minutes played, Dribbles, Crosses accurate, Long passes, Assists, Recoveries, Total actions successful, Aerial duels won, Shots, Long passes accurate, Losses own half
+2025-05-12 20:24:25,915 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 20:24:25,919 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 20:24:25,921 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 20:24:25,923 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 20:24:25,926 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 20:24:25,926 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 20:24:25,933 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 20:24:25,934 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 20:24:25,944 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 20:24:25,944 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 20:24:25,952 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 20:24:25,956 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 20:24:25,958 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 20:24:25,965 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: Brazil. Copa do Brasil, Brazil. Copa do Nordeste, Vietnam. V.League 1
+2025-05-12 20:24:25,968 - player_comparison_tool - INFO - Filtered Gustavo Henrique data to competitions 'Brazil. Copa do Brasil, Brazil. Copa do Nordeste, Vietnam. V.League 1': 34 rows
+2025-05-12 20:24:25,979 - player_comparison_tool - INFO - Selected competitions for Ribamar: Vietnam. V.League 1
+2025-05-12 20:24:25,981 - player_comparison_tool - INFO - Filtered Ribamar data to competitions 'Vietnam. V.League 1': 16 rows
+2025-05-12 20:24:25,994 - player_comparison_tool - INFO - Selected competitions for Uilliam: Saudi Arabia. Division 1
+2025-05-12 20:24:25,997 - player_comparison_tool - INFO - Filtered Uilliam data to competitions 'Saudi Arabia. Division 1': 15 rows
+2025-05-12 20:24:26,002 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 20:24:26,009 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 34, 'total_minutes': 2753, 'total_goals': 6, 'total_seasons': 34, 'total_competitions': 2}
+2025-05-12 20:24:26,014 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 16, 'total_minutes': 1600, 'total_goals': 9, 'total_seasons': 16, 'total_competitions': 1}
+2025-05-12 20:24:26,017 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 15, 'total_minutes': 1229, 'total_goals': 5, 'total_seasons': 15, 'total_competitions': 1}
+2025-05-12 20:24:26,047 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Total actions, Aerial duels, Passes, Yellow card, Duels, Passes accurate, Recoveries opp. half, Losses, Goals, xG, Crosses, Interceptions, Dribbles successful, Shots On Target, Red card, Duels won, Minutes played, Dribbles, Crosses accurate, Long passes, Assists, Recoveries, Total actions successful, Aerial duels won, Shots, Long passes accurate, Losses own half
+2025-05-12 20:27:36,951 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 20:27:36,955 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 20:27:36,955 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 20:27:36,957 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 20:27:36,959 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 20:27:36,959 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 20:27:36,964 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 20:27:36,964 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 20:27:36,968 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 20:27:36,969 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 20:27:36,972 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 20:27:36,974 - player_comparison_tool - INFO - Selected visualization type: Radar Chart
+2025-05-12 20:27:36,977 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 20:27:36,981 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: Brazil. Copa do Brasil, Brazil. Copa do Nordeste, Vietnam. V.League 1
+2025-05-12 20:27:36,984 - player_comparison_tool - INFO - Filtered Gustavo Henrique data to competitions 'Brazil. Copa do Brasil, Brazil. Copa do Nordeste, Vietnam. V.League 1': 34 rows
+2025-05-12 20:27:36,997 - player_comparison_tool - INFO - Selected competitions for Ribamar: Vietnam. V.League 1
+2025-05-12 20:27:36,999 - player_comparison_tool - INFO - Filtered Ribamar data to competitions 'Vietnam. V.League 1': 16 rows
+2025-05-12 20:27:37,005 - player_comparison_tool - INFO - Selected competitions for Uilliam: Saudi Arabia. Division 1
+2025-05-12 20:27:37,010 - player_comparison_tool - INFO - Filtered Uilliam data to competitions 'Saudi Arabia. Division 1': 15 rows
+2025-05-12 20:27:37,019 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 20:27:37,024 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 34, 'total_minutes': 2753, 'total_goals': 6, 'total_seasons': 34, 'total_competitions': 2}
+2025-05-12 20:27:37,027 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 16, 'total_minutes': 1600, 'total_goals': 9, 'total_seasons': 16, 'total_competitions': 1}
+2025-05-12 20:27:37,029 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 15, 'total_minutes': 1229, 'total_goals': 5, 'total_seasons': 15, 'total_competitions': 1}
+2025-05-12 20:27:37,089 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Total actions, Aerial duels, Passes, Yellow card, Duels, Passes accurate, Recoveries opp. half, Losses, Goals, xG, Crosses, Interceptions, Dribbles successful, Shots On Target, Red card, Duels won, Minutes played, Dribbles, Crosses accurate, Long passes, Assists, Recoveries, Total actions successful, Aerial duels won, Shots, Long passes accurate, Losses own half
+2025-05-12 20:27:37,173 - player_comparison_tool - INFO - Generating radar chart for players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 20:27:37,174 - player_comparison_tool - INFO - Found 27 common stats across all players
+2025-05-12 20:27:37,174 - player_comparison_tool - INFO - Found 10 key stats in common stats
+2025-05-12 20:27:37,174 - player_comparison_tool - INFO - Using 10 stats for radar chart: Goals, Assists, Shots On Target, Passes accurate, Dribbles successful, Duels won, Interceptions, Recoveries, xG, Minutes played
+2025-05-12 20:27:37,174 - player_comparison_tool - INFO - Creating radar chart with 10 axes
+2025-05-12 20:27:37,178 - player_comparison_tool - ERROR - Error generating radar chart: RadarTransform() takes no arguments
+Traceback (most recent call last):
+  File "E:\darfat\persib\scouting hub\workspace\comparison\app.py", line 874, in generate_radar_chart
+    fig, ax = plt.subplots(figsize=(10, 8), subplot_kw=dict(projection='radar'))
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\pyplot.py", line 1760, in subplots
+    axs = fig.subplots(nrows=nrows, ncols=ncols, sharex=sharex, sharey=sharey,
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\figure.py", line 861, in subplots
+    axs = gs.subplots(sharex=sharex, sharey=sharey, squeeze=squeeze,
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\gridspec.py", line 283, in subplots
+    axarr[row, col] = figure.add_subplot(
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\figure.py", line 710, in add_subplot
+    ax = projection_class(self, *args, **pkw)
+  File "E:\darfat\persib\scouting hub\workspace\comparison\app.py", line 749, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\projections\polar.py", line 829, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\axes\_base.py", line 654, in __init__
+    self.set_figure(fig)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\axes\_base.py", line 834, in set_figure
+    self._set_lim_and_transforms()
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\projections\polar.py", line 898, in _set_lim_and_transforms
+    self.transProjection = self.PolarTransform(
+TypeError: RadarTransform() takes no arguments
+2025-05-12 20:27:40,420 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 20:27:40,422 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 20:27:40,423 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 20:27:40,424 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 20:27:40,427 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 20:27:40,428 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 20:27:40,433 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 20:27:40,433 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 20:27:40,438 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 20:27:40,439 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 20:27:40,443 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 20:27:40,446 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 20:27:40,449 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 20:27:40,452 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: Brazil. Copa do Brasil, Brazil. Copa do Nordeste, Vietnam. V.League 1
+2025-05-12 20:27:40,456 - player_comparison_tool - INFO - Filtered Gustavo Henrique data to competitions 'Brazil. Copa do Brasil, Brazil. Copa do Nordeste, Vietnam. V.League 1': 34 rows
+2025-05-12 20:27:40,470 - player_comparison_tool - INFO - Selected competitions for Ribamar: Vietnam. V.League 1
+2025-05-12 20:27:40,472 - player_comparison_tool - INFO - Filtered Ribamar data to competitions 'Vietnam. V.League 1': 16 rows
+2025-05-12 20:27:40,483 - player_comparison_tool - INFO - Selected competitions for Uilliam: Saudi Arabia. Division 1
+2025-05-12 20:27:40,488 - player_comparison_tool - INFO - Filtered Uilliam data to competitions 'Saudi Arabia. Division 1': 15 rows
+2025-05-12 20:27:40,493 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 20:27:40,498 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Unknown', 'age': 33, 'total_matches': 34, 'total_minutes': 2753, 'total_goals': 6, 'total_seasons': 34, 'total_competitions': 2}
+2025-05-12 20:27:40,504 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Unknown', 'age': 27, 'total_matches': 16, 'total_minutes': 1600, 'total_goals': 9, 'total_seasons': 16, 'total_competitions': 1}
+2025-05-12 20:27:40,505 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Unknown', 'age': 21, 'total_matches': 15, 'total_minutes': 1229, 'total_goals': 5, 'total_seasons': 15, 'total_competitions': 1}
+2025-05-12 20:27:40,534 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Total actions, Aerial duels, Passes, Yellow card, Duels, Passes accurate, Recoveries opp. half, Losses, Goals, xG, Crosses, Interceptions, Dribbles successful, Shots On Target, Red card, Duels won, Minutes played, Dribbles, Crosses accurate, Long passes, Assists, Recoveries, Total actions successful, Aerial duels won, Shots, Long passes accurate, Losses own half
+2025-05-12 20:30:01,636 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 20:30:01,638 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 20:30:01,639 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 20:30:01,640 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 20:30:01,642 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 20:30:01,644 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 20:30:01,650 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 20:30:01,650 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 20:30:01,654 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 20:30:01,654 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 20:30:01,658 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 20:30:01,664 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 20:30:01,666 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 20:30:01,669 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: Brazil. Copa do Brasil, Brazil. Copa do Nordeste
+2025-05-12 20:30:01,671 - player_comparison_tool - INFO - Filtered Gustavo Henrique data to competitions 'Brazil. Copa do Brasil, Brazil. Copa do Nordeste': 14 rows
+2025-05-12 20:30:01,681 - player_comparison_tool - INFO - Selected competitions for Ribamar: Vietnam. V.League 1
+2025-05-12 20:30:01,683 - player_comparison_tool - INFO - Filtered Ribamar data to competitions 'Vietnam. V.League 1': 16 rows
+2025-05-12 20:30:01,693 - player_comparison_tool - INFO - Selected competitions for Uilliam: Saudi Arabia. Division 1
+2025-05-12 20:30:01,699 - player_comparison_tool - INFO - Filtered Uilliam data to competitions 'Saudi Arabia. Division 1': 15 rows
+2025-05-12 20:30:01,705 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 20:30:01,709 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Zhako', 'age': 29, 'total_matches': 14, 'total_minutes': 1078, 'total_goals': 0, 'total_seasons': 14, 'total_competitions': 1}
+2025-05-12 20:30:01,716 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Dhing A Thanh Hoa', 'age': 27, 'total_matches': 16, 'total_minutes': 1600, 'total_goals': 9, 'total_seasons': 16, 'total_competitions': 1}
+2025-05-12 20:30:01,721 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Al-Fahaleel SC', 'age': 30, 'total_matches': 15, 'total_minutes': 1229, 'total_goals': 5, 'total_seasons': 15, 'total_competitions': 1}
+2025-05-12 20:30:01,758 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Total actions, Aerial duels, Passes, Yellow card, Duels, Passes accurate, Recoveries opp. half, Losses, Goals, xG, Crosses, Interceptions, Dribbles successful, Shots On Target, Red card, Duels won, Minutes played, Dribbles, Crosses accurate, Long passes, Assists, Recoveries, Total actions successful, Aerial duels won, Shots, Long passes accurate, Losses own half
+2025-05-12 20:35:00,920 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 20:35:00,922 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 20:35:00,923 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 20:35:00,924 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 20:35:00,927 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 20:35:00,927 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 20:35:00,936 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 20:35:00,937 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 20:35:00,942 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 20:35:00,942 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 20:35:00,946 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 20:35:00,948 - player_comparison_tool - INFO - Selected visualization type: Radar Chart
+2025-05-12 20:35:00,950 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 20:35:00,952 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: Brazil. Copa do Brasil, Brazil. Copa do Nordeste
+2025-05-12 20:35:00,954 - player_comparison_tool - INFO - Filtered Gustavo Henrique data to competitions 'Brazil. Copa do Brasil, Brazil. Copa do Nordeste': 14 rows
+2025-05-12 20:35:00,963 - player_comparison_tool - INFO - Selected competitions for Ribamar: Vietnam. V.League 1
+2025-05-12 20:35:00,967 - player_comparison_tool - INFO - Filtered Ribamar data to competitions 'Vietnam. V.League 1': 16 rows
+2025-05-12 20:35:00,976 - player_comparison_tool - INFO - Selected competitions for Uilliam: Saudi Arabia. Division 1
+2025-05-12 20:35:00,978 - player_comparison_tool - INFO - Filtered Uilliam data to competitions 'Saudi Arabia. Division 1': 15 rows
+2025-05-12 20:35:00,989 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 20:35:00,993 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Zhako', 'age': 29, 'total_matches': 14, 'total_minutes': 1078, 'total_goals': 0, 'total_seasons': 14, 'total_competitions': 1}
+2025-05-12 20:35:00,996 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Dhing A Thanh Hoa', 'age': 27, 'total_matches': 16, 'total_minutes': 1600, 'total_goals': 9, 'total_seasons': 16, 'total_competitions': 1}
+2025-05-12 20:35:00,998 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Al-Fahaleel SC', 'age': 30, 'total_matches': 15, 'total_minutes': 1229, 'total_goals': 5, 'total_seasons': 15, 'total_competitions': 1}
+2025-05-12 20:35:01,022 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Total actions, Aerial duels, Passes, Yellow card, Duels, Passes accurate, Recoveries opp. half, Losses, Goals, xG, Crosses, Interceptions, Dribbles successful, Shots On Target, Red card, Duels won, Minutes played, Dribbles, Crosses accurate, Long passes, Assists, Recoveries, Total actions successful, Aerial duels won, Shots, Long passes accurate, Losses own half
+2025-05-12 20:35:01,095 - player_comparison_tool - INFO - Generating radar chart for players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 20:35:01,097 - player_comparison_tool - INFO - Found 27 common stats across all players
+2025-05-12 20:35:01,097 - player_comparison_tool - INFO - Found 10 key stats in common stats
+2025-05-12 20:35:01,097 - player_comparison_tool - INFO - Creating radar chart with 10 axes
+2025-05-12 20:35:01,148 - player_comparison_tool - INFO - Plotting data for player: Gustavo Henrique
+2025-05-12 20:35:01,154 - player_comparison_tool - INFO - Plotting data for player: Ribamar
+2025-05-12 20:35:01,157 - player_comparison_tool - INFO - Plotting data for player: Uilliam
+2025-05-12 20:35:01,292 - player_comparison_tool - INFO - Radar chart generation completed successfully
+2025-05-12 20:35:13,522 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 20:35:13,524 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 20:35:13,525 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 20:35:13,527 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 20:35:13,529 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 20:35:13,530 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 20:35:13,533 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 20:35:13,534 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 20:35:13,537 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 20:35:13,537 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 20:35:13,542 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 20:35:13,545 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 20:35:13,546 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 20:35:13,552 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: Brazil. Copa do Brasil, Brazil. Copa do Nordeste
+2025-05-12 20:35:13,554 - player_comparison_tool - INFO - Filtered Gustavo Henrique data to competitions 'Brazil. Copa do Brasil, Brazil. Copa do Nordeste': 14 rows
+2025-05-12 20:35:13,562 - player_comparison_tool - INFO - Selected competitions for Ribamar: Vietnam. V.League 1
+2025-05-12 20:35:13,564 - player_comparison_tool - INFO - Filtered Ribamar data to competitions 'Vietnam. V.League 1': 16 rows
+2025-05-12 20:35:13,575 - player_comparison_tool - INFO - Selected competitions for Uilliam: Saudi Arabia. Division 1
+2025-05-12 20:35:13,576 - player_comparison_tool - INFO - Filtered Uilliam data to competitions 'Saudi Arabia. Division 1': 15 rows
+2025-05-12 20:35:13,582 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 20:35:13,589 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Zhako', 'age': 29, 'total_matches': 14, 'total_minutes': 1078, 'total_goals': 0, 'total_seasons': 14, 'total_competitions': 1}
+2025-05-12 20:35:13,593 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Dhing A Thanh Hoa', 'age': 27, 'total_matches': 16, 'total_minutes': 1600, 'total_goals': 9, 'total_seasons': 16, 'total_competitions': 1}
+2025-05-12 20:35:13,596 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Al-Fahaleel SC', 'age': 30, 'total_matches': 15, 'total_minutes': 1229, 'total_goals': 5, 'total_seasons': 15, 'total_competitions': 1}
+2025-05-12 20:35:13,623 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Total actions, Aerial duels, Passes, Yellow card, Duels, Passes accurate, Recoveries opp. half, Losses, Goals, xG, Crosses, Interceptions, Dribbles successful, Shots On Target, Red card, Duels won, Minutes played, Dribbles, Crosses accurate, Long passes, Assists, Recoveries, Total actions successful, Aerial duels won, Shots, Long passes accurate, Losses own half
