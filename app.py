@@ -79,7 +79,7 @@ def main():
                 player_files[player_name] = file
                 
                 logger.info(f"Found player data file for {player_name}: {file}")
-                st.success(f"Found player data for {player_name}")
+                #st.success(f"Found player data for {player_name}")
             except Exception as e:
                 logger.error(f"Error processing {file}: {str(e)}", exc_info=True)
                 st.error(f"Error processing {file}: {str(e)}")
@@ -139,10 +139,11 @@ def main():
         
         # Visualization options
         viz_type = st.radio(
-            "Visualization type:",
-            options=["Bar Chart", "Radar Chart"],
+            "Visualization type:", #, "Radar Chart"
+            options=["Bar Chart"],
             horizontal=True
         )
+    
         logger.info(f"Selected visualization type: {viz_type}")
         
         # Category selection
@@ -168,17 +169,53 @@ def main():
                 if player in all_competitions and all_competitions[player]:
                     # Add "All" option at the beginning
                     competition_options = ["All"] + all_competitions[player]
+                    
+                    # Try to determine the latest competition
+                    latest_competition = "All"
+                    try:
+                        if player in raw_player_dfs and 'Date' in raw_player_dfs[player].columns and 'Competition' in raw_player_dfs[player].columns:
+                            # Convert date column to datetime, handle various formats
+                            df = raw_player_dfs[player].copy()
+                            try:
+                                # Try to find the most recent competition based on date
+                                if not df['Date'].empty:
+                                    # Try different date formats
+                                    for date_format in ['%Y-%m-%d', '%d/%m/%Y', '%m/%d/%Y', '%d-%m-%Y', '%Y/%m/%d']:
+                                        try:
+                                            df['parsed_date'] = pd.to_datetime(df['Date'], format=date_format)
+                                            break
+                                        except:
+                                            continue
+                                    
+                                    # If successful in parsing dates
+                                    if 'parsed_date' in df.columns:
+                                        # Get the latest date and its corresponding competition
+                                        latest_data = df.sort_values('parsed_date', ascending=False).iloc[0]
+                                        if 'Competition' in latest_data and pd.notna(latest_data['Competition']):
+                                            latest_competition = latest_data['Competition']
+                                            if latest_competition not in competition_options:
+                                                latest_competition = "All"
+                            except Exception as e:
+                                logger.warning(f"Could not determine latest competition for {player}: {str(e)}")
+                                latest_competition = "All"
+                    except Exception as e:
+                        logger.warning(f"Error getting latest competition for {player}: {str(e)}")
+                        latest_competition = "All"
+                    
+                    # Set the default selection to the latest competition or "All" if not found
+                    default_competition = [latest_competition]
+                    
                     selected_competitions = st.multiselect(
                         f"Filter by competition:",
                         options=competition_options,
-                        default=["All"],
+                        default=default_competition,
                         key=f"competition_{player}",
                         label_visibility="collapsed"
                     )
                     
-                    # If no selections made, default to "All"
+                    # If no selections made, default to the latest competition
                     if not selected_competitions:
-                        selected_competitions = ["All"]
+                        selected_competitions = default_competition
                     
                     competition_filters[player] = selected_competitions
                     logger.info(f"Selected competitions for {player}: {', '.join(selected_competitions)}")
@@ -386,6 +423,154 @@ def main():
             mime="image/png"
         )
     
+    # --- Forward Role Profile Scores ---
+    st.markdown('<div class="stats-table-container" style="margin-bottom: 30px;">', unsafe_allow_html=True)
+    st.markdown('<p class="stats-table-header">Forward Role Profile Scores</p>', unsafe_allow_html=True)
+    
+
+    # Define metrics and weights for each forward type
+    forward_role_weights = {
+        "Advance Forward": {
+            "Goals": 0.3,
+            "Shots": 0.2,
+            "xG": 0.15,
+            "Dribbles successful": 0.15,
+            "Passes Received": 0.1,
+            "Touches Att 3rd": 0.1
+        },
+        "Pressing Forward": {
+            "Duels won": 0.25,
+            "Recoveries": 0.2,
+            "Pressures": 0.2,
+            "Goals": 0.15,
+            "Shots": 0.1,
+            "Interceptions": 0.1
+        },
+        "Deep-lying Forward": {
+            "SCA": 0.25,
+            "xAG": 0.25,
+            "Key Passes": 0.15,
+            "Progressive Passes Received": 0.15,
+            "Touches Att 3rd": 0.1,
+            "npxG": 0.1
+        },
+        "Poacher": {
+            "npxG": 0.5,
+            "Shots": 0.5,
+            "Shots on Target": 0.1,
+            "Offsides": 0.1,
+            "Average Shot Distance": -0.1,
+            "Touches": -0.05,
+            "Passes Received": -0.05
+        }
+    }
+
+    # Normalize and score each player for each role
+    def compute_role_scores(player_actual_values, available_stats, weights):
+        # Gather all unique stats from all roles
+        all_stats = set()
+        for role_weights in weights.values():
+            all_stats.update(role_weights.keys())
+        # Normalize stats (min-max across all players for each stat)
+        stat_min = {stat: min([float(df[stat].iloc[0]) if stat in df.columns else 0 for df in player_actual_values]) for stat in all_stats}
+        stat_max = {stat: max([float(df[stat].iloc[0]) if stat in df.columns else 0 for df in player_actual_values]) for stat in all_stats}
+        scores = []
+        for df in player_actual_values:
+            player_score = {}
+            for role, role_weights in weights.items():
+                score = 0
+                for stat, w in role_weights.items():
+                    if stat in df.columns:
+                        val = float(df[stat].iloc[0])
+                        # Min-max normalization
+                        if stat_max[stat] != stat_min[stat]:
+                            norm = (val - stat_min[stat]) / (stat_max[stat] - stat_min[stat])
+                        else:
+                            norm = 0.5  # If all values are the same
+                        score += w * norm
+                player_score[role] = score
+            scores.append(player_score)
+        return scores
+
+    # Compute scores for all players
+    role_scores = compute_role_scores(player_actual_values, available_numeric_stats, forward_role_weights)
+    role_names = list(forward_role_weights.keys())
+    
+    # Create a row for player profiles
+    player_cols = st.columns(len(selected_players))
+    
+    # Create a profile chart for each player
+    for i, (player, player_score, col) in enumerate(zip(selected_players, role_scores, player_cols)):
+        with col:
+            # Create player title with info
+            player_position = player_info[i].get('position', 'Forward')
+            player_matches = player_info[i].get('total_matches', 0)
+            st.markdown(f"<h3 style='text-align: center; margin-bottom: 10px; font-size: 16px; color: white;'>{player} ({player_position})</h3>", unsafe_allow_html=True)
+            
+            # Create separate figure for this player
+            fig = go.Figure()
+            
+            # Sort role scores for this player from highest to lowest
+            sorted_roles = sorted([(role, player_score[role]) for role in role_names], key=lambda x: x[1], reverse=True)
+            role_labels = [role for role, _ in sorted_roles]
+            role_values = [score for _, score in sorted_roles]
+            
+            # Add trace for horizontal bar
+            fig.add_trace(go.Bar(
+                y=role_labels,
+                x=role_values,
+                orientation='h',
+                marker=dict(
+                    color=player_colors[i % len(player_colors)],
+                    line=dict(width=1, color='#222')
+                ),
+                text=[f"{value:.2f}" for value in role_values],
+                textposition='auto',
+                textfont=dict(color='white'),
+                showlegend=False
+            ))
+            
+            # Update layout
+            fig.update_layout(
+                title=dict(
+                    text=f"Profile Score Distribution",
+                    font=dict(size=14, color='white'),
+                    x=0.5
+                ),
+                plot_bgcolor='#222',
+                paper_bgcolor='#222',
+                height=300,
+                margin=dict(l=15, r=15, t=40, b=20),
+                xaxis=dict(
+                    title='Score',
+                    showgrid=True,
+                    gridcolor='#444',
+                    tickfont=dict(size=10, color='#CCC')
+                ),
+                yaxis=dict(
+                    title='',
+                    tickfont=dict(size=12, color='#FFF'),
+                    automargin=True
+                ),
+                font=dict(color='#EEE')
+            )
+            
+            # Display chart
+            st.plotly_chart(fig, use_container_width=True)
+    
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    st.info(
+        """
+Each player is scored for four classic forward roles based on their stats and the latest competition filter:
+
+- **Advance Forward**: Direct goal threat, excels at finishing and movement.
+- **Pressing Forward**: High work rate, presses defenders, wins duels.
+- **Deep-lying Forward**: Drops deep, creates chances, links play.
+- **Poacher**: Focuses on scoring, operates in the box, exploits chances.
+        """
+    )
+
     # Add new table view for player stats comparison
     st.markdown('<div class="stats-table-container">', unsafe_allow_html=True)
     st.markdown('<p class="stats-table-header">Player Statistics Comparison Table</p>', unsafe_allow_html=True)
@@ -620,26 +805,14 @@ def main():
     # Add Forward Type Classification Scatter Plot
     st.markdown('<div class="stats-table-container" style="margin-top: 30px;">', unsafe_allow_html=True)
     st.markdown('<p class="stats-table-header">Forward Player Type Classification</p>', unsafe_allow_html=True)
-    
-    # Display information about the scatter plot
-    st.markdown("""
-    <div class="explanation-box">
-        This scatter plot classifies forwards into four types based on their playing style:
-        <ul style="margin-top: 5px;">
-            <li><strong>Deep-Lying Forward</strong>: Creates chances & links play. Strong at passing & vision.</li>
-            <li><strong>Advanced Forward</strong>: All-round attacker. Good at shooting, dribbling & creating.</li>
-            <li><strong>Poacher</strong>: Focused on scoring. Excellent positioning & finishing.</li>
-            <li><strong>Pressing Forward</strong>: High work rate. Strong at pressing, tackles & winning duels.</li>
-        </ul>
-    </div>
-    """, unsafe_allow_html=True)
-    
+     
     # Create preset combinations for easier analysis
     preset_combinations = {
-        "Goals vs Assists": ("Goals", "Assists"),
+        "Goals vs xG": ("Goals", "xG"),
         "Shots vs Passes": ("Shots", "Passes accurate"),
-        "xG vs Dribbles": ("xG", "Dribbles successful"),
-        "Duels won vs Recoveries": ("Duels won", "Recoveries"),
+        "Dribbles vs Assists": ("Dribbles successful", "Assists"),
+        "Duels vs Recoveries": ("Duels won", "Recoveries"),
+        "Aerial Duels vs Goals": ("Aerial duels won", "Goals"),
         "Custom Selection": ("custom", "custom")
     }
     
@@ -652,21 +825,25 @@ def main():
     
     # Add explanation for the selected preset
     preset_explanations = {
-        "Goals vs Assists": "This perspective differentiates goal scorers from playmakers. "
-                           "Advanced Forwards excel at both, Poachers focus on goals, "
-                           "Deep-Lying Forwards create more than score, and Pressing Forwards have moderate values in both.",
+        "Goals vs xG": "This perspective shows finishing efficiency. "
+                      "Advanced Forwards exceed xG, Poachers match xG, "
+                      "Deep-Lying Forwards create more than score, and Pressing Forwards have lower values.",
         
-        "Shots vs Passes": "This highlights the attacking approach: shooting vs passing. "
-                          "Advanced Forwards balance both skills, Poachers prioritize shooting over passing, "
-                          "Deep-Lying Forwards emphasize passing, and Pressing Forwards contribute with work rate rather than techniques.",
+        "Shots vs Passes": "This highlights attacking approach: shooting vs playmaking. "
+                          "Advanced Forwards balance both, Poachers prioritize shooting, "
+                          "Deep-Lying Forwards emphasize passing, and Pressing Forwards focus on pressing.",
         
-        "xG vs Dribbles": "This contrasts finishing quality with dribbling ability. "
-                         "Advanced Forwards excel in both areas, Poachers have high xG but fewer dribbles, "
-                         "Deep-Lying Forwards may dribble more than score, and Pressing Forwards have moderate values in both.",
+        "Dribbles vs Assists": "This shows creative attacking style. "
+                              "Advanced Forwards excel in both, Poachers focus on finishing, "
+                              "Deep-Lying Forwards create chances, and Pressing Forwards contribute through work rate.",
         
-        "Duels won vs Recoveries": "This focuses on the defensive contributions of forwards. "
-                                  "Advanced Forwards win duels in attacking positions, Poachers have limited defensive involvement, "
-                                  "Deep-Lying Forwards recover more balls deeper on the pitch, and Pressing Forwards excel in both categories."
+        "Duels vs Recoveries": "This focuses on defensive contribution. "
+                              "Advanced Forwards win duels in attack, Poachers have limited defensive work, "
+                              "Deep-Lying Forwards recover balls deeper, and Pressing Forwards excel in both.",
+        
+        "Aerial Duels vs Goals": "This shows aerial threat and finishing. "
+                                "Advanced Forwards are strong in both, Poachers focus on finishing, "
+                                "Deep-Lying Forwards create chances, and Pressing Forwards win aerial battles."
     }
     
     if selected_preset in preset_explanations:
@@ -823,15 +1000,99 @@ def main():
             line=dict(color="#666666", width=1)
         )
         
-        # Add quadrant descriptions
-        fig.add_annotation(x=25, y=75, text="Deep-Lying Forward: Creates chances & links play", showarrow=False, 
-                          font=dict(color="#AAAAAA", size=9), xanchor="center", yanchor="middle")
-        fig.add_annotation(x=75, y=75, text="Advanced Forward: All-round attacker", showarrow=False, 
-                          font=dict(color="#AAAAAA", size=9), xanchor="center", yanchor="middle")
-        fig.add_annotation(x=25, y=25, text="Poacher: Focused on scoring", showarrow=False, 
-                          font=dict(color="#AAAAAA", size=9), xanchor="center", yanchor="middle")
-        fig.add_annotation(x=75, y=25, text="Pressing Forward: High work rate & pressing", showarrow=False, 
-                          font=dict(color="#AAAAAA", size=9), xanchor="center", yanchor="middle")
+        # Create function to generate quadrant descriptions based on selected stats
+        def get_quadrant_descriptions(x_stat, y_stat):
+            # Define role descriptions based on stat combinations
+            role_descriptions = {
+                # Goals related combinations
+                "Goals": {
+                    "high": "Clinical Finisher: High goal output",
+                    "low": "Creative Playmaker: Creates chances"
+                },
+                "xG": {
+                    "high": "Efficient Scorer: Exceeds xG",
+                    "low": "Chance Creator: Sets up others"
+                },
+                # Passing related combinations
+                "Passes accurate": {
+                    "high": "Playmaker: Excellent passing",
+                    "low": "Direct Attacker: Focuses on finishing"
+                },
+                "Assists": {
+                    "high": "Creative Forward: Creates chances",
+                    "low": "Pure Finisher: Focuses on scoring"
+                },
+                # Dribbling related combinations
+                "Dribbles successful": {
+                    "high": "Skilled Dribbler: Takes on defenders",
+                    "low": "Positional Player: Relies on movement"
+                },
+                # Defensive related combinations
+                "Duels won": {
+                    "high": "Physical Forward: Wins battles",
+                    "low": "Technical Forward: Avoids physical play"
+                },
+                "Recoveries": {
+                    "high": "Pressing Forward: High work rate",
+                    "low": "Poacher: Minimal defensive work"
+                },
+                # Aerial related combinations
+                "Aerial duels won": {
+                    "high": "Aerial Threat: Strong in air",
+                    "low": "Technical Player: Ground-based play"
+                }
+            }
+            
+            # Get descriptions for each stat
+            x_high = role_descriptions.get(x_stat, {}).get("high", "High " + x_stat)
+            x_low = role_descriptions.get(x_stat, {}).get("low", "Low " + x_stat)
+            y_high = role_descriptions.get(y_stat, {}).get("high", "High " + y_stat)
+            y_low = role_descriptions.get(y_stat, {}).get("low", "Low " + y_stat)
+            
+            # Generate quadrant descriptions
+            return [
+                dict(
+                    x=25, y=75,
+                    text=f"{x_low}<br>{y_high}",
+                    showarrow=False,
+                    font=dict(color="#AAAAAA", size=12),
+                    xanchor="center",
+                    yanchor="middle",
+                    align="center"
+                ),
+                dict(
+                    x=75, y=75,
+                    text=f"{x_high}<br>{y_high}",
+                    showarrow=False,
+                    font=dict(color="#AAAAAA", size=12),
+                    xanchor="center",
+                    yanchor="middle",
+                    align="center"
+                ),
+                dict(
+                    x=25, y=25,
+                    text=f"{x_low}<br>{y_low}",
+                    showarrow=False,
+                    font=dict(color="#AAAAAA", size=12),
+                    xanchor="center",
+                    yanchor="middle",
+                    align="center"
+                ),
+                dict(
+                    x=75, y=25,
+                    text=f"{x_high}<br>{y_low}",
+                    showarrow=False,
+                    font=dict(color="#AAAAAA", size=12),
+                    xanchor="center",
+                    yanchor="middle",
+                    align="center"
+                )
+            ]
+        
+        # Add quadrant descriptions to the plot
+        fig.update_layout(
+            annotations=get_quadrant_descriptions(x_stat, y_stat)
+        )
         
         # Add scatter points for each player
         for player in data:
@@ -842,14 +1103,16 @@ def main():
                     mode="markers+text",
                     marker=dict(
                         color=player['color'],
-                        size=12,
-                        opacity=0.8
+                        size=15,
+                        opacity=0.85,
+                        line=dict(width=2, color="#222")
                     ),
                     text=player['name'],
                     textposition="bottom center",
                     textfont=dict(
                         color="white",
-                        size=10
+                        size=15,
+                        family="Arial Black, Arial, sans-serif"
                     ),
                     hoverinfo="text",
                     hovertext=player['text'],
@@ -864,7 +1127,7 @@ def main():
             width=800,  # Set fixed width
             height=600,  # Set fixed height for better aspect ratio
             xaxis=dict(
-                title=dict(text=x_stat.upper(), font=dict(color="#CCCCCC", size=11)),
+                title=dict(text=x_stat.upper(), font=dict(color="#CCCCCC", size=18)),
                 range=[0, 100],
                 gridcolor="#444444",
                 zerolinecolor="#444444",
@@ -876,11 +1139,11 @@ def main():
                 ticktext=['0%', '25%', '50%', '75%', '100%']
             ),
             yaxis=dict(
-                title=dict(text=y_stat.upper(), font=dict(color="#CCCCCC", size=11)),
+                title=dict(text=y_stat.upper(), font=dict(color="#CCCCCC", size=18)),
                 range=[0, 100],
                 gridcolor="#444444",
                 zerolinecolor="#444444",
-                tickfont=dict(color="#CCCCCC"),
+                tickfont=dict(color="#CCCCCC", size=16),
                 showline=True,
                 linecolor="#666666",
                 tickmode='array',
@@ -891,60 +1154,18 @@ def main():
             margin=dict(l=60, r=60, t=60, b=60),  # Increased margins for better spacing
             hoverlabel=dict(
                 bgcolor="#444444",
-                font_size=10,
+                font_size=14,
                 font_color="white"
             ),
             # Add title and subtitle
             title=dict(
                 text="Forward Player Type Classification",
-                font=dict(color="#FFFFFF", size=16),
+                font=dict(color="#FFFFFF", size=22),
                 y=0.95
             ),
-            annotations=[
-                # Add quadrant labels with improved positioning
-                dict(
-                    x=25, y=75,
-                    text="Deep-Lying Forward:<br>Creates chances & links play",
-                    showarrow=False,
-                    font=dict(color="#AAAAAA", size=10),
-                    xanchor="center",
-                    yanchor="middle",
-                    align="center"
-                ),
-                dict(
-                    x=75, y=75,
-                    text="Advanced Forward:<br>All-round attacker",
-                    showarrow=False,
-                    font=dict(color="#AAAAAA", size=10),
-                    xanchor="center",
-                    yanchor="middle",
-                    align="center"
-                ),
-                dict(
-                    x=25, y=25,
-                    text="Poacher:<br>Focused on scoring",
-                    showarrow=False,
-                    font=dict(color="#AAAAAA", size=10),
-                    xanchor="center",
-                    yanchor="middle",
-                    align="center"
-                ),
-                dict(
-                    x=75, y=25,
-                    text="Pressing Forward:<br>High work rate & pressing",
-                    showarrow=False,
-                    font=dict(color="#AAAAAA", size=10),
-                    xanchor="center",
-                    yanchor="middle",
-                    align="center"
-                )
-            ]
         )
         
         return fig
-    
-    # Wrap the plot in a styled container
-    st.markdown('<div class="scatter-plot-container">', unsafe_allow_html=True)
     
     # Add a toggle for interactive mode
     interactive_mode = st.checkbox("Enable Interactive Mode with Hover Details", value=True)
@@ -993,49 +1214,27 @@ def main():
     
     # Add explanatory text about performance metrics (now collapsible)
     with st.expander("About Performance Metrics", expanded=False):
-        st.markdown("""
-        <div style="background-color: #ffffff; border-radius: 8px; padding: 16px; margin: 10px 0;">
-            <h3 style="margin-top: 0; color: #333; font-size: 18px;">Understanding Performance Metrics</h3>
-            <p style="color: #555; font-size: 14px;">
-                Each player's performance is measured across various metrics and displayed in both charts and tables:
-            </p>
-            
-            <h4 style="margin-top: 15px; color: #444; font-size: 16px;">Stat Types</h4>
-            <ul style="color: #555; font-size: 14px;">
-                <li><strong>Sum</strong> - The total accumulated statistic across all matches (e.g., total goals scored)</li>
-                <li><strong>Average</strong> - The average value per match (e.g., average goals per match)</li>
-            </ul>
-            
-            <h4 style="margin-top: 15px; color: #444; font-size: 16px;">Percentile Ranking</h4>
-            <p style="color: #555; font-size: 14px;">
-                Percentile ranks show how a player compares to others in the comparison. With only 3 players in the dataset, the ranks are calculated using min-max normalization to create a 0-100 scale.
-            </p>
-            
-            <h4 style="margin-top: 15px; color: #444; font-size: 16px;">Color Scale</h4>
-            <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
-                <div style="display: flex; align-items: center;">
-                    <span style="display: inline-block; width: 16px; height: 16px; background-color: #CD5C5C; margin-right: 5px;"></span>
-                    <span style="font-size: 14px;"><strong>Red</strong> (0-20%): Poor</span>
-                </div>
-                <div style="display: flex; align-items: center;">
-                    <span style="display: inline-block; width: 16px; height: 16px; background-color: #FF8C00; margin-right: 5px;"></span>
-                    <span style="font-size: 14px;"><strong>Orange</strong> (21-40%): Below Average</span>
-                </div>
-                <div style="display: flex; align-items: center;">
-                    <span style="display: inline-block; width: 16px; height: 16px; background-color: #FFC107; margin-right: 5px;"></span>
-                    <span style="font-size: 14px;"><strong>Yellow</strong> (41-60%): Average</span>
-                </div>
-                <div style="display: flex; align-items: center;">
-                    <span style="display: inline-block; width: 16px; height: 16px; background-color: #9ACD32; margin-right: 5px;"></span>
-                    <span style="font-size: 14px;"><strong>Light Green</strong> (61-80%): Good</span>
-                </div>
-                <div style="display: flex; align-items: center;">
-                    <span style="display: inline-block; width: 16px; height: 16px; background-color: #4CAF50; margin-right: 5px;"></span>
-                    <span style="font-size: 14px;"><strong>Green</strong> (81-100%): Excellent</span>
-                </div>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown(
+            """
+**Understanding Performance Metrics**
+
+Each player's performance is measured across various metrics and displayed in both charts and tables:
+
+**Stat Types**
+- **Sum**: The total accumulated statistic across all matches (e.g., total goals scored)
+- **Average**: The average value per match (e.g., average goals per match)
+
+**Percentile Ranking**
+- Percentile ranks show how a player compares to others in the comparison. With only 3 players in the dataset, the ranks are calculated using min-max normalization to create a 0-100 scale.
+
+**Color Scale**
+- 🟥 **Red** (0-20%): Poor
+- 🟧 **Orange** (21-40%): Below Average
+- 🟨 **Yellow** (41-60%): Average
+- 🟩 **Light Green** (61-80%): Good
+- 🟩 **Green** (81-100%): Excellent
+            """
+        )
     
     # Add a better-styled section for downloading the processed data
     st.markdown("<div class='download-section'>", unsafe_allow_html=True)

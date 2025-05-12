@@ -58,7 +58,7 @@ def generate_unified_player_chart(player_name, percentile_df, player_color, play
     total_goals = player_info.get('total_goals', 0)
     
     # Format stats with cleaner presentation
-    stats_info_text = f"Matches: {total_matches} | Minutes: {total_minutes} | Goals: {total_goals} | Seasons: {total_seasons}"
+    stats_info_text = f"Matches: {total_matches} | Minutes: {total_minutes} | Goals: {total_goals}"
     ax_info.text(0.02, 0.3, stats_info_text, fontsize=9, color="#666666")
     
     # If player image is available, add it with better positioning and styling
