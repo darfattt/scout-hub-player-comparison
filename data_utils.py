@@ -248,62 +248,86 @@ def calculate_percentile_ranks(df_list, stat_cols):
     # Check if we have enough data to rank
     if len(combined_stats) < 2:
         logger.warning(f"Not enough data to calculate percentile ranks")
-        return [], []
-    
-    # Calculate percentile ranks
-    percentile_ranks = pd.DataFrame()
-    actual_values = pd.DataFrame()  # Store actual values
-    
-    for col in valid_cols:
-        if col in combined_stats.columns:
-            # Store the actual values
-            actual_values[col] = combined_stats[col]
+        # With only one player, we'll return a dataframe with all zeros (or another default value)
+        player_percentiles = []
+        player_actual_values = []
+        
+        for i in range(len(df_list)):
+            # Create a dataframe with zeros for all stats
+            percentile_df = pd.DataFrame(columns=valid_cols, data=[[50] * len(valid_cols)])
+            player_percentiles.append(percentile_df)
             
-            # Determine if higher is better (default) or lower is better
-            higher_is_better = True
-            lower_is_better_cols = [
-                'Losses', 'Losses own half', 'Yellow card', 'Red card'
-            ]
-            
-            # Check if any of the lower_is_better substrings are in the column name
-            for lower_col in lower_is_better_cols:
-                if lower_col in col:
-                    higher_is_better = False
-                    break
-            
-            # Calculate percentile rank
-            if higher_is_better:
-                # Create a normalized percentile (0-100 scale) based on min-max
-                min_val = combined_stats[col].min()
-                max_val = combined_stats[col].max()
-                
-                if min_val == max_val:  # If all values are the same
-                    percentile_ranks[col] = 50  # Assign mid-range value
-                else:
-                    percentile_ranks[col] = 100 * (combined_stats[col] - min_val) / (max_val - min_val)
+            # Get the actual values
+            actual_df = combined_stats[combined_stats['player_index'] == i].copy()
+            if not actual_df.empty:
+                actual_df = actual_df.drop(columns=['player_index'])
+                player_actual_values.append(actual_df)
             else:
-                # For metrics where lower is better, invert the percentile
-                min_val = combined_stats[col].min()
-                max_val = combined_stats[col].max()
-                
-                if min_val == max_val:  # If all values are the same
-                    percentile_ranks[col] = 50  # Assign mid-range value
-                else:
-                    percentile_ranks[col] = 100 * (max_val - combined_stats[col]) / (max_val - min_val)
+                # If no actual values found for this player, create a dataframe with zeros
+                actual_df = pd.DataFrame(columns=valid_cols, data=[[0] * len(valid_cols)])
+                player_actual_values.append(actual_df)
+        
+        return player_percentiles, player_actual_values
     
-    percentile_ranks['player_index'] = combined_stats['player_index']
-    actual_values['player_index'] = combined_stats['player_index']
-    
-    # Split back into individual player percentile ranks and actual values
+    # Calculate percentile ranks using min-max normalization for small datasets
+    # This is more appropriate than percentile_rank for 2-3 players
     player_percentiles = []
     player_actual_values = []
     
     for i in range(len(df_list)):
-        player_percentiles.append(
-            percentile_ranks[percentile_ranks['player_index'] == i].drop(columns=['player_index'])
-        )
-        player_actual_values.append(
-            actual_values[actual_values['player_index'] == i].drop(columns=['player_index'])
-        )
+        # Create a dataframe for this player's percentiles
+        percentile_df = pd.DataFrame(columns=valid_cols)
+        
+        # Get the actual values for this player
+        actual_df = combined_stats[combined_stats['player_index'] == i].copy()
+        
+        if actual_df.empty:
+            logger.warning(f"No data found for player with index {i}")
+            # Create empty dataframes with all stats
+            percentile_df = pd.DataFrame(columns=valid_cols, data=[[0] * len(valid_cols)])
+            actual_df = pd.DataFrame(columns=valid_cols, data=[[0] * len(valid_cols)])
+        else:
+            # Drop the player index column from the actual values
+            actual_df = actual_df.drop(columns=['player_index'])
+            
+            # Create a row for the percentiles
+            percentile_row = []
+            
+            for col in valid_cols:
+                # Apply min-max normalization to convert to 0-100 scale
+                min_val = combined_stats[col].min()
+                max_val = combined_stats[col].max()
+                
+                # Check if there's an actual range of values to normalize
+                if max_val > min_val:
+                    # Get the value for this player
+                    player_val = actual_df[col].iloc[0]
+                    
+                    # Scale to 0-100 range
+                    # Using enhanced scaling to prevent division by zero and handle special cases
+                    normalized_val = 0
+                    try:
+                        normalized_val = ((player_val - min_val) / (max_val - min_val)) * 100
+                        
+                        # Round to avoid floating point precision issues
+                        normalized_val = round(normalized_val, 1)
+                        
+                        # Ensure no values are outside 0-100 range
+                        normalized_val = max(0, min(100, normalized_val))
+                    except:
+                        # Handle any potential division by zero or other errors
+                        normalized_val = 50  # Default to middle value if calculation fails
+                        
+                    percentile_row.append(normalized_val)
+                else:
+                    # If all values are the same, use a default value (50%)
+                    percentile_row.append(50)
+            
+            # Create the percentile dataframe for this player
+            percentile_df = pd.DataFrame([percentile_row], columns=valid_cols)
+        
+        # Append to the result lists
+        player_percentiles.append(percentile_df)
+        player_actual_values.append(actual_df)
     
     return player_percentiles, player_actual_values 

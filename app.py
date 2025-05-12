@@ -9,7 +9,7 @@ import io
 import logging
 from utils import load_css, get_player_image
 from data_utils import extract_player_name, extract_player_info, ensure_numeric_columns, calculate_percentile_ranks
-from visualization import generate_unified_player_chart, generate_radar_chart
+from visualization import generate_unified_player_chart, generate_radar_chart, generate_forward_type_scatter
 
 # Configure logging
 logging.basicConfig(
@@ -21,6 +21,25 @@ logging.basicConfig(
     ]
 )
 logger = logging.getLogger("player_comparison_tool")
+
+# Configure matplotlib for better visualization
+plt.rcParams.update({
+    'font.family': 'sans-serif',
+    'font.sans-serif': ['Arial', 'Helvetica', 'DejaVu Sans'],
+    'axes.titlesize': 11,
+    'axes.labelsize': 9,
+    'xtick.labelsize': 8,
+    'ytick.labelsize': 8,
+    'legend.fontsize': 8,
+    'figure.titlesize': 12,
+    'figure.dpi': 120,
+    'savefig.dpi': 300,
+    'figure.figsize': (8, 6),
+    'axes.spines.top': False,
+    'axes.spines.right': False,
+    'axes.grid': True,
+    'grid.alpha': 0.3
+})
 
 # Set page config
 st.set_page_config(
@@ -592,6 +611,187 @@ def main():
         st.info("Please select at least one metric to display in the table")
     
     st.markdown('</div>', unsafe_allow_html=True)
+    
+    # Add a separator
+    st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
+    
+    # Add Forward Type Classification Scatter Plot
+    st.markdown('<div class="stats-table-container" style="margin-top: 30px;">', unsafe_allow_html=True)
+    st.markdown('<p class="stats-table-header">Forward Player Type Classification</p>', unsafe_allow_html=True)
+    
+    # Display information about the scatter plot
+    st.markdown("""
+    <div class="explanation-box">
+        This scatter plot classifies forwards into four types based on their playing style:
+        <ul style="margin-top: 5px;">
+            <li><strong>Deep-Lying Forward</strong>: Creates chances & links play. Strong at passing & vision.</li>
+            <li><strong>Advanced Forward</strong>: All-round attacker. Good at shooting, dribbling & creating.</li>
+            <li><strong>Poacher</strong>: Focused on scoring. Excellent positioning & finishing.</li>
+            <li><strong>Pressing Forward</strong>: High work rate. Strong at pressing, tackles & winning duels.</li>
+        </ul>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Create preset combinations for easier analysis
+    preset_combinations = {
+        "Goals vs Assists": ("Goals", "Assists"),
+        "Shots vs Passes": ("Shots", "Passes accurate"),
+        "xG vs Dribbles": ("xG", "Dribbles successful"),
+        "Duels won vs Recoveries": ("Duels won", "Recoveries"),
+        "Custom Selection": ("custom", "custom")
+    }
+    
+    # Let user select a preset or custom
+    selected_preset = st.selectbox(
+        "Choose analysis perspective:",
+        options=list(preset_combinations.keys()),
+        index=0
+    )
+    
+    # Add explanation for the selected preset
+    preset_explanations = {
+        "Goals vs Assists": "This perspective differentiates goal scorers from playmakers. "
+                           "Advanced Forwards excel at both, Poachers focus on goals, "
+                           "Deep-Lying Forwards create more than score, and Pressing Forwards have moderate values in both.",
+        
+        "Shots vs Passes": "This highlights the attacking approach: shooting vs passing. "
+                          "Advanced Forwards balance both skills, Poachers prioritize shooting over passing, "
+                          "Deep-Lying Forwards emphasize passing, and Pressing Forwards contribute with work rate rather than techniques.",
+        
+        "xG vs Dribbles": "This contrasts finishing quality with dribbling ability. "
+                         "Advanced Forwards excel in both areas, Poachers have high xG but fewer dribbles, "
+                         "Deep-Lying Forwards may dribble more than score, and Pressing Forwards have moderate values in both.",
+        
+        "Duels won vs Recoveries": "This focuses on the defensive contributions of forwards. "
+                                  "Advanced Forwards win duels in attacking positions, Poachers have limited defensive involvement, "
+                                  "Deep-Lying Forwards recover more balls deeper on the pitch, and Pressing Forwards excel in both categories."
+    }
+    
+    if selected_preset in preset_explanations:
+        st.markdown(f"""
+        <div class="explanation-box" style="font-style: italic; color: #555;">
+            {preset_explanations[selected_preset]}
+        </div>
+        """, unsafe_allow_html=True)
+    
+    # Get the preset values
+    preset_x, preset_y = preset_combinations[selected_preset]
+    
+    # Create columns for selecting stats for each axis
+    scatter_cols = st.columns(2)
+    
+    # Define default stats
+    offense_stats = [stat for stat in available_numeric_stats 
+                   if stat in ["Goals", "Shots", "Shots On Target", "xG", "Dribbles successful", "Assists", "Aerial duels won", "Duels won"]]
+    
+    passing_stats = [stat for stat in available_numeric_stats 
+                   if stat in ["Passes accurate", "Long passes accurate", "Crosses accurate", "Assists", 
+                              "Dribbles", "Recoveries", "Interceptions", "Duels won"]]
+    
+    default_x_stat = "Goals" if "Goals" in offense_stats else offense_stats[0] if offense_stats else available_numeric_stats[0]
+    default_y_stat = "Passes accurate" if "Passes accurate" in passing_stats else passing_stats[0] if passing_stats else available_numeric_stats[0]
+    
+    with scatter_cols[0]:
+        # Create a filter for the X-axis stat
+        if preset_x == "custom":
+            # Add category filter for stats
+            x_stat_category = st.radio(
+                "Filter X-axis stats by category:",
+                options=["All"] + list(filtered_stat_categories.keys()),
+                horizontal=True,
+                key="x_stat_category"
+            )
+            
+            # Filter stats based on selected category
+            if x_stat_category == "All":
+                x_filtered_stats = available_numeric_stats
+            else:
+                x_filtered_stats = [stat for stat in available_numeric_stats 
+                                  if stat in filtered_stat_categories.get(x_stat_category, [])]
+                
+                if not x_filtered_stats:  # Fallback if no stats in category
+                    x_filtered_stats = available_numeric_stats
+            
+            x_stat = st.selectbox(
+                "X-Axis Statistic:",
+                options=x_filtered_stats,
+                index=x_filtered_stats.index(default_x_stat) if default_x_stat in x_filtered_stats else 0,
+                key="x_stat_selector"
+            )
+        else:
+            # Use preset value if available, fallback to default otherwise
+            x_stat = preset_x if preset_x in available_numeric_stats else default_x_stat
+            st.markdown(f"**X-Axis**: {x_stat}")
+    
+    with scatter_cols[1]:
+        # Create a filter for the Y-axis stat
+        if preset_y == "custom":
+            # Add category filter for stats
+            y_stat_category = st.radio(
+                "Filter Y-axis stats by category:",
+                options=["All"] + list(filtered_stat_categories.keys()),
+                horizontal=True,
+                key="y_stat_category"
+            )
+            
+            # Filter stats based on selected category
+            if y_stat_category == "All":
+                y_filtered_stats = available_numeric_stats
+            else:
+                y_filtered_stats = [stat for stat in available_numeric_stats 
+                                  if stat in filtered_stat_categories.get(y_stat_category, [])]
+                
+                if not y_filtered_stats:  # Fallback if no stats in category
+                    y_filtered_stats = available_numeric_stats
+            
+            y_stat = st.selectbox(
+                "Y-Axis Statistic:",
+                options=y_filtered_stats,
+                index=y_filtered_stats.index(default_y_stat) if default_y_stat in y_filtered_stats else 0,
+                key="y_stat_selector"
+            )
+        else:
+            # Use preset value if available, fallback to default otherwise
+            y_stat = preset_y if preset_y in available_numeric_stats else default_y_stat
+            st.markdown(f"**Y-Axis**: {y_stat}")
+    
+    # Generate and display the scatter plot
+    scatter_fig = generate_forward_type_scatter(
+        selected_players, 
+        player_percentiles, 
+        player_actual_values, 
+        player_colors,
+        x_stat,
+        y_stat
+    )
+    
+    # Wrap the plot in a styled container
+    st.markdown('<div class="scatter-plot-container">', unsafe_allow_html=True)
+    
+    if scatter_fig:
+        st.pyplot(scatter_fig)
+        
+        # Add download button for this specific chart
+        st.markdown('<div class="scatter-download-btn">', unsafe_allow_html=True)
+        buf = io.BytesIO()
+        scatter_fig.savefig(buf, format="png", dpi=300, bbox_inches="tight")
+        buf.seek(0)
+        
+        st.download_button(
+            label="📥 Download Scatter Plot",
+            data=buf,
+            file_name=f"forward_classification_{x_stat}_vs_{y_stat}.png",
+            mime="image/png"
+        )
+        st.markdown('</div>', unsafe_allow_html=True)
+    else:
+        st.warning("Could not generate scatter plot. Insufficient data.")
+    
+    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+    
+    # Add a separator before the metrics section
+    st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
     
     # Add explanatory text about performance metrics (now collapsible)
     with st.expander("About Performance Metrics", expanded=False):

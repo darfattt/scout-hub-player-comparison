@@ -2287,3 +2287,431 @@ TypeError: RadarTransform() takes no arguments
 2025-05-12 21:31:11,222 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Dhing A Thanh Hoa', 'age': 27, 'total_matches': 263, 'total_minutes': 15492, 'total_goals': 45, 'total_seasons': 263, 'total_competitions': 6}
 2025-05-12 21:31:11,233 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Al-Fahaleel SC', 'age': 30, 'total_matches': 146, 'total_minutes': 9418, 'total_goals': 30, 'total_seasons': 146, 'total_competitions': 2}
 2025-05-12 21:31:11,258 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Total actions, Crosses accurate, Long passes, Dribbles, Recoveries opp. half, Interceptions, Dribbles successful, Duels won, Minutes played, xG, Losses own half, Yellow card, Losses, Long passes accurate, Duels, Assists, Total actions successful, Goals, Aerial duels, Crosses, Passes, Red card, Shots On Target, Shots, Aerial duels won, Recoveries, Passes accurate
+2025-05-12 21:34:27,931 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 21:34:28,045 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 21:34:28,047 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 21:34:28,049 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 21:34:28,052 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 21:34:28,052 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 21:34:28,061 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 21:34:28,062 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 21:34:28,066 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 21:34:28,066 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 21:34:28,075 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 21:34:28,081 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 21:34:28,085 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 21:34:28,092 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: All
+2025-05-12 21:34:28,100 - player_comparison_tool - INFO - Selected competitions for Ribamar: All
+2025-05-12 21:34:28,111 - player_comparison_tool - INFO - Selected competitions for Uilliam: All
+2025-05-12 21:34:28,116 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 21:34:28,131 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Zhako', 'age': 29, 'total_matches': 162, 'total_minutes': 11288, 'total_goals': 34, 'total_seasons': 162, 'total_competitions': 2}
+2025-05-12 21:34:28,150 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Dhing A Thanh Hoa', 'age': 27, 'total_matches': 263, 'total_minutes': 15492, 'total_goals': 45, 'total_seasons': 263, 'total_competitions': 6}
+2025-05-12 21:34:28,160 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Al-Fahaleel SC', 'age': 30, 'total_matches': 146, 'total_minutes': 9418, 'total_goals': 30, 'total_seasons': 146, 'total_competitions': 2}
+2025-05-12 21:34:28,189 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Total actions, Crosses accurate, Long passes, Dribbles, Recoveries opp. half, Interceptions, Dribbles successful, Duels won, Minutes played, xG, Losses own half, Yellow card, Losses, Long passes accurate, Duels, Assists, Total actions successful, Goals, Aerial duels, Crosses, Passes, Red card, Shots On Target, Shots, Aerial duels won, Recoveries, Passes accurate
+2025-05-12 21:41:49,896 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 21:41:49,898 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 21:41:49,899 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 21:41:49,900 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 21:41:49,902 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 21:41:49,903 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 21:41:49,908 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 21:41:49,908 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 21:41:49,912 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 21:41:49,912 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 21:41:49,916 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 21:41:49,918 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 21:41:49,921 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 21:41:49,923 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: All
+2025-05-12 21:41:49,931 - player_comparison_tool - INFO - Selected competitions for Ribamar: All
+2025-05-12 21:41:49,937 - player_comparison_tool - INFO - Selected competitions for Uilliam: All
+2025-05-12 21:41:49,949 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 21:41:49,962 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Zhako', 'age': 29, 'total_matches': 162, 'total_minutes': 11288, 'total_goals': 34, 'total_seasons': 162, 'total_competitions': 2}
+2025-05-12 21:41:49,982 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Dhing A Thanh Hoa', 'age': 27, 'total_matches': 263, 'total_minutes': 15492, 'total_goals': 45, 'total_seasons': 263, 'total_competitions': 6}
+2025-05-12 21:41:49,996 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Al-Fahaleel SC', 'age': 30, 'total_matches': 146, 'total_minutes': 9418, 'total_goals': 30, 'total_seasons': 146, 'total_competitions': 2}
+2025-05-12 21:41:50,032 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Passes accurate, Goals, Duels won, Long passes accurate, Passes, Recoveries, Total actions successful, Long passes, Dribbles successful, Crosses, Shots On Target, Duels, Minutes played, Interceptions, Crosses accurate, Dribbles, Aerial duels won, Yellow card, Shots, Total actions, Assists, Aerial duels, Losses own half, Recoveries opp. half, Losses, xG, Red card
+2025-05-12 21:42:19,426 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 21:42:19,428 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 21:42:19,431 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 21:42:19,432 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 21:42:19,434 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 21:42:19,435 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 21:42:19,438 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 21:42:19,438 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 21:42:19,441 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 21:42:19,442 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 21:42:19,445 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 21:42:19,447 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 21:42:19,449 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 21:42:19,451 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: All
+2025-05-12 21:42:19,461 - player_comparison_tool - INFO - Selected competitions for Ribamar: All
+2025-05-12 21:42:19,480 - player_comparison_tool - INFO - Selected competitions for Uilliam: All
+2025-05-12 21:42:19,488 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 21:42:19,506 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Zhako', 'age': 29, 'total_matches': 162, 'total_minutes': 11288, 'total_goals': 34, 'total_seasons': 162, 'total_competitions': 2}
+2025-05-12 21:42:19,527 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Dhing A Thanh Hoa', 'age': 27, 'total_matches': 263, 'total_minutes': 15492, 'total_goals': 45, 'total_seasons': 263, 'total_competitions': 6}
+2025-05-12 21:42:19,536 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Al-Fahaleel SC', 'age': 30, 'total_matches': 146, 'total_minutes': 9418, 'total_goals': 30, 'total_seasons': 146, 'total_competitions': 2}
+2025-05-12 21:42:19,564 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Passes accurate, Goals, Duels won, Long passes accurate, Passes, Recoveries, Total actions successful, Long passes, Dribbles successful, Crosses, Shots On Target, Duels, Minutes played, Interceptions, Crosses accurate, Dribbles, Aerial duels won, Yellow card, Shots, Total actions, Assists, Aerial duels, Losses own half, Recoveries opp. half, Losses, xG, Red card
+2025-05-12 21:42:29,112 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 21:42:29,113 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 21:42:29,114 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 21:42:29,115 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 21:42:29,117 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 21:42:29,117 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 21:42:29,121 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 21:42:29,122 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 21:42:29,125 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 21:42:29,126 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 21:42:29,128 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 21:42:29,130 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 21:42:29,132 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 21:42:29,134 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: All
+2025-05-12 21:42:29,145 - player_comparison_tool - INFO - Selected competitions for Ribamar: All
+2025-05-12 21:42:29,154 - player_comparison_tool - INFO - Selected competitions for Uilliam: All
+2025-05-12 21:42:29,158 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 21:42:29,171 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Zhako', 'age': 29, 'total_matches': 162, 'total_minutes': 11288, 'total_goals': 34, 'total_seasons': 162, 'total_competitions': 2}
+2025-05-12 21:42:29,192 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Dhing A Thanh Hoa', 'age': 27, 'total_matches': 263, 'total_minutes': 15492, 'total_goals': 45, 'total_seasons': 263, 'total_competitions': 6}
+2025-05-12 21:42:29,200 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Al-Fahaleel SC', 'age': 30, 'total_matches': 146, 'total_minutes': 9418, 'total_goals': 30, 'total_seasons': 146, 'total_competitions': 2}
+2025-05-12 21:42:29,226 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Passes accurate, Goals, Duels won, Long passes accurate, Passes, Recoveries, Total actions successful, Long passes, Dribbles successful, Crosses, Shots On Target, Duels, Minutes played, Interceptions, Crosses accurate, Dribbles, Aerial duels won, Yellow card, Shots, Total actions, Assists, Aerial duels, Losses own half, Recoveries opp. half, Losses, xG, Red card
+2025-05-12 21:46:31,129 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 21:46:31,131 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 21:46:31,133 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 21:46:31,134 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 21:46:31,137 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 21:46:31,137 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 21:46:31,144 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 21:46:31,144 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 21:46:31,148 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 21:46:31,148 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 21:46:31,153 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 21:46:31,156 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 21:46:31,157 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 21:46:31,159 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: All
+2025-05-12 21:46:31,175 - player_comparison_tool - INFO - Selected competitions for Ribamar: All
+2025-05-12 21:46:31,189 - player_comparison_tool - INFO - Selected competitions for Uilliam: All
+2025-05-12 21:46:31,195 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 21:46:31,209 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Zhako', 'age': 29, 'total_matches': 162, 'total_minutes': 11288, 'total_goals': 34, 'total_seasons': 162, 'total_competitions': 2}
+2025-05-12 21:46:31,232 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Dhing A Thanh Hoa', 'age': 27, 'total_matches': 263, 'total_minutes': 15492, 'total_goals': 45, 'total_seasons': 263, 'total_competitions': 6}
+2025-05-12 21:46:31,242 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Al-Fahaleel SC', 'age': 30, 'total_matches': 146, 'total_minutes': 9418, 'total_goals': 30, 'total_seasons': 146, 'total_competitions': 2}
+2025-05-12 21:46:31,291 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Duels, Shots, Goals, Yellow card, Dribbles successful, Long passes accurate, Shots On Target, Losses, Aerial duels, Assists, Crosses accurate, Crosses, Total actions, Passes accurate, Dribbles, Losses own half, Recoveries, xG, Passes, Duels won, Total actions successful, Aerial duels won, Long passes, Interceptions, Recoveries opp. half, Red card, Minutes played
+2025-05-12 21:48:33,265 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 21:48:33,267 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 21:48:33,267 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 21:48:33,268 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 21:48:33,269 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 21:48:33,270 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 21:48:33,274 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 21:48:33,274 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 21:48:33,277 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 21:48:33,278 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 21:48:33,280 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 21:48:33,282 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 21:48:33,285 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 21:48:33,288 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: All
+2025-05-12 21:48:33,296 - player_comparison_tool - INFO - Selected competitions for Ribamar: All
+2025-05-12 21:48:33,301 - player_comparison_tool - INFO - Selected competitions for Uilliam: All
+2025-05-12 21:48:33,310 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 21:48:33,320 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Zhako', 'age': 29, 'total_matches': 162, 'total_minutes': 11288, 'total_goals': 34, 'total_seasons': 162, 'total_competitions': 2}
+2025-05-12 21:48:33,335 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Dhing A Thanh Hoa', 'age': 27, 'total_matches': 263, 'total_minutes': 15492, 'total_goals': 45, 'total_seasons': 263, 'total_competitions': 6}
+2025-05-12 21:48:33,346 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Al-Fahaleel SC', 'age': 30, 'total_matches': 146, 'total_minutes': 9418, 'total_goals': 30, 'total_seasons': 146, 'total_competitions': 2}
+2025-05-12 21:48:33,371 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Duels, Shots, Goals, Yellow card, Dribbles successful, Long passes accurate, Shots On Target, Losses, Aerial duels, Assists, Crosses accurate, Crosses, Total actions, Passes accurate, Dribbles, Losses own half, Recoveries, xG, Passes, Duels won, Total actions successful, Aerial duels won, Long passes, Interceptions, Recoveries opp. half, Red card, Minutes played
+2025-05-12 21:50:19,574 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 21:50:19,576 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 21:50:19,577 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 21:50:19,579 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 21:50:19,580 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 21:50:19,581 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 21:50:19,585 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 21:50:19,586 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 21:50:19,589 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 21:50:19,589 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 21:50:19,591 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 21:50:19,594 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 21:50:19,595 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 21:50:19,597 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: All
+2025-05-12 21:50:19,603 - player_comparison_tool - INFO - Selected competitions for Ribamar: All
+2025-05-12 21:50:19,609 - player_comparison_tool - INFO - Selected competitions for Uilliam: All
+2025-05-12 21:50:19,615 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 21:50:19,624 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Zhako', 'age': 29, 'total_matches': 162, 'total_minutes': 11288, 'total_goals': 34, 'total_seasons': 162, 'total_competitions': 2}
+2025-05-12 21:50:19,639 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Dhing A Thanh Hoa', 'age': 27, 'total_matches': 263, 'total_minutes': 15492, 'total_goals': 45, 'total_seasons': 263, 'total_competitions': 6}
+2025-05-12 21:50:19,644 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Al-Fahaleel SC', 'age': 30, 'total_matches': 146, 'total_minutes': 9418, 'total_goals': 30, 'total_seasons': 146, 'total_competitions': 2}
+2025-05-12 21:50:19,673 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Duels, Shots, Goals, Yellow card, Dribbles successful, Long passes accurate, Shots On Target, Losses, Aerial duels, Assists, Crosses accurate, Crosses, Total actions, Passes accurate, Dribbles, Losses own half, Recoveries, xG, Passes, Duels won, Total actions successful, Aerial duels won, Long passes, Interceptions, Recoveries opp. half, Red card, Minutes played
+2025-05-12 21:50:35,033 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 21:50:35,036 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 21:50:35,036 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 21:50:35,037 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 21:50:35,039 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 21:50:35,040 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 21:50:35,043 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 21:50:35,043 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 21:50:35,048 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 21:50:35,049 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 21:50:35,052 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 21:50:35,053 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 21:50:35,056 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 21:50:35,059 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: All
+2025-05-12 21:50:35,071 - player_comparison_tool - INFO - Selected competitions for Ribamar: All
+2025-05-12 21:50:35,078 - player_comparison_tool - INFO - Selected competitions for Uilliam: All
+2025-05-12 21:50:35,085 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 21:50:35,096 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Zhako', 'age': 29, 'total_matches': 162, 'total_minutes': 11288, 'total_goals': 34, 'total_seasons': 162, 'total_competitions': 2}
+2025-05-12 21:50:35,120 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Dhing A Thanh Hoa', 'age': 27, 'total_matches': 263, 'total_minutes': 15492, 'total_goals': 45, 'total_seasons': 263, 'total_competitions': 6}
+2025-05-12 21:50:35,129 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Al-Fahaleel SC', 'age': 30, 'total_matches': 146, 'total_minutes': 9418, 'total_goals': 30, 'total_seasons': 146, 'total_competitions': 2}
+2025-05-12 21:50:35,150 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Duels, Shots, Goals, Yellow card, Dribbles successful, Long passes accurate, Shots On Target, Losses, Aerial duels, Assists, Crosses accurate, Crosses, Total actions, Passes accurate, Dribbles, Losses own half, Recoveries, xG, Passes, Duels won, Total actions successful, Aerial duels won, Long passes, Interceptions, Recoveries opp. half, Red card, Minutes played
+2025-05-12 21:50:46,542 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 21:50:46,544 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 21:50:46,544 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 21:50:46,545 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 21:50:46,547 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 21:50:46,548 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 21:50:46,551 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 21:50:46,552 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 21:50:46,555 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 21:50:46,555 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 21:50:46,558 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 21:50:46,560 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 21:50:46,563 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 21:50:46,566 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: All
+2025-05-12 21:50:46,577 - player_comparison_tool - INFO - Selected competitions for Ribamar: All
+2025-05-12 21:50:46,586 - player_comparison_tool - INFO - Selected competitions for Uilliam: All
+2025-05-12 21:50:46,592 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 21:50:46,601 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Zhako', 'age': 29, 'total_matches': 162, 'total_minutes': 11288, 'total_goals': 34, 'total_seasons': 162, 'total_competitions': 2}
+2025-05-12 21:50:46,615 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Dhing A Thanh Hoa', 'age': 27, 'total_matches': 263, 'total_minutes': 15492, 'total_goals': 45, 'total_seasons': 263, 'total_competitions': 6}
+2025-05-12 21:50:46,628 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Al-Fahaleel SC', 'age': 30, 'total_matches': 146, 'total_minutes': 9418, 'total_goals': 30, 'total_seasons': 146, 'total_competitions': 2}
+2025-05-12 21:50:46,646 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Duels, Shots, Goals, Yellow card, Dribbles successful, Long passes accurate, Shots On Target, Losses, Aerial duels, Assists, Crosses accurate, Crosses, Total actions, Passes accurate, Dribbles, Losses own half, Recoveries, xG, Passes, Duels won, Total actions successful, Aerial duels won, Long passes, Interceptions, Recoveries opp. half, Red card, Minutes played
+2025-05-12 21:51:00,743 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 21:51:00,745 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 21:51:00,746 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 21:51:00,747 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 21:51:00,750 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 21:51:00,751 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 21:51:00,753 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 21:51:00,754 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 21:51:00,759 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 21:51:00,760 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 21:51:00,762 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 21:51:00,766 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 21:51:00,768 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 21:51:00,772 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: All
+2025-05-12 21:51:00,786 - player_comparison_tool - INFO - Selected competitions for Ribamar: All
+2025-05-12 21:51:00,796 - player_comparison_tool - INFO - Selected competitions for Uilliam: All
+2025-05-12 21:51:00,802 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 21:51:00,814 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Zhako', 'age': 29, 'total_matches': 162, 'total_minutes': 11288, 'total_goals': 34, 'total_seasons': 162, 'total_competitions': 2}
+2025-05-12 21:51:00,833 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Dhing A Thanh Hoa', 'age': 27, 'total_matches': 263, 'total_minutes': 15492, 'total_goals': 45, 'total_seasons': 263, 'total_competitions': 6}
+2025-05-12 21:51:00,845 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Al-Fahaleel SC', 'age': 30, 'total_matches': 146, 'total_minutes': 9418, 'total_goals': 30, 'total_seasons': 146, 'total_competitions': 2}
+2025-05-12 21:51:00,867 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Duels, Shots, Goals, Yellow card, Dribbles successful, Long passes accurate, Shots On Target, Losses, Aerial duels, Assists, Crosses accurate, Crosses, Total actions, Passes accurate, Dribbles, Losses own half, Recoveries, xG, Passes, Duels won, Total actions successful, Aerial duels won, Long passes, Interceptions, Recoveries opp. half, Red card, Minutes played
+2025-05-12 21:56:42,461 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 21:56:42,464 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 21:56:42,465 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 21:56:42,466 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 21:56:42,468 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 21:56:42,469 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 21:56:42,472 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 21:56:42,473 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 21:56:42,476 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 21:56:42,476 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 21:56:42,481 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 21:56:42,482 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 21:56:42,484 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 21:56:42,487 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: All
+2025-05-12 21:56:42,493 - player_comparison_tool - INFO - Selected competitions for Ribamar: All
+2025-05-12 21:56:42,499 - player_comparison_tool - INFO - Selected competitions for Uilliam: All
+2025-05-12 21:56:42,506 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 21:56:42,517 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Zhako', 'age': 29, 'total_matches': 162, 'total_minutes': 11288, 'total_goals': 34, 'total_seasons': 162, 'total_competitions': 2}
+2025-05-12 21:56:42,536 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Dhing A Thanh Hoa', 'age': 27, 'total_matches': 263, 'total_minutes': 15492, 'total_goals': 45, 'total_seasons': 263, 'total_competitions': 6}
+2025-05-12 21:56:42,549 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Al-Fahaleel SC', 'age': 30, 'total_matches': 146, 'total_minutes': 9418, 'total_goals': 30, 'total_seasons': 146, 'total_competitions': 2}
+2025-05-12 21:56:42,574 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Duels, Shots, Goals, Yellow card, Dribbles successful, Long passes accurate, Shots On Target, Losses, Aerial duels, Assists, Crosses accurate, Crosses, Total actions, Passes accurate, Dribbles, Losses own half, Recoveries, xG, Passes, Duels won, Total actions successful, Aerial duels won, Long passes, Interceptions, Recoveries opp. half, Red card, Minutes played
+2025-05-12 21:57:08,177 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 21:57:08,179 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 21:57:08,182 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 21:57:08,183 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 21:57:08,185 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 21:57:08,187 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 21:57:08,191 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 21:57:08,191 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 21:57:08,195 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 21:57:08,196 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 21:57:08,201 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 21:57:08,204 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 21:57:08,207 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 21:57:08,213 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: All
+2025-05-12 21:57:08,223 - player_comparison_tool - INFO - Selected competitions for Ribamar: All
+2025-05-12 21:57:08,230 - player_comparison_tool - INFO - Selected competitions for Uilliam: All
+2025-05-12 21:57:08,235 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 21:57:08,247 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Zhako', 'age': 29, 'total_matches': 162, 'total_minutes': 11288, 'total_goals': 34, 'total_seasons': 162, 'total_competitions': 2}
+2025-05-12 21:57:08,261 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Dhing A Thanh Hoa', 'age': 27, 'total_matches': 263, 'total_minutes': 15492, 'total_goals': 45, 'total_seasons': 263, 'total_competitions': 6}
+2025-05-12 21:57:08,270 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Al-Fahaleel SC', 'age': 30, 'total_matches': 146, 'total_minutes': 9418, 'total_goals': 30, 'total_seasons': 146, 'total_competitions': 2}
+2025-05-12 21:57:08,294 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Duels, Shots, Goals, Yellow card, Dribbles successful, Long passes accurate, Shots On Target, Losses, Aerial duels, Assists, Crosses accurate, Crosses, Total actions, Passes accurate, Dribbles, Losses own half, Recoveries, xG, Passes, Duels won, Total actions successful, Aerial duels won, Long passes, Interceptions, Recoveries opp. half, Red card, Minutes played
+2025-05-12 21:57:15,034 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 21:57:15,049 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 21:57:15,050 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 21:57:15,052 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 21:57:15,055 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 21:57:15,056 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 21:57:15,068 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 21:57:15,072 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 21:57:15,085 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 21:57:15,086 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 21:57:15,089 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 21:57:15,090 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 21:57:15,093 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 21:57:15,095 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: All
+2025-05-12 21:57:15,102 - player_comparison_tool - INFO - Selected competitions for Ribamar: All
+2025-05-12 21:57:15,108 - player_comparison_tool - INFO - Selected competitions for Uilliam: All
+2025-05-12 21:57:15,115 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 21:57:15,125 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Zhako', 'age': 29, 'total_matches': 162, 'total_minutes': 11288, 'total_goals': 34, 'total_seasons': 162, 'total_competitions': 2}
+2025-05-12 21:57:15,143 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Dhing A Thanh Hoa', 'age': 27, 'total_matches': 263, 'total_minutes': 15492, 'total_goals': 45, 'total_seasons': 263, 'total_competitions': 6}
+2025-05-12 21:57:15,154 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Al-Fahaleel SC', 'age': 30, 'total_matches': 146, 'total_minutes': 9418, 'total_goals': 30, 'total_seasons': 146, 'total_competitions': 2}
+2025-05-12 21:57:15,185 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Duels, Shots, Goals, Yellow card, Dribbles successful, Long passes accurate, Shots On Target, Losses, Aerial duels, Assists, Crosses accurate, Crosses, Total actions, Passes accurate, Dribbles, Losses own half, Recoveries, xG, Passes, Duels won, Total actions successful, Aerial duels won, Long passes, Interceptions, Recoveries opp. half, Red card, Minutes played
+2025-05-12 21:57:15,542 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 21:57:15,545 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 21:57:15,546 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 21:57:15,547 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 21:57:15,550 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 21:57:15,550 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 21:57:15,559 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 21:57:15,560 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 21:57:15,569 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 21:57:15,569 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 21:57:15,574 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 21:57:15,578 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 21:57:15,580 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 21:57:15,611 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: All
+2025-05-12 21:57:15,624 - player_comparison_tool - INFO - Selected competitions for Ribamar: All
+2025-05-12 21:57:15,635 - player_comparison_tool - INFO - Selected competitions for Uilliam: All
+2025-05-12 21:57:15,643 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 21:57:15,654 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Zhako', 'age': 29, 'total_matches': 162, 'total_minutes': 11288, 'total_goals': 34, 'total_seasons': 162, 'total_competitions': 2}
+2025-05-12 21:57:15,669 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Dhing A Thanh Hoa', 'age': 27, 'total_matches': 263, 'total_minutes': 15492, 'total_goals': 45, 'total_seasons': 263, 'total_competitions': 6}
+2025-05-12 21:57:15,680 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Al-Fahaleel SC', 'age': 30, 'total_matches': 146, 'total_minutes': 9418, 'total_goals': 30, 'total_seasons': 146, 'total_competitions': 2}
+2025-05-12 21:57:15,718 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Duels, Shots, Goals, Yellow card, Dribbles successful, Long passes accurate, Shots On Target, Losses, Aerial duels, Assists, Crosses accurate, Crosses, Total actions, Passes accurate, Dribbles, Losses own half, Recoveries, xG, Passes, Duels won, Total actions successful, Aerial duels won, Long passes, Interceptions, Recoveries opp. half, Red card, Minutes played
+2025-05-12 21:57:15,957 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 21:57:15,959 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 21:57:15,960 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 21:57:15,961 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 21:57:15,967 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 21:57:15,968 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 21:57:15,974 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 21:57:15,975 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 21:57:15,982 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 21:57:15,983 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 21:57:15,987 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 21:57:15,990 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 21:57:15,993 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 21:57:15,997 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: All
+2025-05-12 21:57:16,008 - player_comparison_tool - INFO - Selected competitions for Ribamar: All
+2025-05-12 21:57:16,017 - player_comparison_tool - INFO - Selected competitions for Uilliam: All
+2025-05-12 21:57:16,025 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 21:57:16,037 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Zhako', 'age': 29, 'total_matches': 162, 'total_minutes': 11288, 'total_goals': 34, 'total_seasons': 162, 'total_competitions': 2}
+2025-05-12 21:57:16,054 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Dhing A Thanh Hoa', 'age': 27, 'total_matches': 263, 'total_minutes': 15492, 'total_goals': 45, 'total_seasons': 263, 'total_competitions': 6}
+2025-05-12 21:57:16,065 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Al-Fahaleel SC', 'age': 30, 'total_matches': 146, 'total_minutes': 9418, 'total_goals': 30, 'total_seasons': 146, 'total_competitions': 2}
+2025-05-12 21:57:16,092 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Duels, Shots, Goals, Yellow card, Dribbles successful, Long passes accurate, Shots On Target, Losses, Aerial duels, Assists, Crosses accurate, Crosses, Total actions, Passes accurate, Dribbles, Losses own half, Recoveries, xG, Passes, Duels won, Total actions successful, Aerial duels won, Long passes, Interceptions, Recoveries opp. half, Red card, Minutes played
+2025-05-12 21:57:35,194 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 21:57:35,196 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 21:57:35,197 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 21:57:35,199 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 21:57:35,200 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 21:57:35,201 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 21:57:35,205 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 21:57:35,205 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 21:57:35,208 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 21:57:35,209 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 21:57:35,212 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 21:57:35,213 - player_comparison_tool - INFO - Selected visualization type: Radar Chart
+2025-05-12 21:57:35,214 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 21:57:35,217 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: All
+2025-05-12 21:57:35,222 - player_comparison_tool - INFO - Selected competitions for Ribamar: All
+2025-05-12 21:57:35,229 - player_comparison_tool - INFO - Selected competitions for Uilliam: All
+2025-05-12 21:57:35,238 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 21:57:35,248 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Zhako', 'age': 29, 'total_matches': 162, 'total_minutes': 11288, 'total_goals': 34, 'total_seasons': 162, 'total_competitions': 2}
+2025-05-12 21:57:35,263 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Dhing A Thanh Hoa', 'age': 27, 'total_matches': 263, 'total_minutes': 15492, 'total_goals': 45, 'total_seasons': 263, 'total_competitions': 6}
+2025-05-12 21:57:35,271 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Al-Fahaleel SC', 'age': 30, 'total_matches': 146, 'total_minutes': 9418, 'total_goals': 30, 'total_seasons': 146, 'total_competitions': 2}
+2025-05-12 21:57:35,287 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Duels, Shots, Goals, Yellow card, Dribbles successful, Long passes accurate, Shots On Target, Losses, Aerial duels, Assists, Crosses accurate, Crosses, Total actions, Passes accurate, Dribbles, Losses own half, Recoveries, xG, Passes, Duels won, Total actions successful, Aerial duels won, Long passes, Interceptions, Recoveries opp. half, Red card, Minutes played
+2025-05-12 21:57:35,325 - player_comparison_tool - INFO - Generating radar chart for players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 21:57:35,326 - player_comparison_tool - INFO - Found 27 common stats across all players
+2025-05-12 21:57:35,326 - player_comparison_tool - INFO - Found 10 key stats in common stats
+2025-05-12 21:57:35,326 - player_comparison_tool - INFO - Creating radar chart with 10 axes
+2025-05-12 21:57:35,344 - player_comparison_tool - INFO - Plotting data for player: Gustavo Henrique
+2025-05-12 21:57:35,346 - player_comparison_tool - INFO - Plotting data for player: Ribamar
+2025-05-12 21:57:35,348 - player_comparison_tool - INFO - Plotting data for player: Uilliam
+2025-05-12 21:57:35,442 - player_comparison_tool - INFO - Radar chart generation completed successfully
+2025-05-12 21:57:36,938 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 21:57:36,942 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 21:57:36,943 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 21:57:36,945 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 21:57:36,952 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 21:57:36,952 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 21:57:36,957 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 21:57:36,958 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 21:57:36,967 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 21:57:36,967 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 21:57:36,970 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 21:57:36,974 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 21:57:36,976 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 21:57:36,981 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: All
+2025-05-12 21:57:36,994 - player_comparison_tool - INFO - Selected competitions for Ribamar: All
+2025-05-12 21:57:37,005 - player_comparison_tool - INFO - Selected competitions for Uilliam: All
+2025-05-12 21:57:37,016 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 21:57:37,030 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Zhako', 'age': 29, 'total_matches': 162, 'total_minutes': 11288, 'total_goals': 34, 'total_seasons': 162, 'total_competitions': 2}
+2025-05-12 21:57:37,050 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Dhing A Thanh Hoa', 'age': 27, 'total_matches': 263, 'total_minutes': 15492, 'total_goals': 45, 'total_seasons': 263, 'total_competitions': 6}
+2025-05-12 21:57:37,064 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Al-Fahaleel SC', 'age': 30, 'total_matches': 146, 'total_minutes': 9418, 'total_goals': 30, 'total_seasons': 146, 'total_competitions': 2}
+2025-05-12 21:57:37,102 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Duels, Shots, Goals, Yellow card, Dribbles successful, Long passes accurate, Shots On Target, Losses, Aerial duels, Assists, Crosses accurate, Crosses, Total actions, Passes accurate, Dribbles, Losses own half, Recoveries, xG, Passes, Duels won, Total actions successful, Aerial duels won, Long passes, Interceptions, Recoveries opp. half, Red card, Minutes played
+2025-05-12 21:58:40,683 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 21:58:40,685 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 21:58:40,686 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 21:58:40,688 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 21:58:40,691 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 21:58:40,692 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 21:58:40,697 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 21:58:40,697 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 21:58:40,701 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 21:58:40,702 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 21:58:40,704 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 21:58:40,708 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 21:58:40,710 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 21:58:40,711 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: All
+2025-05-12 21:58:40,720 - player_comparison_tool - INFO - Selected competitions for Ribamar: All
+2025-05-12 21:58:40,727 - player_comparison_tool - INFO - Selected competitions for Uilliam: All
+2025-05-12 21:58:40,734 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 21:58:40,743 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Zhako', 'age': 29, 'total_matches': 162, 'total_minutes': 11288, 'total_goals': 34, 'total_seasons': 162, 'total_competitions': 2}
+2025-05-12 21:58:40,755 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Dhing A Thanh Hoa', 'age': 27, 'total_matches': 263, 'total_minutes': 15492, 'total_goals': 45, 'total_seasons': 263, 'total_competitions': 6}
+2025-05-12 21:58:40,764 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Al-Fahaleel SC', 'age': 30, 'total_matches': 146, 'total_minutes': 9418, 'total_goals': 30, 'total_seasons': 146, 'total_competitions': 2}
+2025-05-12 21:58:40,789 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Duels, Shots, Goals, Yellow card, Dribbles successful, Long passes accurate, Shots On Target, Losses, Aerial duels, Assists, Crosses accurate, Crosses, Total actions, Passes accurate, Dribbles, Losses own half, Recoveries, xG, Passes, Duels won, Total actions successful, Aerial duels won, Long passes, Interceptions, Recoveries opp. half, Red card, Minutes played
+2025-05-12 21:59:14,393 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 21:59:14,395 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 21:59:14,395 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 21:59:14,398 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 21:59:14,401 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 21:59:14,403 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 21:59:14,406 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 21:59:14,407 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 21:59:14,411 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 21:59:14,411 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 21:59:14,415 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 21:59:14,418 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 21:59:14,419 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 21:59:14,422 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: All
+2025-05-12 21:59:14,433 - player_comparison_tool - INFO - Selected competitions for Ribamar: All
+2025-05-12 21:59:14,439 - player_comparison_tool - INFO - Selected competitions for Uilliam: All
+2025-05-12 21:59:14,445 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 21:59:14,458 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Zhako', 'age': 29, 'total_matches': 162, 'total_minutes': 11288, 'total_goals': 34, 'total_seasons': 162, 'total_competitions': 2}
+2025-05-12 21:59:14,474 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Dhing A Thanh Hoa', 'age': 27, 'total_matches': 263, 'total_minutes': 15492, 'total_goals': 45, 'total_seasons': 263, 'total_competitions': 6}
+2025-05-12 21:59:14,484 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Al-Fahaleel SC', 'age': 30, 'total_matches': 146, 'total_minutes': 9418, 'total_goals': 30, 'total_seasons': 146, 'total_competitions': 2}
+2025-05-12 21:59:14,520 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Duels, Shots, Goals, Yellow card, Dribbles successful, Long passes accurate, Shots On Target, Losses, Aerial duels, Assists, Crosses accurate, Crosses, Total actions, Passes accurate, Dribbles, Losses own half, Recoveries, xG, Passes, Duels won, Total actions successful, Aerial duels won, Long passes, Interceptions, Recoveries opp. half, Red card, Minutes played
+2025-05-12 21:59:49,439 - player_comparison_tool - INFO - Starting application - found 3 CSV files
+2025-05-12 21:59:49,440 - player_comparison_tool - INFO - Found player data file for Gustavo Henrique: data/wyscout\Player stats Gustavo Henrique.csv
+2025-05-12 21:59:49,441 - player_comparison_tool - INFO - Found player data file for Ribamar: data/wyscout\Player stats Ribamar.csv
+2025-05-12 21:59:49,442 - player_comparison_tool - INFO - Found player data file for Uilliam: data/wyscout\Player stats Uilliam.csv
+2025-05-12 21:59:49,444 - player_comparison_tool - INFO - User selected players: Gustavo Henrique, Ribamar, Uilliam
+2025-05-12 21:59:49,444 - player_comparison_tool - INFO - Loading data for player: Gustavo Henrique
+2025-05-12 21:59:49,448 - player_comparison_tool - INFO - Successfully loaded raw data for Gustavo Henrique: 162 rows, 31 columns
+2025-05-12 21:59:49,449 - player_comparison_tool - INFO - Loading data for player: Ribamar
+2025-05-12 21:59:49,452 - player_comparison_tool - INFO - Successfully loaded raw data for Ribamar: 263 rows, 31 columns
+2025-05-12 21:59:49,453 - player_comparison_tool - INFO - Loading data for player: Uilliam
+2025-05-12 21:59:49,457 - player_comparison_tool - INFO - Successfully loaded raw data for Uilliam: 146 rows, 31 columns
+2025-05-12 21:59:49,459 - player_comparison_tool - INFO - Selected visualization type: Bar Chart
+2025-05-12 21:59:49,460 - player_comparison_tool - INFO - Selected categories: Defensive, Progressive, Offensive
+2025-05-12 21:59:49,462 - player_comparison_tool - INFO - Selected competitions for Gustavo Henrique: All
+2025-05-12 21:59:49,469 - player_comparison_tool - INFO - Selected competitions for Ribamar: All
+2025-05-12 21:59:49,476 - player_comparison_tool - INFO - Selected competitions for Uilliam: All
+2025-05-12 21:59:49,483 - player_comparison_tool - INFO - Extracting player info
+2025-05-12 21:59:49,495 - player_comparison_tool - INFO - Player Gustavo Henrique info: {'position': 'CF', 'club': 'Zhako', 'age': 29, 'total_matches': 162, 'total_minutes': 11288, 'total_goals': 34, 'total_seasons': 162, 'total_competitions': 2}
+2025-05-12 21:59:49,510 - player_comparison_tool - INFO - Player Ribamar info: {'position': 'CF', 'club': 'Dhing A Thanh Hoa', 'age': 27, 'total_matches': 263, 'total_minutes': 15492, 'total_goals': 45, 'total_seasons': 263, 'total_competitions': 6}
+2025-05-12 21:59:49,518 - player_comparison_tool - INFO - Player Uilliam info: {'position': 'CF', 'club': 'Al-Fahaleel SC', 'age': 30, 'total_matches': 146, 'total_minutes': 9418, 'total_goals': 30, 'total_seasons': 146, 'total_competitions': 2}
+2025-05-12 21:59:49,545 - player_comparison_tool - INFO - Found 27 numeric stats for analysis: Duels, Shots, Goals, Yellow card, Dribbles successful, Long passes accurate, Shots On Target, Losses, Aerial duels, Assists, Crosses accurate, Crosses, Total actions, Passes accurate, Dribbles, Losses own half, Recoveries, xG, Passes, Duels won, Total actions successful, Aerial duels won, Long passes, Interceptions, Recoveries opp. half, Red card, Minutes played
