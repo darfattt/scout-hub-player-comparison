@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import plotly.express as px
+import plotly.graph_objects as go
 import glob
 import os
 import re
@@ -765,11 +767,207 @@ def main():
         y_stat
     )
     
+    # Create function to generate an interactive scatter plot with hover
+    def create_interactive_scatter(player_names, player_percentiles, player_actual_values, player_colors, x_stat, y_stat):
+        # Extract data for the scatter plot
+        data = []
+        for i, (name, percentile_df, actual_df) in enumerate(zip(player_names, player_percentiles, player_actual_values)):
+            if x_stat in percentile_df.columns and y_stat in percentile_df.columns:
+                x_val = float(percentile_df[x_stat].iloc[0]) if not pd.isna(percentile_df[x_stat].iloc[0]) else 0
+                y_val = float(percentile_df[y_stat].iloc[0]) if not pd.isna(percentile_df[y_stat].iloc[0]) else 0
+                
+                # Ensure values stay within bounds
+                x_val = max(5, min(95, x_val))
+                y_val = max(5, min(95, y_val))
+                
+                # Create hover text with details
+                hover_text = f"<b>{name}</b><br>"
+                
+                # Add stat values and percentiles
+                if x_stat in actual_df.columns:
+                    x_actual = float(actual_df[x_stat].iloc[0]) if not pd.isna(actual_df[x_stat].iloc[0]) else 0
+                    hover_text += f"{x_stat}: {x_actual:.2f} ({x_val:.0f}%)<br>"
+                
+                if y_stat in actual_df.columns:
+                    y_actual = float(actual_df[y_stat].iloc[0]) if not pd.isna(actual_df[y_stat].iloc[0]) else 0
+                    hover_text += f"{y_stat}: {y_actual:.2f} ({y_val:.0f}%)<br>"
+                
+                # Add additional key stats
+                additional_stats = ["Goals", "Assists", "Shots", "Passes accurate", "Duels won"]
+                for stat in additional_stats:
+                    if stat != x_stat and stat != y_stat and stat in actual_df.columns:
+                        stat_val = float(actual_df[stat].iloc[0]) if not pd.isna(actual_df[stat].iloc[0]) else 0
+                        hover_text += f"{stat}: {stat_val:.2f}<br>"
+                
+                data.append({
+                    'name': name,
+                    'x': x_val,
+                    'y': y_val,
+                    'color': player_colors[i % len(player_colors)],
+                    'text': hover_text
+                })
+        
+        if not data:
+            return None
+            
+        # Create plotly figure with dark theme
+        fig = go.Figure()
+        
+        # Add quadrant lines
+        fig.add_shape(
+            type="line", x0=0, y0=50, x1=100, y1=50,
+            line=dict(color="#666666", width=1)
+        )
+        fig.add_shape(
+            type="line", x0=50, y0=0, x1=50, y1=100,
+            line=dict(color="#666666", width=1)
+        )
+        
+        # Add quadrant descriptions
+        fig.add_annotation(x=25, y=75, text="Deep-Lying Forward: Creates chances & links play", showarrow=False, 
+                          font=dict(color="#AAAAAA", size=9), xanchor="center", yanchor="middle")
+        fig.add_annotation(x=75, y=75, text="Advanced Forward: All-round attacker", showarrow=False, 
+                          font=dict(color="#AAAAAA", size=9), xanchor="center", yanchor="middle")
+        fig.add_annotation(x=25, y=25, text="Poacher: Focused on scoring", showarrow=False, 
+                          font=dict(color="#AAAAAA", size=9), xanchor="center", yanchor="middle")
+        fig.add_annotation(x=75, y=25, text="Pressing Forward: High work rate & pressing", showarrow=False, 
+                          font=dict(color="#AAAAAA", size=9), xanchor="center", yanchor="middle")
+        
+        # Add scatter points for each player
+        for player in data:
+            fig.add_trace(
+                go.Scatter(
+                    x=[player['x']],
+                    y=[player['y']],
+                    mode="markers+text",
+                    marker=dict(
+                        color=player['color'],
+                        size=12,
+                        opacity=0.8
+                    ),
+                    text=player['name'],
+                    textposition="bottom center",
+                    textfont=dict(
+                        color="white",
+                        size=10
+                    ),
+                    hoverinfo="text",
+                    hovertext=player['text'],
+                    name=player['name']
+                )
+            )
+        
+        # Configure the layout to match FM24 style
+        fig.update_layout(
+            plot_bgcolor="#333333",
+            paper_bgcolor="#333333",
+            width=800,  # Set fixed width
+            height=600,  # Set fixed height for better aspect ratio
+            xaxis=dict(
+                title=dict(text=x_stat.upper(), font=dict(color="#CCCCCC", size=11)),
+                range=[0, 100],
+                gridcolor="#444444",
+                zerolinecolor="#444444",
+                tickfont=dict(color="#CCCCCC"),
+                showline=True,
+                linecolor="#666666",
+                tickmode='array',
+                tickvals=[0, 25, 50, 75, 100],
+                ticktext=['0%', '25%', '50%', '75%', '100%']
+            ),
+            yaxis=dict(
+                title=dict(text=y_stat.upper(), font=dict(color="#CCCCCC", size=11)),
+                range=[0, 100],
+                gridcolor="#444444",
+                zerolinecolor="#444444",
+                tickfont=dict(color="#CCCCCC"),
+                showline=True,
+                linecolor="#666666",
+                tickmode='array',
+                tickvals=[0, 25, 50, 75, 100],
+                ticktext=['0%', '25%', '50%', '75%', '100%']
+            ),
+            showlegend=False,
+            margin=dict(l=60, r=60, t=60, b=60),  # Increased margins for better spacing
+            hoverlabel=dict(
+                bgcolor="#444444",
+                font_size=10,
+                font_color="white"
+            ),
+            # Add title and subtitle
+            title=dict(
+                text="Forward Player Type Classification",
+                font=dict(color="#FFFFFF", size=16),
+                y=0.95
+            ),
+            annotations=[
+                # Add quadrant labels with improved positioning
+                dict(
+                    x=25, y=75,
+                    text="Deep-Lying Forward:<br>Creates chances & links play",
+                    showarrow=False,
+                    font=dict(color="#AAAAAA", size=10),
+                    xanchor="center",
+                    yanchor="middle",
+                    align="center"
+                ),
+                dict(
+                    x=75, y=75,
+                    text="Advanced Forward:<br>All-round attacker",
+                    showarrow=False,
+                    font=dict(color="#AAAAAA", size=10),
+                    xanchor="center",
+                    yanchor="middle",
+                    align="center"
+                ),
+                dict(
+                    x=25, y=25,
+                    text="Poacher:<br>Focused on scoring",
+                    showarrow=False,
+                    font=dict(color="#AAAAAA", size=10),
+                    xanchor="center",
+                    yanchor="middle",
+                    align="center"
+                ),
+                dict(
+                    x=75, y=25,
+                    text="Pressing Forward:<br>High work rate & pressing",
+                    showarrow=False,
+                    font=dict(color="#AAAAAA", size=10),
+                    xanchor="center",
+                    yanchor="middle",
+                    align="center"
+                )
+            ]
+        )
+        
+        return fig
+    
     # Wrap the plot in a styled container
     st.markdown('<div class="scatter-plot-container">', unsafe_allow_html=True)
     
+    # Add a toggle for interactive mode
+    interactive_mode = st.checkbox("Enable Interactive Mode with Hover Details", value=True)
+    
     if scatter_fig:
-        st.pyplot(scatter_fig)
+        if interactive_mode:
+            # Generate and display interactive plotly version
+            plotly_fig = create_interactive_scatter(
+                selected_players, 
+                player_percentiles, 
+                player_actual_values, 
+                player_colors,
+                x_stat,
+                y_stat
+            )
+            
+            if plotly_fig:
+                st.plotly_chart(plotly_fig, use_container_width=True)
+            else:
+                st.warning("Could not generate interactive scatter plot. Insufficient data.")
+        else:
+            # Display the static matplotlib version
+            st.pyplot(scatter_fig)
         
         # Add download button for this specific chart
         st.markdown('<div class="scatter-download-btn">', unsafe_allow_html=True)

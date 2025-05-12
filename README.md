@@ -82,7 +82,7 @@ streamlit run app.py
 
 - **Bar Charts**: Shows percentile ranks for each player with actual values
 - **Radar Chart**: Compares all players across key metrics
-- **Forward Type Classification**: Maps players into one of four types:
+- **Forward Type Classification**: Maps forwards into four playing styles with FM24-style visualization:
   - Deep-Lying Forward: Creates chances & links play
   - Advanced Forward: All-round attacker  
   - Poacher: Focused on scoring

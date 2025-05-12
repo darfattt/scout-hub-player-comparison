@@ -380,7 +380,7 @@ def generate_unified_player_chart(player_name, percentile_df, player_color, play
         ncol=5, 
         frameon=False, 
         fontsize=7,
-        title="Performance Level", 
+        title="", 
         title_fontsize=8
     )
     
@@ -606,201 +606,198 @@ def generate_forward_type_scatter(player_names, player_percentiles, player_actua
             logger.warning("No player data provided for scatter plot")
             return None
         
-        # Create figure with improved aspect ratio for better visualization
-        fig, ax = plt.subplots(figsize=(8, 6))
-        fig.patch.set_facecolor('#F9F7F2')  # Light cream background
-        ax.set_facecolor('#F9F7F2')
+        # Create figure with better aspect ratio for visualization
+        fig, ax = plt.subplots(figsize=(10, 8))
+        
+        # Set dark background like FM24
+        fig.patch.set_facecolor('#333333')
+        ax.set_facecolor('#333333')
         
         # Extract the x and y values for each player
         x_values = []
         y_values = []
         labels = []
         colors = []
+        hover_texts = []
         
-        for i, (name, percentile_df) in enumerate(zip(player_names, player_percentiles)):
+        # Create hover texts for each player
+        for i, (name, percentile_df, actual_df) in enumerate(zip(player_names, player_percentiles, player_actual_values)):
             if x_stat in percentile_df.columns and y_stat in percentile_df.columns:
                 x_val = float(percentile_df[x_stat].iloc[0]) if not pd.isna(percentile_df[x_stat].iloc[0]) else 0
                 y_val = float(percentile_df[y_stat].iloc[0]) if not pd.isna(percentile_df[y_stat].iloc[0]) else 0
+                
+                # Ensure values stay within plot bounds (with a small buffer)
+                x_val = max(5, min(95, x_val))
+                y_val = max(5, min(95, y_val))
                 
                 x_values.append(x_val)
                 y_values.append(y_val)
                 labels.append(name)
                 colors.append(player_colors[i % len(player_colors)])
+                
+                # Create hover text with player details
+                hover_text = f"{name}\n"
+                
+                # Add x and y stat values
+                if x_stat in actual_df.columns:
+                    x_actual = float(actual_df[x_stat].iloc[0]) if not pd.isna(actual_df[x_stat].iloc[0]) else 0
+                    hover_text += f"{x_stat}: {x_actual:.2f} ({x_val:.0f}%)\n"
+                
+                if y_stat in actual_df.columns:
+                    y_actual = float(actual_df[y_stat].iloc[0]) if not pd.isna(actual_df[y_stat].iloc[0]) else 0
+                    hover_text += f"{y_stat}: {y_actual:.2f} ({y_val:.0f}%)\n"
+                
+                # Add a few more key stats if available
+                additional_stats = ["Goals", "Assists", "Shots", "Passes accurate", "Duels won"]
+                for stat in additional_stats:
+                    if stat != x_stat and stat != y_stat and stat in actual_df.columns:
+                        stat_val = float(actual_df[stat].iloc[0]) if not pd.isna(actual_df[stat].iloc[0]) else 0
+                        hover_text += f"{stat}: {stat_val:.2f}\n"
+                
+                hover_texts.append(hover_text)
         
-        # Create a more subtle quadrant background
-        # Use custom colors for each quadrant with lower alpha for better readability
-        ax.fill_between([0, 50], [50, 50], [100, 100], color='#9B59B6', alpha=0.08)  # Deep-Lying Forward (top-left)
-        ax.fill_between([50, 100], [50, 50], [100, 100], color='#3498DB', alpha=0.08)  # Advanced Forward (top-right)
-        ax.fill_between([0, 50], [0, 0], [50, 50], color='#E67E22', alpha=0.08)  # Poacher (bottom-left)
-        ax.fill_between([50, 100], [0, 0], [50, 50], color='#27AE60', alpha=0.08)  # Pressing Forward (bottom-right)
-        
-        # Draw cleaner quadrant lines
-        ax.axhline(y=50, color='#888888', linestyle='--', alpha=0.5, linewidth=1)
-        ax.axvline(x=50, color='#888888', linestyle='--', alpha=0.5, linewidth=1)
-        
-        # Set axis limits with minimal padding for better use of space
+        # Set limits with padding to ensure all points are within the plot area
         ax.set_xlim(0, 100)
         ax.set_ylim(0, 100)
         
-        # Add quadrant labels with improved styling
-        # Use slightly smaller font with subtle backgrounds
-        quadrant_style = dict(
+        # Add thin center lines for quadrant division
+        ax.axhline(y=50, color='#666666', linestyle='-', alpha=0.8, linewidth=0.8)
+        ax.axvline(x=50, color='#666666', linestyle='-', alpha=0.8, linewidth=0.8)
+        
+        # Add very subtle grid lines
+        ax.grid(True, linestyle='-', alpha=0.1, color='#999999', linewidth=0.5)
+        
+        # Add quadrant labels in corners with FM24-like style
+        label_style = dict(
             fontsize=9,
-            ha='center',
-            va='center',
-            bbox=dict(
-                facecolor='white',
-                alpha=0.7,
-                boxstyle='round,pad=0.3',
-                ec='#CCCCCC',
-                lw=0.5
-            )
+            ha='left',
+            va='top',
+            color='#999999',
+            fontweight='normal',
         )
         
-        ax.text(25, 75, "Deep-Lying Forward", **quadrant_style)
-        ax.text(75, 75, "Advanced Forward", **quadrant_style)
-        ax.text(25, 25, "Poacher", **quadrant_style)
-        ax.text(75, 25, "Pressing Forward", **quadrant_style)
+        # Add quadrant descriptions for forward types with minimalist style
+        # ax.text(5, 95, "Deep-Lying Forward", **label_style)
+        # ax.text(55, 95, "Advanced Forward", **label_style)
+        # ax.text(5, 5, "Poacher", **label_style)
+        # ax.text(55, 5, "Pressing Forward", **label_style)
         
-        # Plot the players with larger markers for better visibility
-        scatter = ax.scatter(
-            x_values, 
-            y_values, 
-            c=colors, 
-            s=150,  # Larger markers
-            alpha=0.85, 
-            edgecolors='white', 
-            linewidth=1.5,
-            zorder=10  # Ensure points are above other elements
-        )
+        # Add axis labels with clean styling
+        ax.set_xlabel(x_stat.upper(), fontsize=9, color='#CCCCCC', labelpad=10)
+        ax.set_ylabel(y_stat.upper(), fontsize=9, color='#CCCCCC', labelpad=10)
         
-        # Add player labels with optimized positioning
-        for i, name in enumerate(labels):
-            if i < len(x_values) and i < len(y_values):
-                x, y = x_values[i], y_values[i]
-                
-                # Determine optimal annotation position based on quadrant
-                if x <= 50 and y > 50:  # Deep-Lying Forward (top-left)
-                    xytext = (-10, 0)
-                    ha = 'right'
-                elif x > 50 and y > 50:  # Advanced Forward (top-right)
-                    xytext = (10, 0)
-                    ha = 'left'
-                elif x <= 50 and y <= 50:  # Poacher (bottom-left)
-                    xytext = (-10, 0)
-                    ha = 'right'
-                else:  # Pressing Forward (bottom-right)
-                    xytext = (10, 0)
-                    ha = 'left'
-                
-                ax.annotate(
-                    name, 
-                    (x, y), 
-                    xytext=xytext, 
-                    textcoords='offset points', 
-                    fontsize=10, 
-                    weight='bold',
-                    ha=ha, 
-                    va='center',
-                    bbox=dict(
-                        facecolor='white', 
-                        alpha=0.8, 
-                        boxstyle='round,pad=0.2', 
-                        ec='#DDDDDD'
-                    ),
-                    zorder=11  # Ensure labels are above points
-                )
+        # Clean up axis ticks - minimize them for minimalism
+        ax.tick_params(axis='both', which='major', labelsize=8, colors='#CCCCCC', length=2)
         
-        # Set axis labels with more descriptive text
-        ax.set_xlabel(f"{x_stat} (Percentile Rank)", fontsize=10, color='#333333')
-        ax.set_ylabel(f"{y_stat} (Percentile Rank)", fontsize=10, color='#333333')
-        
-        # Add concise title
-        ax.set_title(
-            f"Forward Type Classification: {x_stat} vs {y_stat}", 
-            fontsize=12, 
-            pad=10, 
-            color='#333333', 
-            fontweight='bold'
-        )
-        
-        # Add clean gridlines
-        ax.grid(True, linestyle='--', alpha=0.15, color='#888888')
-        
-        # Add percentile markers with cleaner styling
+        # Customize the tick values
         ax.set_xticks([0, 25, 50, 75, 100])
         ax.set_yticks([0, 25, 50, 75, 100])
-        ax.tick_params(labelsize=9, colors='#555555')
         
-        # Add a subtle description of each forward type
-        descriptions = {
-            "Deep-Lying Forward": "Creates chances & links play",
-            "Advanced Forward": "All-round attacker",
-            "Poacher": "Focused on scoring",
-            "Pressing Forward": "High work rate & pressing"
-        }
-        
-        # Add a text box with descriptions - more compact and clean
-        desc_text = "\n".join([f"{k}: {v}" for k, v in descriptions.items()])
-        props = dict(boxstyle='round', facecolor='white', alpha=0.7, ec='#DDDDDD')
-        ax.text(
-            0.98, 0.02, 
-            desc_text, 
-            transform=ax.transAxes, 
-            fontsize=8,
-            verticalalignment='bottom', 
-            horizontalalignment='right', 
-            bbox=props,
-            zorder=9
+        # Plot the scatter points
+        sc = ax.scatter(
+            x_values, 
+            y_values, 
+            c='#CCCCCC',  # Light grey dots
+            s=80,  # Marker size
+            alpha=0.5, 
+            edgecolors='none',
+            zorder=5,
+            picker=5  # Make the points pickable for hover interaction
         )
         
-        # Add actual stat values as a small table in the corner with improved formatting
-        if player_actual_values:
-            # Get actual values for the selected stats
-            actual_table = "Actual Values:\n"
-            for i, name in enumerate(labels):
-                if i < len(player_actual_values):
-                    x_actual = player_actual_values[i][x_stat].iloc[0] if x_stat in player_actual_values[i].columns else "N/A"
-                    y_actual = player_actual_values[i][y_stat].iloc[0] if y_stat in player_actual_values[i].columns else "N/A"
-                    
-                    # Format with proper rounding
-                    if isinstance(x_actual, (int, float)):
-                        x_actual = f"{x_actual:.2f}"
-                    if isinstance(y_actual, (int, float)):
-                        y_actual = f"{y_actual:.2f}"
-                        
-                    actual_table += f"{name}: {x_stat}={x_actual}, {y_stat}={y_actual}\n"
-            
-            # Add a cleaner table of actual values
-            ax.text(
-                0.02, 0.98, 
-                actual_table, 
-                transform=ax.transAxes, 
-                fontsize=7,
-                verticalalignment='top', 
-                horizontalalignment='left', 
-                bbox=dict(
-                    boxstyle='round', 
-                    facecolor='white', 
-                    alpha=0.8, 
-                    ec='#DDDDDD'
-                ),
-                zorder=9
-            )
+        # Store player info for use in hover event
+        player_info_for_hover = dict(zip(range(len(labels)), hover_texts))
         
-        # Remove unnecessary spines
+        # Add player labels with colored background
+        annotations = []
+        for i, (name, x, y) in enumerate(zip(labels, x_values, y_values)):
+            # Ensure label positions are adjusted to stay within plot
+            rect_props = dict(
+                boxstyle="round,pad=0.3", 
+                fc=colors[i],  # Use the player's color
+                ec="none",
+                alpha=0.8
+            )
+            
+            # Position the annotation to avoid going outside the plot
+            y_offset = -15
+            if y < 10:  # If close to bottom edge, move label above point
+                y_offset = 15
+                
+            anno = ax.annotate(
+                name, 
+                (x, y), 
+                xytext=(0, y_offset),  # Position label with adjusted offset
+                textcoords='offset points', 
+                fontsize=9, 
+                color='white',
+                weight='normal',
+                ha='center', 
+                va='center',
+                bbox=rect_props,
+                zorder=10
+            )
+            annotations.append(anno)
+        
+        # Add brief descriptions of each forward type - minimalist style
+        desc_style = dict(fontsize=8, color='#AAAAAA', ha='center', va='center')
+        
+        ax.text(25, 75, "Deep-Lying Forward:Creates chances & links play", **desc_style)
+        ax.text(75, 75, "Advanced Forward: All-round attacker", **desc_style)
+        ax.text(25, 25, "Poacher: Focused on scoring", **desc_style)
+        ax.text(75, 25, "Pressing Forward: High work rate & pressing", **desc_style)
+        
+        # Remove spines for minimalist look
         ax.spines['top'].set_visible(False)
         ax.spines['right'].set_visible(False)
+        ax.spines['bottom'].set_color('#666666')
+        ax.spines['left'].set_color('#666666')
         ax.spines['bottom'].set_linewidth(0.5)
         ax.spines['left'].set_linewidth(0.5)
-        ax.spines['bottom'].set_color('#555555')
-        ax.spines['left'].set_color('#555555')
+        
+        # Create tooltip annotation that will be used for hover text
+        tooltip = ax.annotate(
+            "", 
+            xy=(0, 0), 
+            xytext=(20, 20),
+            textcoords="offset points",
+            bbox=dict(boxstyle="round,pad=0.5", fc="#444444", alpha=0.9, ec="none"),
+            color="#FFFFFF",
+            fontsize=9,
+            ha="left",
+            va="bottom",
+            visible=False,
+            zorder=15
+        )
+        
+        # Define hover behavior
+        def hover(event):
+            vis = tooltip.get_visible()
+            if event.inaxes == ax:
+                cont, ind = sc.contains(event)
+                if cont:
+                    # Get the point index that was hovered over
+                    index = ind["ind"][0]
+                    # Get player info for the point
+                    hover_info = player_info_for_hover.get(index, "")
+                    # Update tooltip text and position
+                    tooltip.set_text(hover_info)
+                    tooltip.xy = (x_values[index], y_values[index])
+                    tooltip.set_visible(True)
+                    fig.canvas.draw_idle()
+                else:
+                    if vis:
+                        tooltip.set_visible(False)
+                        fig.canvas.draw_idle()
+        
+        # Connect the hover event to the figure
+        fig.canvas.mpl_connect("motion_notify_event", hover)
         
         plt.tight_layout()
         return fig
         
     except Exception as e:
-        logger.error(f"Error generating forward type scatter plot: {str(e)}", exc_info=True)
+        logger.error(f"Error generating scatter plot: {str(e)}", exc_info=True)
         # Create a figure with error message
         fig, ax = plt.subplots(figsize=(10, 6))
         ax.text(0.5, 0.5, f"Error generating scatter plot: {str(e)}", 
