@@ -2,6 +2,7 @@ import os
 import re
 import pandas as pd
 import logging
+import scipy.stats as stats
 
 logger = logging.getLogger("player_comparison_tool")
 
@@ -192,146 +193,153 @@ def ensure_numeric_columns(df, exclude_columns=None):
     return numeric_df
 
 # Function to calculate percentile ranks
-def calculate_percentile_ranks(player_dfs, numeric_stats):
+def calculate_percentile_ranks(dfs, numeric_stats):
     """
-    Calculate percentile ranks for each player's metrics
+    Calculate percentile ranks for numeric statistics across players.
     
     Args:
-        player_dfs (list): List of DataFrames containing player data
-        numeric_stats (list): List of numeric stats to calculate percentiles for
+        dfs (list): List of player dataframes
+        numeric_stats (list): List of numeric statistics to calculate percentiles for
         
     Returns:
-        tuple: (List of percentile DataFrames, List of actual value DataFrames)
+        tuple: List of percentile dataframes and list of actual value dataframes
     """
-    if not player_dfs or not numeric_stats:
+    if not dfs or not numeric_stats:
         return [], []
     
-    # Create list to store actual values for each player
-    actual_values = []
-    for df in player_dfs:
-        # Process special stats: Yellow card and Red card
-        # These should be counted as occurrences rather than averaged
-        special_stats = ["Yellow card", "Red card"]
-        special_stats_values = {}
-        
-        for stat in special_stats:
-            if stat in df.columns and stat in numeric_stats:
-                # Count matches with cards
-                card_count = 0
-                total_matches = len(df)
-                player_name = df['player_name'].iloc[0] if 'player_name' in df.columns else "Unknown"
-                competitions = []
-                
-                for _, row in df.iterrows():
-                    try:
-                        # Collect competition info for debugging
-                        if 'Competition' in df.columns and pd.notna(row['Competition']):
-                            comp = str(row['Competition'])
-                            if comp not in competitions:
-                                competitions.append(comp)
-                        
-                        # Improved card value handling
-                        card_val_raw = row[stat]
-                        # Check if it's a string that might contain a numeric value
-                        if isinstance(card_val_raw, str):
-                            # Remove any non-numeric characters
-                            if card_val_raw.strip().isdigit():
-                                card_val = int(card_val_raw.strip())
-                            else:
-                                # Check if it could be a floating point value
-                                try:
-                                    card_val = float(card_val_raw.strip())
-                                except:
-                                    card_val = 0
-                        else:
-                            # Handle numeric values directly
-                            card_val = pd.to_numeric(card_val_raw, errors='coerce')
-                        
-                        # Only count if the value is valid and greater than 0
-                        if pd.notna(card_val) and card_val > 0:
-                            # Increment if there's at least one card
-                            card_count += 1
-                    except Exception as e:
-                        logger.error(f"Error processing card value for {player_name}: {str(e)}")
-                        pass
-                        
-                # Debug output for Gustavo's cards
-                if player_name == "Gustavo Henrique":
-                    if competitions:
-                        logger.info(f"DEBUG DATA UTILS - {player_name} has {card_count} matches with {stat}s in competitions: {', '.join(competitions)}")
-                    else:
-                        logger.info(f"DEBUG DATA UTILS - {player_name} has {card_count} matches with {stat}s in unknown competitions")
-                    
-                    # Additional logging of each row for detailed inspection
-                    if stat == "Yellow card" or stat == "Red card":
-                        logger.info(f"DEBUG DATA UTILS - {player_name} {stat} values (raw):")
-                        for i, row in df.iterrows():
-                            match = row.get('Match', 'Unknown match')
-                            comp = row.get('Competition', 'Unknown competition')
-                            card_val_raw = row.get(stat, 'N/A')
-                            try:
-                                card_val = pd.to_numeric(card_val_raw, errors='coerce')
-                                is_card = "YES" if pd.notna(card_val) and card_val > 0 else "NO"
-                            except:
-                                card_val = "ERROR"
-                                is_card = "ERROR"
-                            logger.info(f"  Match: {match} | Competition: {comp} | {stat}: {card_val_raw} | Counted: {is_card}")
-                
-                # Calculate frequency of cards per match
-                if total_matches > 0:
-                    special_stats_values[stat] = card_count / total_matches
-                else:
-                    special_stats_values[stat] = 0
-        
-        # Get mean values for regular numeric stats
-        mean_values = df[numeric_stats].mean().to_frame().T
-        
-        # Override special stats with corrected values
-        for stat, value in special_stats_values.items():
-            mean_values[stat] = value
-            
-        actual_values.append(mean_values)
+    # Add debug logging
+    logger.info(f"Calculating percentiles for {len(dfs)} players and {len(numeric_stats)} stats")
     
-    # List of stats where lower values are better (negative stats)
-    negative_stats = ["Losses", "Losses own half"]  # Yellow card and Red card removed
+    # Create aggregated dataframes with player averages
+    player_avgs = []
+    for df in dfs:
+        # Get player name
+        player_name = df['player_name'].iloc[0] if 'player_name' in df.columns else "Unknown"
+        
+        # Select only numeric columns that are in the specified list
+        cols_to_use = [col for col in numeric_stats if col in df.columns]
+        
+        if not cols_to_use:
+            logger.warning(f"No valid numeric columns found for player {player_name}")
+            continue
+        
+        # Calculate average for each numeric stat
+        player_avg = df[cols_to_use].mean().to_frame().transpose()
+        
+        # Add player name
+        player_avg['player_name'] = player_name
+        
+        # Debug logging for Gustavo Henrique
+        if player_name == "Gustavo Henrique":
+            logger.info(f"DEBUG PERCENTILES - Raw stats for {player_name}:")
+            for stat in cols_to_use:
+                stat_values = df[stat].values
+                logger.info(f"  {stat}: values={stat_values}, mean={player_avg[stat].iloc[0]}")
+        
+        player_avgs.append(player_avg)
     
-    # Combine all actual values for percentile calculation
-    all_values = pd.concat(actual_values)
+    if not player_avgs:
+        logger.warning("No valid player averages calculated")
+        return [], []
     
-    # Calculate percentiles for each metric
+    # Combine all player averages
+    combined_avgs = pd.concat(player_avgs, ignore_index=True)
+    
+    # Create dataframes to store percentile ranks and actual values
     percentile_dfs = []
-    for i, mean_df in enumerate(actual_values):
-        percentile_df = pd.DataFrame(index=mean_df.index, columns=numeric_stats)
+    actual_dfs = []
+    
+    # Calculate percentile ranks for each player
+    for index, row in combined_avgs.iterrows():
+        player_name = row['player_name']
         
+        # Create dataframe for percentile ranks and actual values
+        percentile_df = pd.DataFrame()
+        actual_df = pd.DataFrame()
+        
+        # Process each stat
         for stat in numeric_stats:
-            if stat in mean_df.columns:
-                # Get the player value for this stat
-                player_value = mean_df[stat].iloc[0]
+            if stat in combined_avgs.columns and stat != 'player_name':
+                # Get all values for this stat across players
+                all_values = combined_avgs[stat].dropna()
                 
-                # Get all values for this stat
-                all_stat_values = all_values[stat]
+                if all_values.empty:
+                    continue
                 
-                # Calculate percentile rank
-                if len(all_stat_values) > 1:  # More than one player
-                    # Get min and max for this stat across all players
-                    min_val = all_stat_values.min()
-                    max_val = all_stat_values.max()
+                # For some stats, a higher value is worse
+                # List of stats where lower values are better (negative stats)
+                negative_stats = ["Losses", "Losses own half"]  # Yellow card and Red card removed
+                
+                # Get the current player's value
+                player_val = row.get(stat)
+                
+                if pd.isna(player_val):
+                    continue
+                
+                # Handle stats with all zero values
+                if all_values.sum() == 0:
+                    percentile_rank = 50  # Default to middle percentile
+                # Handle special stats like cards
+                elif stat in ["Yellow card", "Red card"]:
+                    # Count matches with cards
+                    card_count = 0
+                    total_matches = len(df)
                     
-                    if max_val == min_val:  # All values are the same
-                        percentile = 50  # Default to median
+                    for _, row in df.iterrows():
+                        try:
+                            # Convert to numeric safely
+                            card_val = pd.to_numeric(row.get(stat, 0), errors='coerce')
+                            if pd.notna(card_val) and card_val > 0:
+                                card_count += 1
+                        except:
+                            pass
+                    
+                    # Calculate frequency of cards per match
+                    if total_matches > 0:
+                        card_frequency = card_count / total_matches
                     else:
-                        # Calculate percentile based on position within min-max range
-                        if stat in negative_stats:
-                            # Invert for negative stats (lower is better)
-                            percentile = 100 - (player_value - min_val) / (max_val - min_val) * 100
-                        else:
-                            # Normal calculation (higher is better)
-                            percentile = (player_value - min_val) / (max_val - min_val) * 100
+                        card_frequency = 0
+                    
+                    # Adjust player_val to use the calculated frequency
+                    player_val = card_frequency
+                    
+                    # Log data for debugging
+                    if player_name == "Gustavo Henrique":
+                        logger.info(f"DEBUG PERCENTILES - {player_name} {stat} calculation: count={card_count}, matches={total_matches}, frequency={card_frequency}")
+                    
+                    # Determine percentile rank (higher frequency = lower percentile for cards)
+                    if all_values.sum() == 0:
+                        percentile_rank = 50
+                    else:
+                        all_card_values = combined_avgs[stat].dropna()
+                        percentile_rank = 100 - stats.percentileofscore(all_card_values, player_val)
                 else:
-                    percentile = 50  # Default to median if only one player
+                    # For regular stats, calculate percentile normally
+                    if stat in negative_stats:
+                        # For negative stats, lower values are better
+                        percentile_rank = 100 - stats.percentileofscore(all_values, player_val)
+                    else:
+                        # For positive stats, higher values are better
+                        percentile_rank = stats.percentileofscore(all_values, player_val)
                 
-                percentile_df[stat] = percentile
+                # Debug for Gustavo Henrique's percentiles
+                if player_name == "Gustavo Henrique":
+                    logger.info(f"DEBUG PERCENTILES - {player_name} {stat} percentile: value={player_val}, rank={percentile_rank}")
+                    
+                    # If the percentile is 0, log more details
+                    if percentile_rank == 0:
+                        logger.info(f"  All values for {stat}: {all_values.tolist()}")
+                        logger.info(f"  Current player value: {player_val}")
+                        if stat in negative_stats:
+                            logger.info(f"  Negative stat: calculation = 100 - percentileofscore({all_values.tolist()}, {player_val})")
+                        else:
+                            logger.info(f"  Positive stat: calculation = percentileofscore({all_values.tolist()}, {player_val})")
+                
+                # Add to dataframes
+                percentile_df[stat] = [percentile_rank]
+                actual_df[stat] = [player_val]
         
         percentile_dfs.append(percentile_df)
+        actual_dfs.append(actual_df)
     
-    return percentile_dfs, actual_values 
+    return percentile_dfs, actual_dfs 

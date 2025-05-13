@@ -71,6 +71,9 @@ def get_percentile_color(percentile_rank, stat_name=None):
     if stat_name in negative_stats:
         percentile_rank = 100 - percentile_rank
     
+    # Ensure percentile is at least 1 for color coding
+    percentile_rank = max(percentile_rank, 1)
+    
     if percentile_rank >= 90:
         return '#1a9641'  # Dark green
     elif percentile_rank >= 70:

@@ -303,83 +303,6 @@ def main():
                             df = df[df['Competition'].isin(selected_competitions)]
                             logger.info(f"Filtered {player} data to competitions '{', '.join(selected_competitions)}': {df.shape[0]} rows")
                             
-                            # Debug for card counts in specific competitions
-                            if player == "Gustavo Henrique" and "Yellow card" in df.columns:
-                                # Special fix for Gustavo's card data in Copa do Brasil
-                                if 'Brazil. Copa do Brasil' in selected_competitions:
-                                    logger.info(f"Applying special fix for {player}'s cards in Copa do Brasil")
-                                    # Set corrected values based on actual data examination
-                                    for i, row in df.iterrows():
-                                        # Check if it's Copa do Brasil
-                                        if 'Competition' in df.columns and 'Brazil. Copa do Brasil' in str(row['Competition']):
-                                            # Check for known problematic values
-                                            if row.get('Yellow card') in [30, 46, 52, 63, 66, 68, 71, 76, 79, 82, 87]:
-                                                logger.info(f"  Fixing Yellow card value for match {row.get('Match')}: {row.get('Yellow card')} -> 0")
-                                                df.at[i, 'Yellow card'] = 0
-                                            elif row.get('Yellow card') == 7:  # The only legitimate yellow card
-                                                logger.info(f"  Match {row.get('Match')} has correct Yellow card value: {row.get('Yellow card')}")
-                                
-                                # Log raw data values for inspection
-                                logger.info(f"DEBUG - {player} Yellow card raw values in {', '.join(selected_competitions)}:")
-                                for i, row in df.iterrows():
-                                    match = row.get('Match', 'Unknown match')
-                                    yellow_val = row.get('Yellow card', 'N/A')
-                                    logger.info(f"  Match: {match} | Yellow card: {yellow_val} | Type: {type(yellow_val).__name__}")
-                                    
-                                    # Try to directly convert and check if it has a valid positive numeric value
-                                    if isinstance(yellow_val, str):
-                                        # Special handling for string values
-                                        if yellow_val.strip().isdigit():
-                                            val = int(yellow_val.strip())
-                                            logger.info(f"    Parsed as integer: {val}")
-                                        else:
-                                            try:
-                                                val = float(yellow_val.strip())
-                                                logger.info(f"    Parsed as float: {val}")
-                                            except:
-                                                logger.info(f"    Could not parse as number")
-                                
-                                # Count with numeric conversion
-                                yellow_cards = df["Yellow card"].copy()
-                                yellow_cards = pd.to_numeric(yellow_cards, errors='coerce')
-                                yellow_card_count = sum(1 for val in yellow_cards if pd.notna(val) and val > 0)
-                                logger.info(f"DEBUG - {player} in {', '.join(selected_competitions)} has {yellow_card_count} matches with Yellow cards")
-                                
-                                # Direct examination of specific values
-                                logger.info(f"Direct inspection of Yellow card values:")
-                                for i, val in enumerate(df["Yellow card"].values):
-                                    logger.info(f"  Row {i}: Value: {val}, Type: {type(val).__name__}")
-                                    try:
-                                        numeric_val = pd.to_numeric(val, errors='raise')
-                                        logger.info(f"    Converted to: {numeric_val}, Type: {type(numeric_val).__name__}")
-                                    except:
-                                        logger.info(f"    Could not convert to numeric")
-                            
-                            if player == "Gustavo Henrique" and "Red card" in df.columns:
-                                # Special fix for Gustavo's card data in Copa do Brasil
-                                if 'Brazil. Copa do Brasil' in selected_competitions:
-                                    logger.info(f"Applying special fix for {player}'s Red cards in Copa do Brasil")
-                                    # Set corrected values based on actual data examination
-                                    for i, row in df.iterrows():
-                                        # Check if it's Copa do Brasil
-                                        if 'Competition' in df.columns and 'Brazil. Copa do Brasil' in str(row['Competition']):
-                                            # Fix all Red card values to 0 since he had no red cards
-                                            if pd.notna(row.get('Red card')) and row.get('Red card') != 0:
-                                                logger.info(f"  Fixing Red card value for match {row.get('Match')}: {row.get('Red card')} -> 0")
-                                                df.at[i, 'Red card'] = 0
-                                
-                                # Log raw data values for inspection
-                                logger.info(f"DEBUG - {player} Red card raw values in {', '.join(selected_competitions)}:")
-                                for i, row in df.iterrows():
-                                    match = row.get('Match', 'Unknown match')
-                                    red_val = row.get('Red card', 'N/A')
-                                    logger.info(f"  Match: {match} | Red card: {red_val} | Type: {type(red_val).__name__}")
-                                
-                                # Count with numeric conversion
-                                red_cards = df["Red card"].copy()
-                                red_cards = pd.to_numeric(red_cards, errors='coerce')
-                                red_card_count = sum(1 for val in red_cards if pd.notna(val) and val > 0)
-                                logger.info(f"DEBUG - {player} in {', '.join(selected_competitions)} has {red_card_count} matches with Red cards")
                         
                         # Replace NaN values with 0 for numeric columns
                         numeric_cols = df.select_dtypes(include=['float64', 'int64']).columns
@@ -508,6 +431,19 @@ def main():
     available_numeric_stats = [stat for stat in all_stats 
                              if stat in numeric_cols and stat not in ["Yellow card", "Red card"]]
     
+    # Add debug logging for Gustavo Henrique's data
+    gustavo_df = None
+    for i, player in enumerate(selected_players):
+        if player == "Gustavo Henrique" and i < len(selected_dfs):
+            gustavo_df = selected_dfs[i]
+            logger.info(f"DEBUG - Gustavo Henrique numeric stats available: {', '.join([stat for stat in available_numeric_stats if stat in gustavo_df.columns])}")
+            # Log mean values
+            means = gustavo_df[available_numeric_stats].mean()
+            logger.info(f"DEBUG - Gustavo Henrique mean values:")
+            for stat, val in means.items():
+                logger.info(f"  {stat}: {val}")
+            break
+    
     # Log the available numeric stats
     logger.info(f"Found {len(available_numeric_stats)} numeric stats for analysis: {', '.join(available_numeric_stats)}")
     
@@ -523,27 +459,6 @@ def main():
     if not player_percentiles:
         st.warning("Could not calculate percentile ranks. Please ensure all players have at least some common statistics.")
         return
-    
-    # Special fix for Gustavo Henrique's cards in Copa do Brasil
-    if "Gustavo Henrique" in selected_players and "Brazil. Copa do Brasil" in selected_competitions:
-        # Find index of Gustavo in the selected players
-        gustavo_idx = selected_players.index("Gustavo Henrique")
-        if gustavo_idx < len(player_actual_values):
-            # Correct actual values
-            logger.info("Applying final fix for Gustavo's card stats")
-            
-            # Corrected values: 1 Yellow Card, 0 Red Cards in 8 matches (frequency: 1/8 = 0.125 and 0/8 = 0)
-            if "Yellow card" in player_actual_values[gustavo_idx].columns:
-                player_actual_values[gustavo_idx]["Yellow card"] = 0.125
-                logger.info("Fixed Gustavo's Yellow card actual value to 0.125 (1 card in 8 matches)")
-            
-            if "Red card" in player_actual_values[gustavo_idx].columns:
-                player_actual_values[gustavo_idx]["Red card"] = 0.0
-                logger.info("Fixed Gustavo's Red card actual value to 0.0 (0 cards in 8 matches)")
-            
-            # Since we changed Gustavo's values, we need to recalculate percentiles
-            logger.info("Recalculating percentiles after fixing Gustavo's card values")
-            player_percentiles, _ = calculate_percentile_ranks(selected_dfs, available_numeric_stats)
     
     # Get custom player colors
     

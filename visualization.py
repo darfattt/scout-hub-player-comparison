@@ -89,6 +89,26 @@ def generate_unified_player_chart(player_name, percentile_df, player_color, play
     # Filter out excluded stats
     all_stats = [stat for stat in all_stats if stat not in excluded_stats]
     
+    # Add debug logging for Gustavo Henrique
+    if player_name == "Gustavo Henrique":
+        logger.info(f"DEBUG - {player_name} bar chart stats before filtering: {percentile_df.columns.tolist()}")
+        logger.info(f"DEBUG - {player_name} bar chart stats after filtering: {all_stats}")
+        logger.info(f"DEBUG - {player_name} actual values: {actual_values_df.to_dict()}")
+        
+        # Check which stats have non-zero percentile values
+        non_zero_stats = []
+        for stat in all_stats:
+            if stat in percentile_df.columns and percentile_df[stat].iloc[0] > 0:
+                non_zero_stats.append(f"{stat}: {percentile_df[stat].iloc[0]}")
+        logger.info(f"DEBUG - {player_name} non-zero percentile stats: {non_zero_stats}")
+        
+        # Log stats with zero values
+        zero_stats = []
+        for stat in all_stats:
+            if stat in percentile_df.columns and percentile_df[stat].iloc[0] == 0:
+                zero_stats.append(stat)
+        logger.info(f"DEBUG - {player_name} zero percentile stats: {zero_stats}")
+    
     # Define category for each stat
     stat_categories = {
         "General": [
@@ -244,10 +264,13 @@ def generate_unified_player_chart(player_name, percentile_df, player_color, play
         stat_name = valid_stats[i]
         bar_colors.append(get_percentile_color(value, stat_name))
     
+    # Ensure zero percentiles still show with a minimum width
+    display_percentiles = [max(val, 0.5) for val in percentile_values]
+    
     # Plot horizontal bars with improved styling
     bars = ax.barh(
         y_positions,
-        percentile_values,
+        display_percentiles,  # Use adjusted values to ensure visibility
         height=0.5,  # More compact bars
         color=bar_colors,
         alpha=0.9,
