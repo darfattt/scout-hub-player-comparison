@@ -89,26 +89,6 @@ def generate_unified_player_chart(player_name, percentile_df, player_color, play
     # Filter out excluded stats
     all_stats = [stat for stat in all_stats if stat not in excluded_stats]
     
-    # Add debug logging for Gustavo Henrique
-    if player_name == "Gustavo Henrique":
-        logger.info(f"DEBUG - {player_name} bar chart stats before filtering: {percentile_df.columns.tolist()}")
-        logger.info(f"DEBUG - {player_name} bar chart stats after filtering: {all_stats}")
-        logger.info(f"DEBUG - {player_name} actual values: {actual_values_df.to_dict()}")
-        
-        # Check which stats have non-zero percentile values
-        non_zero_stats = []
-        for stat in all_stats:
-            if stat in percentile_df.columns and percentile_df[stat].iloc[0] > 0:
-                non_zero_stats.append(f"{stat}: {percentile_df[stat].iloc[0]}")
-        logger.info(f"DEBUG - {player_name} non-zero percentile stats: {non_zero_stats}")
-        
-        # Log stats with zero values
-        zero_stats = []
-        for stat in all_stats:
-            if stat in percentile_df.columns and percentile_df[stat].iloc[0] == 0:
-                zero_stats.append(stat)
-        logger.info(f"DEBUG - {player_name} zero percentile stats: {zero_stats}")
-    
     # Define category for each stat
     stat_categories = {
         "General": [
@@ -290,15 +270,12 @@ def generate_unified_player_chart(player_name, percentile_df, player_color, play
             # Calculate sum by multiplying average by number of matches if info is available
             matches = player_info.get('total_matches', 1)
             
-            # Special handling for card stats
+            # Handle special stats like cards
             if stat_name in ["Yellow card", "Red card"]:
                 # For cards, the actual_val is already frequency per match
                 card_freq = avg_val
                 # Calculate estimated number of matches with cards
                 card_count = int(round(card_freq * matches))
-                # Debug log for Gustavo Henrique
-                if player_name == "Gustavo Henrique":
-                    logger.info(f"VIZ DEBUG - {player_name} {stat_name}: freq={card_freq}, matches={matches}, estimated card_count={card_count}")
                 # Display format: "3 cards | 0.33"
                 sum_str = f"{card_count}" if card_count > 0 else "0"
                 avg_str = f"{card_freq:.3f}"

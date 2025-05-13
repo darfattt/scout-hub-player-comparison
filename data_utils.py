@@ -229,13 +229,6 @@ def calculate_percentile_ranks(dfs, numeric_stats):
         # Add player name
         player_avg['player_name'] = player_name
         
-        # Debug logging for Gustavo Henrique
-        if player_name == "Gustavo Henrique":
-            logger.info(f"DEBUG PERCENTILES - Raw stats for {player_name}:")
-            for stat in cols_to_use:
-                stat_values = df[stat].values
-                logger.info(f"  {stat}: values={stat_values}, mean={player_avg[stat].iloc[0]}")
-        
         player_avgs.append(player_avg)
     
     if not player_avgs:
@@ -266,7 +259,6 @@ def calculate_percentile_ranks(dfs, numeric_stats):
                 if all_values.empty:
                     continue
                 
-                # For some stats, a higher value is worse
                 # List of stats where lower values are better (negative stats)
                 negative_stats = ["Losses", "Losses own half"]  # Yellow card and Red card removed
                 
@@ -303,10 +295,6 @@ def calculate_percentile_ranks(dfs, numeric_stats):
                     # Adjust player_val to use the calculated frequency
                     player_val = card_frequency
                     
-                    # Log data for debugging
-                    if player_name == "Gustavo Henrique":
-                        logger.info(f"DEBUG PERCENTILES - {player_name} {stat} calculation: count={card_count}, matches={total_matches}, frequency={card_frequency}")
-                    
                     # Determine percentile rank (higher frequency = lower percentile for cards)
                     if all_values.sum() == 0:
                         percentile_rank = 50
@@ -321,19 +309,6 @@ def calculate_percentile_ranks(dfs, numeric_stats):
                     else:
                         # For positive stats, higher values are better
                         percentile_rank = stats.percentileofscore(all_values, player_val)
-                
-                # Debug for Gustavo Henrique's percentiles
-                if player_name == "Gustavo Henrique":
-                    logger.info(f"DEBUG PERCENTILES - {player_name} {stat} percentile: value={player_val}, rank={percentile_rank}")
-                    
-                    # If the percentile is 0, log more details
-                    if percentile_rank == 0:
-                        logger.info(f"  All values for {stat}: {all_values.tolist()}")
-                        logger.info(f"  Current player value: {player_val}")
-                        if stat in negative_stats:
-                            logger.info(f"  Negative stat: calculation = 100 - percentileofscore({all_values.tolist()}, {player_val})")
-                        else:
-                            logger.info(f"  Positive stat: calculation = percentileofscore({all_values.tolist()}, {player_val})")
                 
                 # Add to dataframes
                 percentile_df[stat] = [percentile_rank]

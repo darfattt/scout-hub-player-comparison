@@ -431,19 +431,6 @@ def main():
     available_numeric_stats = [stat for stat in all_stats 
                              if stat in numeric_cols and stat not in ["Yellow card", "Red card"]]
     
-    # Add debug logging for Gustavo Henrique's data
-    gustavo_df = None
-    for i, player in enumerate(selected_players):
-        if player == "Gustavo Henrique" and i < len(selected_dfs):
-            gustavo_df = selected_dfs[i]
-            logger.info(f"DEBUG - Gustavo Henrique numeric stats available: {', '.join([stat for stat in available_numeric_stats if stat in gustavo_df.columns])}")
-            # Log mean values
-            means = gustavo_df[available_numeric_stats].mean()
-            logger.info(f"DEBUG - Gustavo Henrique mean values:")
-            for stat, val in means.items():
-                logger.info(f"  {stat}: {val}")
-            break
-    
     # Log the available numeric stats
     logger.info(f"Found {len(available_numeric_stats)} numeric stats for analysis: {', '.join(available_numeric_stats)}")
     
