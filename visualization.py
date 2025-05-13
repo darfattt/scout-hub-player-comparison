@@ -83,6 +83,12 @@ def generate_unified_player_chart(player_name, percentile_df, player_color, play
     # Get all stats
     all_stats = list(percentile_df.columns)
     
+    # Define stats to exclude
+    excluded_stats = ["Yellow card", "Red card"]
+    
+    # Filter out excluded stats
+    all_stats = [stat for stat in all_stats if stat not in excluded_stats]
+    
     # Define category for each stat
     stat_categories = {
         "General": [
@@ -103,9 +109,7 @@ def generate_unified_player_chart(player_name, percentile_df, player_color, play
             "Losses", 
             "Losses own half", 
             "Recoveries", 
-            "Recoveries opp. half", 
-            "Yellow card", 
-            "Red card"
+            "Recoveries opp. half"
         ],
         "Progressive": [
             "Passes",
@@ -235,8 +239,10 @@ def generate_unified_player_chart(player_name, percentile_df, player_color, play
     
     # Generate colors for bars based on percentile values with smoother gradient
     bar_colors = []
-    for value in percentile_values:
-        bar_colors.append(get_percentile_color(value))
+    for i, value in enumerate(percentile_values):
+        # Pass the stat name to get_percentile_color for proper color coding
+        stat_name = valid_stats[i]
+        bar_colors.append(get_percentile_color(value, stat_name))
     
     # Plot horizontal bars with improved styling
     bars = ax.barh(
@@ -260,15 +266,30 @@ def generate_unified_player_chart(player_name, percentile_df, player_color, play
             
             # Calculate sum by multiplying average by number of matches if info is available
             matches = player_info.get('total_matches', 1)
-            if matches > 0:
-                sum_val = round(avg_val * matches, 2)
-            else:
-                sum_val = avg_val  # Fallback if no match data
             
-            # Format values to avoid excess precision
-            # Remove trailing zeros for cleaner display
-            sum_str = f"{sum_val:.1f}".rstrip('0').rstrip('.') if sum_val != int(sum_val) else f"{int(sum_val)}"
-            avg_str = f"{avg_val:.1f}".rstrip('0').rstrip('.') if avg_val != int(avg_val) else f"{int(avg_val)}"
+            # Special handling for card stats
+            if stat_name in ["Yellow card", "Red card"]:
+                # For cards, the actual_val is already frequency per match
+                card_freq = avg_val
+                # Calculate estimated number of matches with cards
+                card_count = int(round(card_freq * matches))
+                # Debug log for Gustavo Henrique
+                if player_name == "Gustavo Henrique":
+                    logger.info(f"VIZ DEBUG - {player_name} {stat_name}: freq={card_freq}, matches={matches}, estimated card_count={card_count}")
+                # Display format: "3 cards | 0.33"
+                sum_str = f"{card_count}" if card_count > 0 else "0"
+                avg_str = f"{card_freq:.3f}"
+            else:
+                # Regular calculation for other stats
+                if matches > 0:
+                    sum_val = round(avg_val * matches, 2)
+                else:
+                    sum_val = avg_val  # Fallback if no match data
+                
+                # Format values to avoid excess precision
+                # Remove trailing zeros for cleaner display
+                sum_str = f"{sum_val:.1f}".rstrip('0').rstrip('.') if sum_val != int(sum_val) else f"{int(sum_val)}"
+                avg_str = f"{avg_val:.1f}".rstrip('0').rstrip('.') if avg_val != int(avg_val) else f"{int(avg_val)}"
             
             # Display the sum and average values
             display_text = f"{sum_str} | {avg_str}"
@@ -415,6 +436,9 @@ def generate_radar_chart(player_names, player_percentiles, player_colors, player
         common_stats = set(player_percentiles[0].columns)
         for percentile_df in player_percentiles[1:]:
             common_stats &= set(percentile_df.columns)
+        
+        # Exclude Yellow card and Red card
+        common_stats = [stat for stat in common_stats if stat not in ["Yellow card", "Red card"]]
         
         logger.info(f"Found {len(common_stats)} common stats across all players")
         

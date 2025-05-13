@@ -3,66 +3,85 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Patch
 import numpy as np
 import base64
+import logging
+import matplotlib.patches as mpatches
+import matplotlib.colors as mcolors
+
+logger = logging.getLogger("player_comparison_tool")
 
 # Function to get player image
 def get_player_image(player_name):
     """
-    Get the path to a player's image file. If a player-specific image doesn't exist,
-    returns the path to a default image.
+    Check if a player image exists and return the path if found.
     
     Args:
         player_name (str): Name of the player
         
     Returns:
-        str or None: Path to the image file, or None if no image is found
+        str: Path to player image if found, None otherwise
     """
-    # Check if there's an image file with the player's name in the data/pics directory
-    image_path = f"data/pics/{player_name}.png"
-    if os.path.exists(image_path):
-        return image_path
+    # Check various image formats and paths
+    image_extensions = ['jpg', 'png', 'jpeg']
     
-    # If not, check for other image formats
-    for ext in ['.png', '.jpeg', '.jpg', '.gif']:
-        alt_path = f"data/pics/{player_name}{ext}"
-        if os.path.exists(alt_path):
-            return alt_path
+    # Base path for player images
+    base_dir = os.path.join('data', 'player_images')
+    os.makedirs(base_dir, exist_ok=True)
     
-    # If no specific player image is found, use a default image
-    default_image = "data/pics/default_player.jpg"
-    if os.path.exists(default_image):
-        return default_image
+    # Check for images with player name
+    for ext in image_extensions:
+        # Try the direct name
+        image_path = os.path.join(base_dir, f"{player_name}.{ext}")
+        if os.path.exists(image_path):
+            return image_path
+        
+        # Try lowercase
+        image_path = os.path.join(base_dir, f"{player_name.lower()}.{ext}")
+        if os.path.exists(image_path):
+            return image_path
+        
+        # Try without spaces
+        image_path = os.path.join(base_dir, f"{player_name.replace(' ', '')}.{ext}")
+        if os.path.exists(image_path):
+            return image_path
+        
+        # Try lowercase without spaces
+        image_path = os.path.join(base_dir, f"{player_name.lower().replace(' ', '')}.{ext}")
+        if os.path.exists(image_path):
+            return image_path
     
-    # If no default image either, return None
+    # If no image found, return None
     return None
 
 # Function to get color based on percentile using a more sophisticated gradient
-def get_percentile_color(value):
+def get_percentile_color(percentile_rank, stat_name=None):
     """
-    Return a color based on the percentile value using a refined gradient scale.
+    Get color based on percentile rank using a smoother color gradient.
     
     Args:
-        value (float): Percentile value (0-100)
+        percentile_rank (float): Percentile rank (0-100)
+        stat_name (str, optional): Name of the stat, to handle inverted colors for negative stats
         
     Returns:
-        str: Color hex code
+        str: Hex color code
     """
-    # Define the color ranges with HEX codes
-    if value < 20:
-        # Red gradients for poor values (0-20%)
-        return '#CD5C5C'  # Indian Red
-    elif value < 40:
-        # Orange gradients for below average values (21-40%)
-        return '#FF8C00'  # Dark Orange
-    elif value < 60:
-        # Yellow gradients for average values (41-60%)
-        return '#FFC107'  # Amber/Yellow
-    elif value < 80:
-        # Light green gradients for good values (61-80%)
-        return '#9ACD32'  # Yellow-Green
-    else:
-        # Green gradients for excellent values (81-100%)
-        return '#4CAF50'  # Green
+    # List of negative stats where lower values are better
+    negative_stats = ["Losses", "Losses own half"]  # Yellow card and Red card removed
     
+    # For negative stats, invert the percentile for color coding
+    if stat_name in negative_stats:
+        percentile_rank = 100 - percentile_rank
+    
+    if percentile_rank >= 90:
+        return '#1a9641'  # Dark green
+    elif percentile_rank >= 70:
+        return '#73c378'  # Medium green
+    elif percentile_rank >= 50:
+        return '#f9d057'  # Better yellow (more readable than previous '#ffffbf')
+    elif percentile_rank >= 30:
+        return '#fc8d59'  # Light orange
+    else:
+        return '#d73027'  # Red
+
 # Function for smoother color transitions (unused but available for future enhancement)
 def get_smooth_percentile_color(value):
     """
@@ -101,79 +120,40 @@ def get_smooth_percentile_color(value):
 # Function to get legend elements for percentile colors
 def get_percentile_legend_elements():
     """
-    Return matplotlib legend elements for percentile colors with improved styling
+    Create legend elements for percentile colors
     
     Returns:
-        list: List of matplotlib Patch objects for legend
+        list: List of Patch objects for the legend
     """
-    return [
-        Patch(facecolor='#CD5C5C', edgecolor='white', linewidth=0.5, label='0-20', alpha=0.9),
-        Patch(facecolor='#FF8C00', edgecolor='white', linewidth=0.5, label='21-40', alpha=0.9),
-        Patch(facecolor='#FFC107', edgecolor='white', linewidth=0.5, label='41-60', alpha=0.9),
-        Patch(facecolor='#9ACD32', edgecolor='white', linewidth=0.5, label='61-80', alpha=0.9),
-        Patch(facecolor='#4CAF50', edgecolor='white', linewidth=0.5, label='81-100', alpha=0.9)
+    legend_elements = [
+        mpatches.Patch(facecolor='#d73027', edgecolor='none', label='0-20%'),
+        mpatches.Patch(facecolor='#fc8d59', edgecolor='none', label='20-40%'),
+        mpatches.Patch(facecolor='#f9d057', edgecolor='none', label='40-60%'),
+        mpatches.Patch(facecolor='#73c378', edgecolor='none', label='60-80%'),
+        mpatches.Patch(facecolor='#1a9641', edgecolor='none', label='80-100%')
     ]
+    return legend_elements
 
 # Function to load CSS
-def load_css(css_file):
+def load_css(file_name):
     """
-    Load CSS from a file and return it as a string for Streamlit to use
+    Load CSS from the specified file.
     
     Args:
-        css_file (str): Path to the CSS file
+        file_name (str): Name of the CSS file in the styles directory
         
     Returns:
-        str: CSS content as a string
+        str: CSS content
     """
     try:
-        # Check if the file exists
-        if os.path.exists(css_file):
-            with open(css_file, 'r', encoding='utf-8') as f:
-                return f.read()
-        else:
-            print(f"CSS file not found: {css_file}")
-            # Return default CSS if file not found
-            return """
-            /* Default CSS styles that will be used if the CSS file is missing */
-            .title {
-                color: #ffffff;
-                font-size: 24px;
-                font-weight: bold;
-                margin-bottom: 20px;
-                text-align: center;
-            }
-            .stats-table-header {
-                font-size: 18px;
-                font-weight: bold;
-                margin: 10px 0;
-                color: white;
-                background-color: #333;
-                padding: 8px;
-                border-radius: 5px;
-                text-align: center;
-            }
-            .explanation-box {
-                background-color: rgba(70, 70, 70, 0.2);
-                border-radius: 5px;
-                padding: 10px;
-                margin: 10px 0;
-                font-size: 14px;
-                color: #eee;
-            }
-            .section-divider {
-                height: 3px;
-                background-color: #444;
-                margin: 30px 0;
-                border-radius: 2px;
-            }
-            """
+        # Try to read the specified file
+        with open(file_name, 'r') as f:
+            css = f.read()
+        return css
     except Exception as e:
-        print(f"Error loading CSS file: {str(e)}")
-        # Return minimal CSS in case of error
-        return """
-        .title { color: white; font-size: 24px; font-weight: bold; }
-        .stats-table-header { font-size: 18px; font-weight: bold; color: white; }
-        """
+        # If the file doesn't exist or can't be read, return empty string
+        logger.error(f"Error loading CSS file '{file_name}': {str(e)}", exc_info=True)
+        return ""
 
 # Function to convert image to base64 for HTML embedding
 def image_to_base64(image_path):
