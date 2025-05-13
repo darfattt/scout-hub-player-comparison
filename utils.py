@@ -23,33 +23,52 @@ def get_player_image(player_name):
     # Check various image formats and paths
     image_extensions = ['jpg', 'png', 'jpeg']
     
-    # Base path for player images
-    base_dir = os.path.join('data', 'player_images')
-    os.makedirs(base_dir, exist_ok=True)
+    # Define base directories to check for images
+    base_dirs = [
+        os.path.join('data', 'player_images'),  # First check in player_images
+        os.path.join('data', 'pics')            # If not found, check in pics
+    ]
     
-    # Check for images with player name
-    for ext in image_extensions:
-        # Try the direct name
-        image_path = os.path.join(base_dir, f"{player_name}.{ext}")
-        if os.path.exists(image_path):
-            return image_path
-        
-        # Try lowercase
-        image_path = os.path.join(base_dir, f"{player_name.lower()}.{ext}")
-        if os.path.exists(image_path):
-            return image_path
-        
-        # Try without spaces
-        image_path = os.path.join(base_dir, f"{player_name.replace(' ', '')}.{ext}")
-        if os.path.exists(image_path):
-            return image_path
-        
-        # Try lowercase without spaces
-        image_path = os.path.join(base_dir, f"{player_name.lower().replace(' ', '')}.{ext}")
-        if os.path.exists(image_path):
-            return image_path
+    # Create directories if they don't exist
+    for base_dir in base_dirs:
+        os.makedirs(base_dir, exist_ok=True)
+    
+    # Check in each base directory
+    for base_dir in base_dirs:
+        # Check for images with player name
+        for ext in image_extensions:
+            # Try the direct name
+            image_path = os.path.join(base_dir, f"{player_name}.{ext}")
+            if os.path.exists(image_path):
+                logger.info(f"Found player image: {image_path}")
+                return image_path
+            
+            # Try lowercase
+            image_path = os.path.join(base_dir, f"{player_name.lower()}.{ext}")
+            if os.path.exists(image_path):
+                logger.info(f"Found player image: {image_path}")
+                return image_path
+            
+            # Try without spaces
+            image_path = os.path.join(base_dir, f"{player_name.replace(' ', '')}.{ext}")
+            if os.path.exists(image_path):
+                logger.info(f"Found player image: {image_path}")
+                return image_path
+            
+            # Try lowercase without spaces
+            image_path = os.path.join(base_dir, f"{player_name.lower().replace(' ', '')}.{ext}")
+            if os.path.exists(image_path):
+                logger.info(f"Found player image: {image_path}")
+                return image_path
+    
+    # Check if default player image exists
+    default_image = os.path.join('data', 'pics', 'default_player.jpg')
+    if os.path.exists(default_image):
+        logger.info(f"Using default player image: {default_image}")
+        return default_image
     
     # If no image found, return None
+    logger.warning(f"No image found for player: {player_name}")
     return None
 
 # Function to get color based on percentile using a more sophisticated gradient
@@ -65,7 +84,7 @@ def get_percentile_color(percentile_rank, stat_name=None):
         str: Hex color code
     """
     # List of negative stats where lower values are better
-    negative_stats = ["Losses", "Losses own half"]  # Yellow card and Red card removed
+    negative_stats = ["Losses", "Losses own half", "Yellow card", "Red card"]
     
     # For negative stats, invert the percentile for color coding
     if stat_name in negative_stats:
@@ -74,16 +93,22 @@ def get_percentile_color(percentile_rank, stat_name=None):
     # Ensure percentile is at least 1 for color coding
     percentile_rank = max(percentile_rank, 1)
     
-    if percentile_rank >= 90:
-        return '#1a9641'  # Dark green
-    elif percentile_rank >= 70:
-        return '#73c378'  # Medium green
-    elif percentile_rank >= 50:
-        return '#f9d057'  # Better yellow (more readable than previous '#ffffbf')
-    elif percentile_rank >= 30:
-        return '#fc8d59'  # Light orange
+    # Color ranges aligned with legend elements and UI descriptions:
+    # 0-20% (Red): Poor performance
+    # 21-40% (Orange): Below average performance
+    # 41-60% (Yellow): Average performance  
+    # 61-80% (Light Green): Good performance
+    # 81-100% (Green): Excellent performance
+    if percentile_rank > 80:  # Changed from >= to > to exactly match UI descriptions
+        return '#1a9641'  # Dark green (81-100%)
+    elif percentile_rank > 60:  # Changed from >= to > to exactly match UI descriptions
+        return '#73c378'  # Medium green (61-80%)
+    elif percentile_rank > 40:  # Changed from >= to > to exactly match UI descriptions
+        return '#f9d057'  # Yellow (41-60%)
+    elif percentile_rank > 20:  # Changed from >= to > to exactly match UI descriptions
+        return '#fc8d59'  # Light orange (21-40%)
     else:
-        return '#d73027'  # Red
+        return '#d73027'  # Red (0-20%)
 
 # Function for smoother color transitions (unused but available for future enhancement)
 def get_smooth_percentile_color(value):
@@ -130,10 +155,10 @@ def get_percentile_legend_elements():
     """
     legend_elements = [
         mpatches.Patch(facecolor='#d73027', edgecolor='none', label='0-20%'),
-        mpatches.Patch(facecolor='#fc8d59', edgecolor='none', label='20-40%'),
-        mpatches.Patch(facecolor='#f9d057', edgecolor='none', label='40-60%'),
-        mpatches.Patch(facecolor='#73c378', edgecolor='none', label='60-80%'),
-        mpatches.Patch(facecolor='#1a9641', edgecolor='none', label='80-100%')
+        mpatches.Patch(facecolor='#fc8d59', edgecolor='none', label='21-40%'),
+        mpatches.Patch(facecolor='#f9d057', edgecolor='none', label='41-60%'),
+        mpatches.Patch(facecolor='#73c378', edgecolor='none', label='61-80%'),
+        mpatches.Patch(facecolor='#1a9641', edgecolor='none', label='81-100%')
     ]
     return legend_elements
 

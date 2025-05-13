@@ -64,16 +64,29 @@ def generate_unified_player_chart(player_name, percentile_df, player_color, play
     # If player image is available, add it with better positioning and styling
     if player_image_path and os.path.exists(player_image_path):
         try:
+            logger.info(f"Loading player image: {player_image_path}")
             img = mpimg.imread(player_image_path)
-            # Add a small inset axes for the image with improved placement
-            ax_img = fig.add_axes([0.7, 0.92, 0.22, 0.22], frameon=True)
+            # Add a small inset axes for the image with better alignment with player info
+            ax_img = fig.add_axes([0.7, 0.84, 0.22, 0.22], frameon=True)
             ax_img.imshow(img)
             ax_img.axis('off')
             # Add subtle border around image
             ax_img.patch.set_edgecolor('#DDDDDD')
             ax_img.patch.set_linewidth(1)
         except Exception as e:
-            logger.error(f"Error loading image: {e}")
+            logger.error(f"Error loading image '{player_image_path}': {str(e)}", exc_info=True)
+            # Try to add a placeholder text instead
+            try:
+                ax_img = fig.add_axes([0.7, 0.84, 0.22, 0.22], frameon=True)
+                ax_img.text(0.5, 0.5, player_name[0].upper(), 
+                           fontsize=20, fontweight='bold', 
+                           ha='center', va='center')
+                ax_img.axis('off')
+                ax_img.set_facecolor('#EEEEEE')
+                ax_img.patch.set_edgecolor('#DDDDDD')
+                ax_img.patch.set_linewidth(1)
+            except Exception as placeholder_error:
+                logger.error(f"Error creating placeholder: {str(placeholder_error)}")
     
     # Create the main chart with improved styling
     ax = fig.add_subplot(gs[1])
@@ -216,6 +229,14 @@ def generate_unified_player_chart(player_name, percentile_df, player_color, play
     for stat in valid_stats:
         if stat in percentile_df.columns:
             val = float(percentile_df[stat].iloc[0]) if not pd.isna(percentile_df[stat].iloc[0]) else 0
+            
+            # Special handling for zero values in positive stats to ensure they appear in 0-20% category
+            # For stats like "Goals", "Assists", etc. we want 0 to be in the lowest percentile bucket
+            if val == 0 and stat not in ["Losses", "Losses own half", "Yellow card", "Red card"]:
+                # Set to 10 which is within 0-20% bucket but still visible
+                val = 10
+                logger.info(f"Zero value for positive stat {stat} set to percentile 10 for display")
+                
             percentile_values.append(val)
         else:
             percentile_values.append(0)
@@ -245,7 +266,15 @@ def generate_unified_player_chart(player_name, percentile_df, player_color, play
         bar_colors.append(get_percentile_color(value, stat_name))
     
     # Ensure zero percentiles still show with a minimum width
-    display_percentiles = [max(val, 0.5) for val in percentile_values]
+    # Use a smaller minimum for better visual distinction between zero and non-zero values
+    display_percentiles = []
+    for i, val in enumerate(percentile_values):
+        stat_name = valid_stats[i]
+        # For zero values in positive stats, use a very small but visible width
+        if val <= 10 and stat_name not in ["Losses", "Losses own half", "Yellow card", "Red card"]:
+            display_percentiles.append(3)  # Just enough to be visible as a thin line
+        else:
+            display_percentiles.append(max(val, 0.5))
     
     # Plot horizontal bars with improved styling
     bars = ax.barh(
@@ -260,16 +289,40 @@ def generate_unified_player_chart(player_name, percentile_df, player_color, play
     
     # Add value labels to bars with better formatting and positioning
     for i, (bar, percentile_val, actual_val) in enumerate(zip(bars, percentile_values, actual_values)):
-        if percentile_val > 5:  # Only add text if bar is wide enough
-            # Get the current stat name
-            stat_name = valid_stats[i]
+        # Get the current stat name
+        stat_name = valid_stats[i]
             
-            # The actual_val here is the mean value from the dataframe
-            avg_val = round(actual_val, 2)
+        # The actual_val here is the mean value from the dataframe
+        avg_val = round(actual_val, 2)
             
-            # Calculate sum by multiplying average by number of matches if info is available
-            matches = player_info.get('total_matches', 1)
+        # Calculate sum by multiplying average by number of matches if info is available
+        matches = player_info.get('total_matches', 1)
+        
+        # For zero values in positive stats, always show the label but position it outside
+        if actual_val == 0 and percentile_val <= 10 and stat_name not in ["Losses", "Losses own half", "Yellow card", "Red card"]:
+            # For zero values in positive stats like Goals, make it clear they are zero
+            sum_str = "0"
+            avg_str = "0"
             
+            # Display the "0 | 0" text for zero values
+            display_text = f"{sum_str} | {avg_str}"
+            
+            # Position the text to the right of the tiny bar
+            x_pos = 4  # Just to the right of the small bar
+            text_color = '#333333'
+            ha_align = 'left'
+            
+            ax.text(
+                x_pos,
+                bar.get_y() + bar.get_height()/2,
+                display_text,
+                va='center',
+                ha=ha_align,
+                fontsize=7.5,
+                fontweight='bold',
+                color=text_color
+            )
+        elif percentile_val > 5:  # Only add text for non-zero values if bar is wide enough
             # Handle special stats like cards
             if stat_name in ["Yellow card", "Red card"]:
                 # For cards, the actual_val is already frequency per match

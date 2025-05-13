@@ -166,6 +166,16 @@ def main():
         
         logger.info(f"User selected players: {', '.join(selected_players)}")
         
+        # Add Per90 mode toggle
+        use_per90 = st.checkbox("Use Per 90 Minutes Statistics", value=True, 
+                               help="Calculate all statistics per 90 minutes of play instead of per match")
+        
+        if use_per90:
+            st.info("All statistics will be normalized to a 'per 90 minutes' basis for fair comparison of players with different playing times.")
+            logger.info("Per90 mode enabled")
+        else:
+            logger.info("Using raw statistics (per match)")
+        
         # Load the selected players' raw data
         raw_player_dfs = {}
         for player in selected_players:
@@ -302,11 +312,25 @@ def main():
                             # Filter to include only the selected competitions
                             df = df[df['Competition'].isin(selected_competitions)]
                             logger.info(f"Filtered {player} data to competitions '{', '.join(selected_competitions)}': {df.shape[0]} rows")
-                            
                         
                         # Replace NaN values with 0 for numeric columns
                         numeric_cols = df.select_dtypes(include=['float64', 'int64']).columns
                         df[numeric_cols] = df[numeric_cols].fillna(0)
+                        
+                        # Apply per90 normalization if enabled
+                        if use_per90 and 'Minutes played' in df.columns:
+                            logger.info(f"Applying per90 normalization for {player}")
+                            # Get minutes played for each match
+                            df['Minutes played'] = pd.to_numeric(df['Minutes played'], errors='coerce')
+                            
+                            # Calculate normalization factor for each match (90 / minutes played)
+                            # Cap at reasonable values to avoid extreme normalization for very short appearances
+                            df['per90_factor'] = 90 / df['Minutes played'].clip(lower=15, upper=None)
+                            
+                            # Apply normalization to all numeric columns except Minutes played
+                            for col in numeric_cols:
+                                if col != 'Minutes played':
+                                    df[col] = df[col] * df['per90_factor']
                         
                         df['player_name'] = player  # Add player name to dataframe
                         selected_dfs.append(df)
@@ -318,6 +342,22 @@ def main():
                         df = raw_player_dfs[player].copy()
                         numeric_cols = df.select_dtypes(include=['float64', 'int64']).columns
                         df[numeric_cols] = df[numeric_cols].fillna(0)
+                        
+                        # Apply per90 normalization if enabled
+                        if use_per90 and 'Minutes played' in df.columns:
+                            logger.info(f"Applying per90 normalization for {player}")
+                            # Get minutes played for each match
+                            df['Minutes played'] = pd.to_numeric(df['Minutes played'], errors='coerce')
+                            
+                            # Calculate normalization factor for each match (90 / minutes played)
+                            # Cap at reasonable values to avoid extreme normalization for very short appearances
+                            df['per90_factor'] = 90 / df['Minutes played'].clip(lower=15, upper=None)
+                            
+                            # Apply normalization to all numeric columns except Minutes played
+                            for col in numeric_cols:
+                                if col != 'Minutes played':
+                                    df[col] = df[col] * df['per90_factor']
+                        
                         df['player_name'] = player
                         selected_dfs.append(df)
     
@@ -506,7 +546,12 @@ def main():
     
     # --- Forward Role Profile Scores ---
     st.markdown('<div class="stats-table-container" style="margin-bottom: 30px;">', unsafe_allow_html=True)
-    st.markdown('<p class="stats-table-header">Forward Role Profile Scores</p>', unsafe_allow_html=True)
+    
+    # Add per90 indication if enabled
+    if use_per90:
+        st.markdown('<p class="stats-table-header">Forward Role Profile Scores (Per 90 Minutes)</p>', unsafe_allow_html=True)
+    else:
+        st.markdown('<p class="stats-table-header">Forward Role Profile Scores</p>', unsafe_allow_html=True)
     
 
     # Define metrics and weights for each forward type
@@ -654,7 +699,12 @@ Each player is scored for four classic forward roles based on their stats and th
 
     # Add new table view for player stats comparison
     st.markdown('<div class="stats-table-container">', unsafe_allow_html=True)
-    st.markdown('<p class="stats-table-header">Player Statistics Comparison Table</p>', unsafe_allow_html=True)
+    
+    # Add per90 indication to table header if enabled
+    if use_per90:
+        st.markdown('<p class="stats-table-header">Player Statistics Comparison Table (Per 90 Minutes)</p>', unsafe_allow_html=True)
+    else:
+        st.markdown('<p class="stats-table-header">Player Statistics Comparison Table</p>', unsafe_allow_html=True)
     
     # Create category filters for the table view
     table_category_options = ["All"] + list(filtered_stat_categories.keys())
@@ -762,7 +812,17 @@ Each player is scored for four classic forward roles based on their stats and th
                             sum_val = 0
                     else:
                         # Regular calculation for other stats
-                        sum_val = round(actual_val * matches, 2) if matches > 0 else actual_val
+                        if matches > 0:
+                            # If per90 mode is enabled, the actual_val is already normalized
+                            # We just need to calculate the total based on normalized values
+                            if use_per90:
+                                # For per90 stats, we show the normalized average directly and 
+                                # calculate sum by multiplying by matches
+                                sum_val = round(actual_val * matches, 2)
+                            else:
+                                sum_val = round(actual_val * matches, 2)
+                        else:
+                            sum_val = actual_val
                     
                     # Format and add to the row
                     stat_row[f"{name} (Rank)"] = f"{int(percentile)}%"
@@ -771,15 +831,25 @@ Each player is scored for four classic forward roles based on their stats and th
                     if show_all_stat_details:
                         # For cards, show count differently
                         if stat in ["Yellow card", "Red card"]:
-                            # For cards, actual_val is already frequency per match
-                            # Convert to count of matches with cards
-                            card_count = int(round(sum_val))
-                            stat_row[f"{name} (Sum)"] = f"{card_count}" if card_count > 0 else "0"
-                            # For average, show the frequency directly
-                            stat_row[f"{name} (Avg)"] = f"{round(actual_val, 3):.3f}" if actual_val > 0 else "0"
+                            # For cards, display per90 value if per90 mode is enabled
+                            if use_per90:
+                                stat_row[f"{name} (Sum)"] = f"{sum_val:.2f}"
+                                stat_row[f"{name} (Avg)"] = f"{round(actual_val, 2)}/90"
+                            else:
+                                # For non-per90 mode, show as integer count 
+                                card_count = int(round(sum_val))
+                                stat_row[f"{name} (Sum)"] = f"{card_count}" if card_count > 0 else "0"
+                                stat_row[f"{name} (Avg)"] = f"{round(actual_val, 3):.3f}" if actual_val > 0 else "0"
                         else:
-                            stat_row[f"{name} (Sum)"] = f"{sum_val}"
-                            stat_row[f"{name} (Avg)"] = f"{round(actual_val, 2)}"
+                            # Add per90 label for normalized stats
+                            if use_per90 and stat != "Minutes played":
+                                stat_row[f"{name} (Sum)"] = f"{sum_val}"
+                                avg_label = f"{round(actual_val, 2)}/90"
+                            else:
+                                stat_row[f"{name} (Sum)"] = f"{sum_val}"
+                                avg_label = f"{round(actual_val, 2)}"
+                            
+                            stat_row[f"{name} (Avg)"] = avg_label
                 else:
                     stat_row[f"{name} (Rank)"] = "N/A"
                     # Only add sum and avg if detailed view is enabled
@@ -795,7 +865,7 @@ Each player is scored for four classic forward roles based on their stats and th
         # Style the DataFrame
         def highlight_cells(val, stat_name=None):
             # List of negative stats where lower values are better
-            negative_stats = ["Losses", "Losses own half"]  # Yellow card and Red card removed
+            negative_stats = ["Losses", "Losses own half", "Yellow card", "Red card"]
             
             if isinstance(val, str) and val.endswith('%'):
                 try:
@@ -805,13 +875,13 @@ Each player is scored for four classic forward roles based on their stats and th
                     if stat_name in negative_stats:
                         percentile = 100 - percentile
                         
-                    if percentile >= 81:
+                    if percentile > 80:
                         return 'background-color: #1a9641; color: white'
-                    elif percentile >= 61:
+                    elif percentile > 60:
                         return 'background-color: #73c378; color: black'
-                    elif percentile >= 41:
+                    elif percentile > 40:
                         return 'background-color: #f9d057; color: black'
-                    elif percentile >= 21:
+                    elif percentile > 20:
                         return 'background-color: #fc8d59; color: black'
                     else:
                         return 'background-color: #d73027; color: white'
@@ -867,7 +937,7 @@ Each player is scored for four classic forward roles based on their stats and th
           <ul style="margin-top: 5px; margin-bottom: 10px;">
             <li><strong>Rank</strong> - Percentile rank (0-100%) showing how the player compares to others</li>
             {"<li><strong>Sum</strong> - Total accumulated statistic across all matches</li>" if show_all_stat_details else ""}
-            {"<li><strong>Avg</strong> - Average value per match</li>" if show_all_stat_details else ""}
+            {"<li><strong>Avg</strong> - " + ("Average value per 90 minutes" if use_per90 else "Average value per match") + "</li>" if show_all_stat_details else ""}
           </ul>
         </div>
         """, unsafe_allow_html=True)
@@ -926,7 +996,12 @@ Each player is scored for four classic forward roles based on their stats and th
     
     # Add Forward Type Classification Scatter Plot
     st.markdown('<div class="stats-table-container" style="margin-top: 30px;">', unsafe_allow_html=True)
-    st.markdown('<p class="stats-table-header">Forward Player Type Classification</p>', unsafe_allow_html=True)
+    
+    # Add per90 indication if enabled
+    if use_per90:
+        st.markdown('<p class="stats-table-header">Forward Player Type Classification (Per 90 Minutes)</p>', unsafe_allow_html=True)
+    else:
+        st.markdown('<p class="stats-table-header">Forward Player Type Classification</p>', unsafe_allow_html=True)
      
     # Create preset combinations for easier analysis
     preset_combinations = {
@@ -1062,7 +1137,7 @@ Each player is scored for four classic forward roles based on their stats and th
     
     
     # Create function to generate an interactive scatter plot with hover
-    def create_interactive_scatter(player_names, player_percentiles, player_actual_values, player_colors, x_stat, y_stat):
+    def create_interactive_scatter(player_names, player_percentiles, player_actual_values, player_colors, x_stat, y_stat, per90_mode=False):
         # List of negative stats where lower values are better
         negative_stats = ["Losses", "Losses own half"]  # Yellow card and Red card removed
         
@@ -1085,26 +1160,34 @@ Each player is scored for four classic forward roles based on their stats and th
                     x_actual = float(actual_df[x_stat].iloc[0]) if not pd.isna(actual_df[x_stat].iloc[0]) else 0
                     display_x_val = x_val
                     
+                    # Add per90 indicator if enabled
+                    x_stat_label = f"{x_stat}" + (" (per 90)" if per90_mode and x_stat != "Minutes played" else "")
+                    
                     if x_stat in negative_stats:
-                        hover_text += f"{x_stat}: {x_actual:.2f} ({x_val:.0f}% - lower is better)<br>"
+                        hover_text += f"{x_stat_label}: {x_actual:.2f} ({x_val:.0f}% - lower is better)<br>"
                     else:
-                        hover_text += f"{x_stat}: {x_actual:.2f} ({x_val:.0f}%)<br>"
+                        hover_text += f"{x_stat_label}: {x_actual:.2f} ({x_val:.0f}%)<br>"
                 
                 if y_stat in actual_df.columns:
                     y_actual = float(actual_df[y_stat].iloc[0]) if not pd.isna(actual_df[y_stat].iloc[0]) else 0
                     display_y_val = y_val
                     
+                    # Add per90 indicator if enabled
+                    y_stat_label = f"{y_stat}" + (" (per 90)" if per90_mode and y_stat != "Minutes played" else "")
+                    
                     if y_stat in negative_stats:
-                        hover_text += f"{y_stat}: {y_actual:.2f} ({y_val:.0f}% - lower is better)<br>"
+                        hover_text += f"{y_stat_label}: {y_actual:.2f} ({y_val:.0f}% - lower is better)<br>"
                     else:
-                        hover_text += f"{y_stat}: {y_actual:.2f} ({y_val:.0f}%)<br>"
+                        hover_text += f"{y_stat_label}: {y_actual:.2f} ({y_val:.0f}%)<br>"
                 
                 # Add additional key stats
                 additional_stats = ["Goals", "Assists", "Shots", "Passes accurate", "Duels won"]
                 for stat in additional_stats:
                     if stat != x_stat and stat != y_stat and stat in actual_df.columns:
                         stat_val = float(actual_df[stat].iloc[0]) if not pd.isna(actual_df[stat].iloc[0]) else 0
-                        hover_text += f"{stat}: {stat_val:.2f}<br>"
+                        # Add per90 indicator if enabled
+                        stat_label = f"{stat}" + (" (per 90)" if per90_mode and stat != "Minutes played" else "")
+                        hover_text += f"{stat_label}: {stat_val:.2f}<br>"
                 
                 data.append({
                     'name': name,
@@ -1276,6 +1359,11 @@ Each player is scored for four classic forward roles based on their stats and th
                 )
             )
         
+        # Add title with per90 indication if enabled
+        title_text = "Forward Player Type Classification"
+        if per90_mode:
+            title_text += " (Per 90 Minutes)"
+        
         # Configure the layout to match FM24 style
         fig.update_layout(
             plot_bgcolor="#333333",
@@ -1283,7 +1371,8 @@ Each player is scored for four classic forward roles based on their stats and th
             width=800,  # Set fixed width
             height=600,  # Set fixed height for better aspect ratio
             xaxis=dict(
-                title=dict(text=x_stat.upper(), font=dict(color="#CCCCCC", size=18)),
+                title=dict(text=x_stat.upper() + (" (PER 90)" if per90_mode and x_stat != "Minutes played" else ""), 
+                         font=dict(color="#CCCCCC", size=18)),
                 range=[0, 100],
                 gridcolor="#444444",
                 zerolinecolor="#444444",
@@ -1295,7 +1384,8 @@ Each player is scored for four classic forward roles based on their stats and th
                 ticktext=['0%', '25%', '50%', '75%', '100%']
             ),
             yaxis=dict(
-                title=dict(text=y_stat.upper(), font=dict(color="#CCCCCC", size=18)),
+                title=dict(text=y_stat.upper() + (" (PER 90)" if per90_mode and y_stat != "Minutes played" else ""), 
+                         font=dict(color="#CCCCCC", size=18)),
                 range=[0, 100],
                 gridcolor="#444444",
                 zerolinecolor="#444444",
@@ -1315,7 +1405,7 @@ Each player is scored for four classic forward roles based on their stats and th
             ),
             # Add title and subtitle
             title=dict(
-                text="Forward Player Type Classification",
+                text=title_text,
                 font=dict(color="#FFFFFF", size=22),
                 y=0.95
             ),
@@ -1334,30 +1424,30 @@ Each player is scored for four classic forward roles based on their stats and th
             player_actual_values, 
             player_colors,
             x_stat,
-            y_stat
+            y_stat,
+            per90_mode=use_per90  # Pass per90 mode flag to the scatter plot function
         )
-            
+        
         if plotly_fig:
             st.plotly_chart(plotly_fig, use_container_width=True)
+        
+        # Add information about negative stats
+        if x_stat in ["Losses", "Losses own half"] or y_stat in ["Losses", "Losses own half"]:
+            st.info("""
+            **Note about negative statistics:**
             
-            # Add information about negative stats
-            if x_stat in ["Losses", "Losses own half"] or y_stat in ["Losses", "Losses own half"]:
-                st.info("""
-                **Note about negative statistics:**
-                
-                For stats like Losses, Losses own half, Yellow card, and Red card, lower values are better.
-                These negative stats have been color-coded appropriately:
-                - **Red** (0-20%): High frequency (poor performance)
-                - **Green** (80-100%): Low frequency (excellent performance)
-                
-                The percentiles for these stats have been inverted in the visualization so that higher
-                percentiles (greener colors) consistently represent better performance.
-                """)
+            For stats like Losses, Losses own half, Yellow card, and Red card, lower values are better.
+            These negative stats have been color-coded appropriately:
+            - **Red** (0-20%): High frequency (poor performance)
+            - **Green** (80-100%): Low frequency (excellent performance)
+            
+            The percentiles for these stats have been inverted in the visualization so that higher
+            percentiles (greener colors) consistently represent better performance.
+            """)
         else:
             st.warning("Could not generate interactive scatter plot. Insufficient data.")
     else:
         # Display the static matplotlib version
-        # Generate and display the scatter plot
         scatter_fig = generate_forward_type_scatter(
             selected_players, 
             player_percentiles, 
@@ -1384,10 +1474,23 @@ Each player's performance is measured across various metrics and displayed in bo
 
 **Stat Types**
 - **Sum**: The total accumulated statistic across all matches (e.g., total goals scored)
-- **Average**: The average value per match (e.g., average goals per match)
+- **Average**: """ + ("The average value per 90 minutes of play" if use_per90 else "The average value per match") + """ (e.g., goals per 90 minutes)
 
-**Percentile Ranking**
-- Percentile ranks show how a player compares to others in the comparison. With only 3 players in the dataset, the ranks are calculated using min-max normalization to create a 0-100 scale.
+**Per 90 Minutes Stats**
+""" + ("""
+- When "Use Per 90 Minutes Statistics" is enabled, all stats are normalized to a per-90-minutes basis
+- This provides a fairer comparison between players with different playing times
+- Example: A player with 1 goal in 30 minutes would be credited with 3 goals per 90 minutes
+- Statistics like yellow and red cards are also normalized to provide consistent per-90 values
+""" if use_per90 else "- Enable the 'Use Per 90 Minutes Statistics' option in the configuration to normalize stats based on playing time") + """
+
+**Percentile Ranking Explained**
+- Percentile ranks show how a player compares to others in the current comparison
+- A percentile of 75% means the player's value is higher than 75% of the other players in the comparison
+- For negative stats (like Losses, Yellow/Red cards), lower values are better, so the percentiles are inverted
+- With small datasets (2-3 players), percentiles are adjusted to distribute values more evenly across the 0-100 scale
+- The percentileofscore function from SciPy is used to calculate these rankings
+- A value of 0 would receive a percentile of 0%, a middle value around 50%, and the highest value 100%
 
 **Color Scale**
 - 🟥 **Red** (0-20%): Poor

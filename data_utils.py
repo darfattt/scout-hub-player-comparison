@@ -235,6 +235,10 @@ def calculate_percentile_ranks(dfs, numeric_stats):
         logger.warning("No valid player averages calculated")
         return [], []
     
+    # Check if we're working with a very small dataset (2-3 players)
+    small_dataset = len(player_avgs) <= 3
+    logger.info(f"Processing a {'small' if small_dataset else 'normal'} dataset with {len(player_avgs)} players")
+    
     # Combine all player averages
     combined_avgs = pd.concat(player_avgs, ignore_index=True)
     
@@ -260,7 +264,7 @@ def calculate_percentile_ranks(dfs, numeric_stats):
                     continue
                 
                 # List of stats where lower values are better (negative stats)
-                negative_stats = ["Losses", "Losses own half"]  # Yellow card and Red card removed
+                negative_stats = ["Losses", "Losses own half", "Yellow card", "Red card"]
                 
                 # Get the current player's value
                 player_val = row.get(stat)
@@ -271,44 +275,55 @@ def calculate_percentile_ranks(dfs, numeric_stats):
                 # Handle stats with all zero values
                 if all_values.sum() == 0:
                     percentile_rank = 50  # Default to middle percentile
+                    logger.info(f"All zero values for {stat}, defaulting to middle percentile (50)")
                 # Handle special stats like cards
                 elif stat in ["Yellow card", "Red card"]:
-                    # Count matches with cards
-                    card_count = 0
-                    total_matches = len(df)
-                    
-                    for _, row in df.iterrows():
-                        try:
-                            # Convert to numeric safely
-                            card_val = pd.to_numeric(row.get(stat, 0), errors='coerce')
-                            if pd.notna(card_val) and card_val > 0:
-                                card_count += 1
-                        except:
-                            pass
-                    
-                    # Calculate frequency of cards per match
-                    if total_matches > 0:
-                        card_frequency = card_count / total_matches
-                    else:
-                        card_frequency = 0
-                    
-                    # Adjust player_val to use the calculated frequency
-                    player_val = card_frequency
-                    
-                    # Determine percentile rank (higher frequency = lower percentile for cards)
-                    if all_values.sum() == 0:
-                        percentile_rank = 50
-                    else:
-                        all_card_values = combined_avgs[stat].dropna()
-                        percentile_rank = 100 - stats.percentileofscore(all_card_values, player_val)
+                    # Cards are now normalized to per-90 basis like other stats
+                    # For cards, lower values are better (fewer cards is better)
+                    # percentileofscore returns the percentage of values at or below the given value
+                    # So we invert it (100 - score) to get the correct ranking
+                    raw_percentile = stats.percentileofscore(all_values, player_val)
+                    percentile_rank = 100 - raw_percentile
+                    logger.info(f"Card stat {stat} for {player_name}: raw={player_val}, percentile={raw_percentile}, inverted={percentile_rank}")
                 else:
                     # For regular stats, calculate percentile normally
                     if stat in negative_stats:
                         # For negative stats, lower values are better
-                        percentile_rank = 100 - stats.percentileofscore(all_values, player_val)
+                        # percentileofscore returns the percentage of values at or below the given value
+                        # So we invert it (100 - score) to get the correct ranking where lower is better
+                        raw_percentile = stats.percentileofscore(all_values, player_val)
+                        percentile_rank = 100 - raw_percentile
+                        logger.info(f"Negative stat {stat} for {player_name}: raw={player_val}, percentile={raw_percentile}, inverted={percentile_rank}")
                     else:
                         # For positive stats, higher values are better
+                        # percentileofscore returns the percentage of values at or below the given value
+                        # A higher percentile means the player ranks better compared to others
                         percentile_rank = stats.percentileofscore(all_values, player_val)
+                        logger.info(f"Positive stat {stat} for {player_name}: raw={player_val}, percentile={percentile_rank}")
+                
+                # For small datasets (2-3 players), adjust percentiles to ensure better distribution
+                # With 3 players, percentileofscore might only return values like 0, 33, 66, 100
+                # This ensures we map to our 5-category color scale more effectively
+                if small_dataset:
+                    # Map raw percentiles to our 5-level color scale buckets:
+                    # 0-20% (Red), 21-40% (Orange), 41-60% (Yellow), 61-80% (Light Green), 81-100% (Green)
+                    
+                    # For very low values, keep them in the 0-20% bucket but not at absolute 0
+                    if percentile_rank < 10:
+                        percentile_rank = 10  # Keep in the 0-20% bucket but visible
+                    # Map other values to representative points in each bucket
+                    elif percentile_rank < 25:
+                        percentile_rank = 20  # Set to top of the 0-20% bucket
+                    elif percentile_rank < 50:
+                        percentile_rank = 30  # Set to middle of the 21-40% bucket
+                    elif percentile_rank < 75:
+                        percentile_rank = 50  # Set to middle of the 41-60% bucket
+                    elif percentile_rank < 90:
+                        percentile_rank = 70  # Set to middle of the 61-80% bucket
+                    else:
+                        percentile_rank = 90  # Set to middle of the 81-100% bucket
+                
+                    logger.info(f"Small dataset adjustment for {stat}, player {player_name}: adjusted to {percentile_rank}")
                 
                 # Add to dataframes
                 percentile_df[stat] = [percentile_rank]
@@ -316,5 +331,11 @@ def calculate_percentile_ranks(dfs, numeric_stats):
         
         percentile_dfs.append(percentile_df)
         actual_dfs.append(actual_df)
+        
+        # Log the range of percentiles for diagnostic purposes
+        if not percentile_df.empty:
+            min_percentile = percentile_df.values.min()
+            max_percentile = percentile_df.values.max()
+            logger.info(f"Player {player_name} percentile range: {min_percentile:.1f} - {max_percentile:.1f}")
     
     return percentile_dfs, actual_dfs 
