@@ -987,15 +987,6 @@ Each player is scored for four classic forward roles based on their stats and th
             y_stat = preset_y if preset_y in available_numeric_stats else default_y_stat
             st.markdown(f"**Y-Axis**: {y_stat}")
     
-    # Generate and display the scatter plot
-    scatter_fig = generate_forward_type_scatter(
-        selected_players, 
-        player_percentiles, 
-        player_actual_values, 
-        player_colors,
-        x_stat,
-        y_stat
-    )
     
     # Create function to generate an interactive scatter plot with hover
     def create_interactive_scatter(player_names, player_percentiles, player_actual_values, player_colors, x_stat, y_stat):
@@ -1223,35 +1214,33 @@ Each player is scored for four classic forward roles based on their stats and th
     # Add a toggle for interactive mode
     interactive_mode = st.checkbox("Enable Interactive Mode with Hover Details", value=True)
     
-    if scatter_fig:
-        if interactive_mode:
-            # Generate and display interactive plotly version
-            plotly_fig = create_interactive_scatter(
-                selected_players, 
-                player_percentiles, 
-                player_actual_values, 
-                player_colors,
-                x_stat,
-                y_stat
-            )
+    if interactive_mode:
+        # Generate and display interactive plotly version
+        plotly_fig = create_interactive_scatter(
+            selected_players, 
+            player_percentiles, 
+            player_actual_values, 
+            player_colors,
+            x_stat,
+            y_stat
+        )
             
-            if plotly_fig:
-                st.plotly_chart(plotly_fig, use_container_width=True)
-            else:
-                st.warning("Could not generate interactive scatter plot. Insufficient data.")
+        if plotly_fig:
+            st.plotly_chart(plotly_fig, use_container_width=True)
         else:
-            # Display the static matplotlib version
-            st.pyplot(scatter_fig)
-        
-        # Add download button for this specific chart
-        st.markdown('<div class="scatter-download-btn">', unsafe_allow_html=True)
-        buf = io.BytesIO()
-        scatter_fig.savefig(buf, format="png", dpi=300, bbox_inches="tight")
-        buf.seek(0)
-        
-        st.markdown('</div>', unsafe_allow_html=True)
+            st.warning("Could not generate interactive scatter plot. Insufficient data.")
     else:
-        st.warning("Could not generate scatter plot. Insufficient data.")
+        # Display the static matplotlib version
+        # Generate and display the scatter plot
+        scatter_fig = generate_forward_type_scatter(
+            selected_players, 
+            player_percentiles, 
+            player_actual_values, 
+            player_colors,
+            x_stat,
+            y_stat
+        )
+        st.pyplot(scatter_fig)
     
     st.markdown('</div>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
