@@ -846,12 +846,7 @@ Each player is scored for four classic forward roles based on their stats and th
         
         # Add download button for the table
         csv = table_df.to_csv(index=False)
-        st.download_button(
-            label="📊 Download Comparison Table",
-            data=csv,
-            file_name="player_comparison_table.csv",
-            mime="text/csv"
-        )
+        
     else:
         st.info("Please select at least one metric to display in the table")
     
@@ -1254,12 +1249,6 @@ Each player is scored for four classic forward roles based on their stats and th
         scatter_fig.savefig(buf, format="png", dpi=300, bbox_inches="tight")
         buf.seek(0)
         
-        st.download_button(
-            label="📥 Download Scatter Plot",
-            data=buf,
-            file_name=f"forward_classification_{x_stat}_vs_{y_stat}.png",
-            mime="image/png"
-        )
         st.markdown('</div>', unsafe_allow_html=True)
     else:
         st.warning("Could not generate scatter plot. Insufficient data.")
