@@ -697,6 +697,48 @@ Each player is scored for four classic forward roles based on their stats and th
         """
     )
 
+    # Add detailed weight information in a collapsible section
+    with st.expander("📊 View Role Weight Details", expanded=False):
+        st.markdown("""
+        ### Role Weight Details
+        
+        Each forward role is defined by a weighted combination of key statistics that determine the player's suitability for that role. 
+        The weights below show which statistics are most important for each role type.
+        
+        #### Advance Forward
+        """)
+        
+        # Create a table for Advance Forward weights
+        af_data = [[stat, weight] for stat, weight in forward_role_weights["Advance Forward"].items()]
+        af_df = pd.DataFrame(af_data, columns=["Statistic", "Weight"])
+        st.dataframe(af_df.style.format({"Weight": "{:.2f}"}), use_container_width=True)
+        
+        st.markdown("#### Pressing Forward")
+        pf_data = [[stat, weight] for stat, weight in forward_role_weights["Pressing Forward"].items()]
+        pf_df = pd.DataFrame(pf_data, columns=["Statistic", "Weight"])
+        st.dataframe(pf_df.style.format({"Weight": "{:.2f}"}), use_container_width=True)
+        
+        st.markdown("#### Deep-lying Forward")
+        dlf_data = [[stat, weight] for stat, weight in forward_role_weights["Deep-lying Forward"].items()]
+        dlf_df = pd.DataFrame(dlf_data, columns=["Statistic", "Weight"])
+        st.dataframe(dlf_df.style.format({"Weight": "{:.2f}"}), use_container_width=True)
+        
+        st.markdown("#### Poacher")
+        poacher_data = [[stat, weight] for stat, weight in forward_role_weights["Poacher"].items()]
+        poacher_df = pd.DataFrame(poacher_data, columns=["Statistic", "Weight"])
+        # Format the weights to show negative values with a minus sign
+        poacher_formatted = poacher_df.style.format({"Weight": "{:.2f}"})
+        st.dataframe(poacher_formatted, use_container_width=True)
+        
+        st.markdown("""
+        **Note on weights:**
+        - Positive weights (most stats) indicate that higher values contribute more to the role score
+        - Negative weights (in Poacher role) indicate that lower values are better for that role
+        - The higher the weight value, the more important that statistic is for the role
+        
+        *These weights can be adjusted based on tactical preferences or analysis requirements.*
+        """)
+
     # Add new table view for player stats comparison
     st.markdown('<div class="stats-table-container">', unsafe_allow_html=True)
     
@@ -732,7 +774,7 @@ Each player is scored for four classic forward roles based on their stats and th
     )
     
     # Add a checkbox to toggle between seeing all stat details or just percentile ranks
-    show_all_stat_details = st.checkbox("Show detailed stats (Sum & Avg)", value=True)
+    show_all_stat_details = st.checkbox("Show detailed stats (Sum & Avg)", value=False)
     
     if selected_stats_for_table:
         # Create a combined table with all players' stats
@@ -1444,8 +1486,8 @@ Each player is scored for four classic forward roles based on their stats and th
             The percentiles for these stats have been inverted in the visualization so that higher
             percentiles (greener colors) consistently represent better performance.
             """)
-        else:
-            st.warning("Could not generate interactive scatter plot. Insufficient data.")
+        # else:
+        #     st.warning("Could not generate interactive scatter plot. Insufficient data.")
     else:
         # Display the static matplotlib version
         scatter_fig = generate_forward_type_scatter(
@@ -1460,9 +1502,6 @@ Each player is scored for four classic forward roles based on their stats and th
     
     st.markdown('</div>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
-    
-    # Add a separator before the metrics section
-    st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
     
     # Add explanatory text about performance metrics (now collapsible)
     with st.expander("About Performance Metrics", expanded=False):
@@ -1502,25 +1541,407 @@ Each player's performance is measured across various metrics and displayed in bo
         )
     
     # Add a better-styled section for downloading the processed data
-    st.markdown("<div class='download-section'>", unsafe_allow_html=True)
-    st.markdown("<p class='download-title'>Download Processed Data</p>", unsafe_allow_html=True)
+    # st.markdown("<div class='download-section'>", unsafe_allow_html=True)
+    # st.markdown("<p class='download-title'>Download Processed Data</p>", unsafe_allow_html=True)
     
-    # Create a DataFrame with the percentile ranks for all players
-    download_cols = st.columns(len(selected_players))
+    # # Create a DataFrame with the percentile ranks for all players
+    # download_cols = st.columns(len(selected_players))
     
-    for i, (name, percentile_df, actual_values, col) in enumerate(zip(selected_players, player_percentiles, player_actual_values, download_cols)):
-        # Convert the first row to CSV for download
-        if not percentile_df.empty:
-            csv = percentile_df.to_csv(index=False)
-            with col:
-                st.download_button(
-                    label=f"Download {name} data",
-                    data=csv,
-                    file_name=f"{name}_percentiles.csv",
-                    mime="text/csv"
-                )
+    # for i, (name, percentile_df, actual_values, col) in enumerate(zip(selected_players, player_percentiles, player_actual_values, download_cols)):
+    #     # Convert the first row to CSV for download
+    #     if not percentile_df.empty:
+    #         csv = percentile_df.to_csv(index=False)
+    #         with col:
+    #             st.download_button(
+    #                 label=f"Download {name} data",
+    #                 data=csv,
+    #                 file_name=f"{name}_percentiles.csv",
+    #                 mime="text/csv"
+    #             )
     
-    st.markdown("</div>", unsafe_allow_html=True)
+    # st.markdown("</div>", unsafe_allow_html=True)
 
+    # Add a separator
+    # st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
+    
+    # Add DeepSeek AI Insights Section
+    st.markdown('<div class="stats-table-container" style="margin-top: 1px;">', unsafe_allow_html=True)
+    st.markdown('<p class="stats-table-header">🧠 AI Assistant Insights Analysis</p>', unsafe_allow_html=True)
+     
+    # Create a trigger button for generating insights
+    if st.button("📊 Ask Assistant Insights", use_container_width=True):
+        with st.spinner("DeepSeek is analyzing player data..."):
+            try:
+                # Prepare data for AI analysis
+                player_data = []
+                for i, (name, percentile_df, actual_df) in enumerate(zip(selected_players, player_percentiles, player_actual_values)):
+                    # Get role scores for this player
+                    player_role_scores = role_scores[i] if i < len(role_scores) else {}
+                    
+                    # Get top stats (80th percentile or higher)
+                    top_stats = []
+                    for stat in percentile_df.columns:
+                        percentile = float(percentile_df[stat].iloc[0]) if not pd.isna(percentile_df[stat].iloc[0]) else 0
+                        if percentile >= 80:
+                            top_stats.append(stat)
+                    
+                    # Get weak stats (20th percentile or lower)
+                    weak_stats = []
+                    for stat in percentile_df.columns:
+                        percentile = float(percentile_df[stat].iloc[0]) if not pd.isna(percentile_df[stat].iloc[0]) else 0
+                        if percentile <= 20:
+                            weak_stats.append(stat)
+                    
+                    # Determine best role based on highest score
+                    best_role = max(player_role_scores.items(), key=lambda x: x[1])[0] if player_role_scores else ""
+                    
+                    # Get position and other key info
+                    position = player_info[i].get('position', 'Unknown')
+                    matches = player_info[i].get('total_matches', 0)
+                    minutes = player_info[i].get('total_minutes', 0)
+                    
+                    player_data.append({
+                        "name": name,
+                        "position": position,
+                        "matches": matches,
+                        "minutes": minutes,
+                        "best_role": best_role,
+                        "role_scores": player_role_scores,
+                        "top_stats": top_stats[:5],  # Limit to top 5 for clarity
+                        "weak_stats": weak_stats[:5],  # Limit to top 5 for clarity
+                        "percentiles": {col: float(percentile_df[col].iloc[0]) for col in percentile_df.columns if not pd.isna(percentile_df[col].iloc[0])},
+                        "actual_values": {col: float(actual_df[col].iloc[0]) for col in actual_df.columns if not pd.isna(actual_df[col].iloc[0])}
+                    })
+                
+                # Get the scatter plot data for default preset
+                default_preset = "Goals vs xG"
+                x_stat, y_stat = preset_combinations[default_preset]
+                
+                scatter_data = []
+                for i, (name, percentile_df, actual_df) in enumerate(zip(selected_players, player_percentiles, player_actual_values)):
+                    if x_stat in percentile_df.columns and y_stat in percentile_df.columns:
+                        x_val = float(percentile_df[x_stat].iloc[0]) if not pd.isna(percentile_df[x_stat].iloc[0]) else 0
+                        y_val = float(percentile_df[y_stat].iloc[0]) if not pd.isna(percentile_df[y_stat].iloc[0]) else 0
+                        
+                        # Get actual values
+                        x_actual = float(actual_df[x_stat].iloc[0]) if not pd.isna(actual_df[x_stat].iloc[0]) else 0
+                        y_actual = float(actual_df[y_stat].iloc[0]) if not pd.isna(actual_df[y_stat].iloc[0]) else 0
+                        
+                        scatter_data.append({
+                            "name": name,
+                            "x_stat": x_stat,
+                            "y_stat": y_stat,
+                            "x_percentile": x_val,
+                            "y_percentile": y_val,
+                            "x_actual": x_actual,
+                            "y_actual": y_actual
+                        })
+                
+                # Use DeepSeek API if API key is provided, otherwise fall back to simulated analysis
+                use_api = False
+                api_key = st.session_state.get('deepseek_api_key', '')
+                
+                # Real API implementation
+                if api_key:
+                    try:
+                        import requests
+                        import json
+                        
+                        # Prepare prompt for DeepSeek API
+                        prompt = f"""
+                        You are an expert football scout and analyst. Please analyze the following player data and provide detailed insights.
+                        
+                        # Player Data
+                        {json.dumps(player_data, indent=2)}
+                        
+                        # Scatter Plot Data (Goals vs xG)
+                        {json.dumps(scatter_data, indent=2)}
+                        
+                        Please provide a comprehensive analysis covering:
+                        1. Performance Overview: Analyze percentile rankings and identify strengths/weaknesses
+                        2. Forward Role Assessment: Evaluate suitability for different forward roles
+                        3. Positional Analysis: Analyze Goals vs xG data and classify player types
+                        4. Development Recommendations: Suggest specific training focus areas
+                        
+                        Format your response in Markdown with clear headings and sections.
+                        """
+                        
+                        # Call DeepSeek API
+                        logger.info("Calling DeepSeek API for player analysis")
+                        response = requests.post(
+                            "https://api.deepseek.com/v1/chat/completions",
+                            headers={
+                                "Authorization": f"Bearer {api_key}",
+                                "Content-Type": "application/json"
+                            },
+                            json={
+                                "model": "deepseek-chat",
+                                "messages": [
+                                    {"role": "system", "content": "You are an expert football player analyst and scout."},
+                                    {"role": "user", "content": prompt}
+                                ],
+                                "temperature": 0.7,
+                                "max_tokens": 4000
+                            }
+                        )
+                        
+                        # Process API response
+                        if response.status_code == 200:
+                            api_response = response.json()
+                            full_analysis = api_response['choices'][0]['message']['content']
+                            use_api = False
+                            
+                            # Display entire response in a nicely formatted container
+                            st.markdown("## Complete Analysis from DeepSeek API")
+                            st.markdown(full_analysis)
+                            
+                            # Set flag that insights have been generated
+                            st.session_state['insight_generated'] = True
+                            
+                            # Add download option for API response
+                            st.download_button(
+                                label="📥 Download Complete API Analysis",
+                                data=full_analysis,
+                                file_name=f"deepseek_player_insights_{'-'.join(selected_players)}.md",
+                                mime="text/markdown"
+                            )
+                        else:
+                            st.warning(f"API request failed with status code {response.status_code}. Falling back to simulated analysis.")
+                            logger.warning(f"DeepSeek API request failed: {response.text}")
+                    except Exception as api_error:
+                        st.warning(f"Error using DeepSeek API: {str(api_error)}. Falling back to simulated analysis.")
+                        logger.error(f"Error calling DeepSeek API: {str(api_error)}", exc_info=True)
+                
+                # If API not used or failed, use simulated analysis
+                if not use_api:
+                    # Performance Overview Analysis
+                    performance_overview = ""
+                    for p in player_data:
+                        perf_summary = f"### {p['name']} ({p['position']})\n\n"
+                        
+                        # Overall percentile average
+                        avg_percentile = sum(p['percentiles'].values()) / len(p['percentiles']) if p['percentiles'] else 0
+                        
+                        # Categorize performance
+                        if avg_percentile >= 80:
+                            performance_tier = "elite"
+                        elif avg_percentile >= 65:
+                            performance_tier = "above average"
+                        elif avg_percentile >= 45:
+                            performance_tier = "average"
+                        elif avg_percentile >= 30:
+                            performance_tier = "below average"
+                        else:
+                            performance_tier = "needs improvement"
+                        
+                        perf_summary += f"Overall performance is **{performance_tier}** with an average percentile rank of {avg_percentile:.1f}%. "
+                        
+                        # Add top strengths
+                        if p['top_stats']:
+                            perf_summary += f"Key strengths include {', '.join(p['top_stats'])}. "
+                        
+                        # Add areas for improvement
+                        if p['weak_stats']:
+                            perf_summary += f"Areas for improvement include {', '.join(p['weak_stats'])}."
+                        
+                        performance_overview += perf_summary + "\n\n"
+                    
+                    # Forward Role Assessment
+                    role_assessment = ""
+                    for p in player_data:
+                        # Sort roles by score
+                        sorted_roles = sorted(p['role_scores'].items(), key=lambda x: x[1], reverse=True)
+                        
+                        role_summary = f"### {p['name']} - Role Suitability\n\n"
+                        
+                        # Add primary role assessment
+                        if sorted_roles:
+                            primary_role = sorted_roles[0][0]
+                            primary_score = sorted_roles[0][1]
+                            
+                            role_summary += f"**Primary Role: {primary_role}** (Score: {primary_score:.2f})\n\n"
+                            
+                            # Add explanation based on role
+                            if primary_role == "Advance Forward":
+                                role_summary += "Player demonstrates excellent goal-scoring ability combined with strong overall attacking presence. "
+                                role_summary += "Should be positioned as the main offensive threat with freedom to attack the goal directly.\n\n"
+                            elif primary_role == "Pressing Forward":
+                                role_summary += "Player excels at defensive contribution and ball recovery in advanced areas. "
+                                role_summary += "Should be utilized in a high-pressing system where their work rate disrupts opponent buildup.\n\n"
+                            elif primary_role == "Deep-lying Forward":
+                                role_summary += "Player shows strong creative passing ability and chance creation. "
+                                role_summary += "Best utilized in a withdrawn role where they can link play and create opportunities for teammates.\n\n"
+                            elif primary_role == "Poacher":
+                                role_summary += "Player demonstrates clinical finishing and efficiency in the box. "
+                                role_summary += "Should be positioned to maximize scoring opportunities with minimal defensive responsibility.\n\n"
+                            
+                        # Add secondary role if score is within 80% of primary role
+                        if len(sorted_roles) > 1:
+                            secondary_role = sorted_roles[1][0]
+                            secondary_score = sorted_roles[1][1]
+                            
+                            if secondary_score > 0 and (primary_score == 0 or secondary_score / primary_score >= 0.8):
+                                role_summary += f"**Secondary Role: {secondary_role}** (Score: {secondary_score:.2f})\n\n"
+                            
+                        role_assessment += role_summary + "\n"
+                    
+                    # Scatter Plot Analysis
+                    scatter_analysis = "### Position Analysis (Goals vs xG)\n\n"
+                    
+                    for p in scatter_data:
+                        # Quadrant determination
+                        x_high = p['x_percentile'] > 50
+                        y_high = p['y_percentile'] > 50
+                        
+                        # Player type based on quadrant
+                        player_type = ""
+                        analysis = ""
+                        
+                        if x_high and y_high:
+                            player_type = "Clinical Finisher"
+                            analysis = f"**{p['name']}** demonstrates excellent goal scoring ability with high xG production. "
+                            if p['x_percentile'] > p['y_percentile']:
+                                analysis += f"Outperforming expected goals ({p['x_actual']:.2f} goals vs {p['y_actual']:.2f} xG), showing clinical finishing ability."
+                            else:
+                                analysis += f"Getting into high-quality scoring positions ({p['y_actual']:.2f} xG) and converting well ({p['x_actual']:.2f} goals)."
+                        elif not x_high and y_high:
+                            player_type = "Underperforming Finisher"
+                            analysis = f"**{p['name']}** is getting into good scoring positions ({p['y_actual']:.2f} xG) but not converting efficiently enough ({p['x_actual']:.2f} goals). "
+                            analysis += "Finishing training is recommended to improve conversion rate."
+                        elif x_high and not y_high:
+                            player_type = "Clinical Opportunist"
+                            analysis = f"**{p['name']}** is highly efficient, scoring {p['x_actual']:.2f} goals from limited xG opportunities ({p['y_actual']:.2f}). "
+                            analysis += "Very clinical finisher making the most of chances created."
+                        else:
+                            player_type = "Limited Attacking Threat"
+                            analysis = f"**{p['name']}** shows limited attacking output with both goals ({p['x_actual']:.2f}) and xG ({p['y_actual']:.2f}) below average. "
+                            analysis += "May be contributing in other areas or need tactical adjustments to increase attacking involvement."
+                        
+                        scatter_analysis += f"**{p['name']} profile: {player_type}**\n\n{analysis}\n\n"
+                    
+                    # Development Recommendations
+                    development_recommendations = "### Areas for Improvement\n\n"
+                    
+                    for p in player_data:
+                        development_text = f"#### {p['name']}\n\n"
+                        
+                        # Add improvements based on weak stats
+                        if p['weak_stats']:
+                            development_text += "🔍 **Priority focus areas:**\n\n"
+                            for stat in p['weak_stats'][:3]:  # Top 3 weak areas
+                                if "Duel" in stat or "Aerial" in stat:
+                                    development_text += f"- 💪 **{stat}**: Increase physical training and focus on positioning for duels\n"
+                                elif "Pass" in stat or "Cross" in stat:
+                                    development_text += f"- 🎯 **{stat}**: Technical drills focusing on passing accuracy and decision-making\n"
+                                elif "Shot" in stat or "Goal" in stat:
+                                    development_text += f"- ⚽ **{stat}**: Shooting practice and positioning training for better opportunities\n"
+                                else:
+                                    development_text += f"- 🔄 **{stat}**: Regular training focus to improve this attribute\n"
+                        
+                        # Add role recommendation
+                        best_role = max(p['role_scores'].items(), key=lambda x: x[1])[0] if p['role_scores'] else ""
+                        
+                        development_text += f"\n📋 **Recommended tactical role:** {best_role}\n\n"
+                        
+                        development_recommendations += development_text + "\n\n"
+                    
+                    # Combine all insights into one comprehensive analysis
+                    ai_insights = {
+                        "Performance Overview": performance_overview,
+                        "Forward Role Assessment": role_assessment,
+                        "Positional Analysis": scatter_analysis,
+                        "Areas for Improvement": development_recommendations
+                    }
+                    
+                    # Display the insights in tabs
+                    ai_tabs = st.tabs(list(ai_insights.keys()))
+                    
+                    for tab, (section, content) in zip(ai_tabs, ai_insights.items()):
+                        with tab:
+                            st.markdown("""
+                            <style>
+                            .insight-container {
+                                border-left: 4px solid #4b91e3;
+                                padding: 10px 15px;
+                                border-radius: 5px;
+                                margin-bottom: 10px;
+                            }
+                            </style>
+                            <div class="insight-container">
+                            """, unsafe_allow_html=True)
+                            st.markdown(content)
+                            st.markdown("</div>", unsafe_allow_html=True)
+                    
+                    
+            except Exception as e:
+                st.error(f"Error generating AI insights: {str(e)}")
+                logger.error(f"Error generating AI insights: {str(e)}", exc_info=True)
+    else:
+        # Show a prompt if insights haven't been generated yet
+        if not st.session_state.get('insight_generated', False):
+            st.info("Click the 'Ask Assistant Insights' button above to generate insights about the selected players.")
+    
+    # This API section is always visible, regardless of insight generation status
+    # This section is always visible, whether insights have been generated or not
+    st.markdown("---")
+    
+    # Always show API configuration with visual indicator
+    api_key = st.session_state.get('deepseek_api_key', '')
+    
+    # API Status indicator
+    if api_key:
+        st.success("✅ DeepSeek API is configured and ready to use")
+    else:
+        st.warning("⚠️ Using built-in analysis (DeepSeek API not configured)")
+    
+    # API Configuration section - visible regardless of whether insights were generated
+    with st.expander("API Configuration", expanded=False):
+        st.markdown("### DeepSeek API Setup")
+        api_cols = st.columns([3, 1])
+        with api_cols[0]:
+            new_api_key = st.text_input(
+                "DeepSeek API Key",
+                type="password",
+                help="Enter your DeepSeek API key for more advanced analysis",
+                value=api_key
+            )
+            
+            # Only update if different
+            if new_api_key != api_key:
+                if new_api_key:
+                    st.session_state['deepseek_api_key'] = new_api_key
+                    st.success("API key saved! Click the insights button above to use it.")
+                elif api_key:  # Only show message if there was a previous key
+                    if 'deepseek_api_key' in st.session_state:
+                        del st.session_state['deepseek_api_key']
+                    st.warning("API key removed. Will use built-in analysis.")
+        
+        with api_cols[1]:
+            if st.button("Clear API Key"):
+                if 'deepseek_api_key' in st.session_state:
+                    del st.session_state['deepseek_api_key']
+                    st.experimental_rerun()
+
+        # Show API benefits
+        st.markdown("""
+        **Benefits of using the DeepSeek API:**
+        - More detailed and nuanced player analysis
+        - Advanced natural language understanding of player performance
+        - Tactical recommendations based on comprehensive data evaluation
+        """)
+    
+    st.markdown('</div>', unsafe_allow_html=True)
+     
+    with st.expander("What is AI Insights?", expanded=False):
+        st.markdown("""
+        **DeepSeek AI Insights** analyzes the calculated statistics for selected players and provides:
+        
+        1. **Performance Overview**: Analysis of percentile rankings across key metrics
+        2. **Forward Role Assessment**: Evaluation of each player's suitability for different forward roles
+        3. **Player Comparison**: Side-by-side comparison highlighting relative strengths and weaknesses
+        4. **Development Recommendations**: Suggestions for areas of improvement based on statistical analysis
+        
+        This feature uses advanced natural language processing to generate human-readable insights from complex statistical data.
+        """)
 if __name__ == "__main__":
     main() 
