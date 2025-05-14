@@ -165,8 +165,14 @@ def extract_player_info(df):
         age_values = pd.to_numeric(df['Age'].dropna(), errors='coerce')
         if not age_values.empty and age_values.notna().any():
             try:
-                # Get the most common age value
-                age = int(age_values.mode().iloc[0])
+                # Get the most common age value - mode() behavior changed in pandas 2.1+
+                # Handle different pandas versions (mode returns Series in older versions, Index in newer ones)
+                mode_result = age_values.mode()
+                if isinstance(mode_result, pd.Series):
+                    age = int(mode_result.iloc[0])
+                else:
+                    # In newer pandas versions, mode() returns a different type
+                    age = int(mode_result[0])
             except:
                 pass
     
@@ -243,7 +249,7 @@ def calculate_percentile_ranks(dfs, numeric_stats):
     player_avgs = []
     for df in dfs:
         # Get player name
-        player_name = df['player_name'].iloc[0] if 'player_name' in df.columns else "Unknown"
+        player_name = df['player_name'].iloc[0] if 'player_name' in df.columns and not df['player_name'].empty else "Unknown"
         
         # Select only numeric columns that are in the specified list
         cols_to_use = [col for col in numeric_stats if col in df.columns]
@@ -268,7 +274,7 @@ def calculate_percentile_ranks(dfs, numeric_stats):
     small_dataset = len(player_avgs) <= 3
     logger.info(f"Processing a {'small' if small_dataset else 'normal'} dataset with {len(player_avgs)} players")
     
-    # Combine all player averages
+    # Combine all player averages - ensure ignore_index is set to True for newer pandas
     combined_avgs = pd.concat(player_avgs, ignore_index=True)
     
     # Create dataframes to store percentile ranks and actual values
