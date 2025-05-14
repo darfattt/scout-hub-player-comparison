@@ -20,7 +20,6 @@ try:
     SCIPY_AVAILABLE = True
 except ImportError:
     SCIPY_AVAILABLE = False
-    logger.warning("SciPy not available. Using custom percentile calculation as fallback.")
     # Define a simple fallback function for percentile calculation
     class StatsFallback:
         @staticmethod
