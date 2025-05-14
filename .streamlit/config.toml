@@ -5,6 +5,16 @@ enableXsrfProtection = false
 [browser]
 gatherUsageStats = false
 
+[ui]
+hideSidebarNav = true
+
 [theme]
 base = "dark"
-font = "sans serif" 
+font = "sans serif"
+
+[runner]
+fastReruns = true
+
+[client]
+toolbarMode = "minimal"
+showErrorDetails = true 

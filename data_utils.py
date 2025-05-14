@@ -13,7 +13,19 @@ except ImportError:
     class StatsFallback:
         @staticmethod
         def percentileofscore(data, value):
-            """Simple fallback for scipy.stats.percentileofscore."""
+            """Simple fallback for scipy.stats.percentileofscore.
+            
+            This function calculates the percentage of values in a dataset that are 
+            less than or equal to a given value, representing the percentile rank.
+            
+            Args:
+                data: Array-like object containing the dataset values
+                value: Value for which to calculate the percentile rank
+                
+            Returns:
+                float: Percentile rank (0-100) indicating the percentage of values 
+                       in the dataset that are less than or equal to the given value
+            """
             if not data or len(data) == 0:
                 return 50
             
@@ -140,7 +152,6 @@ def extract_player_info(df):
     
     # Set default club values if none found in data
     club_map = {
-        "Gustavo Henrique": "Zhako",
         "Ribamar": "Dhing A Thanh Hoa",
         "Uilliam": "Al-Fahaleel SC"
     }
@@ -153,7 +164,6 @@ def extract_player_info(df):
     # Set a default age based on some common values from the sample
     # In a real app, you would extract this from the data
     age_map = {
-        "Gustavo Henrique": 29,
         "Ribamar": 27,
         "Uilliam": 30
     }
@@ -350,13 +360,22 @@ def calculate_percentile_ranks(dfs, numeric_stats):
                     elif percentile_rank < 25:
                         percentile_rank = 20  # Set to top of the 0-20% bucket
                     elif percentile_rank < 50:
-                        percentile_rank = 30  # Set to middle of the 21-40% bucket
+                        percentile_rank = 40  # Set to top of the 21-40% bucket (changed from 30)
                     elif percentile_rank < 75:
-                        percentile_rank = 50  # Set to middle of the 41-60% bucket
+                        percentile_rank = 60  # Set to top of the 41-60% bucket (changed from 50)
                     elif percentile_rank < 90:
-                        percentile_rank = 70  # Set to middle of the 61-80% bucket
+                        percentile_rank = 80  # Set to top of the 61-80% bucket (changed from 70)
                     else:
                         percentile_rank = 90  # Set to middle of the 81-100% bucket
+                    
+                    # Special case for exactly 2 players - ensure wider distribution
+                    if len(player_avgs) == 2:
+                        # With 2 players, we'll only have percentile scores of 0 and 100
+                        # Map to better values that use more of our color scale
+                        if percentile_rank < 25:  # Lower player
+                            percentile_rank = 30  # Move to the 21-40% bucket
+                        elif percentile_rank > 75:  # Higher player
+                            percentile_rank = 70  # Move to the 61-80% bucket
                 
                     logger.info(f"Small dataset adjustment for {stat}, player {player_name}: adjusted to {percentile_rank}")
                 
@@ -372,5 +391,31 @@ def calculate_percentile_ranks(dfs, numeric_stats):
             min_percentile = percentile_df.values.min()
             max_percentile = percentile_df.values.max()
             logger.info(f"Player {player_name} percentile range: {min_percentile:.1f} - {max_percentile:.1f}")
+            
+            # Additional diagnostic logging to track percentile distribution
+            percentile_ranges = {
+                "0-20%": 0,
+                "21-40%": 0, 
+                "41-60%": 0,
+                "61-80%": 0,
+                "81-100%": 0
+            }
+            
+            # Count how many stats fall into each percentile range
+            for stat in percentile_df.columns:
+                val = float(percentile_df[stat].iloc[0]) if not pd.isna(percentile_df[stat].iloc[0]) else 0
+                if val <= 20:
+                    percentile_ranges["0-20%"] += 1
+                elif val <= 40:
+                    percentile_ranges["21-40%"] += 1
+                elif val <= 60:
+                    percentile_ranges["41-60%"] += 1
+                elif val <= 80:
+                    percentile_ranges["61-80%"] += 1
+                else:
+                    percentile_ranges["81-100%"] += 1
+            
+            # Log the distribution
+            logger.info(f"Player {player_name} percentile distribution: {percentile_ranges}")
     
     return percentile_dfs, actual_dfs 

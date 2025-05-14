@@ -99,15 +99,22 @@ def get_percentile_color(percentile_rank, stat_name=None):
     # 41-60% (Yellow): Average performance  
     # 61-80% (Light Green): Good performance
     # 81-100% (Green): Excellent performance
-    if percentile_rank > 80:  # Changed from >= to > to exactly match UI descriptions
+    #
+    # Note: Thresholds use ">" not ">=" to exactly match legend boundaries:
+    # percentile > 80 means 81-100 (not 80-100)
+    # percentile > 60 means 61-80 (not 60-80)
+    # percentile > 40 means 41-60 (not 40-60)
+    # percentile > 20 means 21-40 (not 20-40)
+    # percentile <= 20 means 0-20
+    if percentile_rank > 80:  # 81-100% range
         return '#1a9641'  # Dark green (81-100%)
-    elif percentile_rank > 60:  # Changed from >= to > to exactly match UI descriptions
+    elif percentile_rank > 60:  # 61-80% range
         return '#73c378'  # Medium green (61-80%)
-    elif percentile_rank > 40:  # Changed from >= to > to exactly match UI descriptions
+    elif percentile_rank > 40:  # 41-60% range
         return '#f9d057'  # Yellow (41-60%)
-    elif percentile_rank > 20:  # Changed from >= to > to exactly match UI descriptions
+    elif percentile_rank > 20:  # 21-40% range
         return '#fc8d59'  # Light orange (21-40%)
-    else:
+    else:  # 0-20% range
         return '#d73027'  # Red (0-20%)
 
 # Function for smoother color transitions (unused but available for future enhancement)

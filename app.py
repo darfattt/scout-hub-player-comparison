@@ -67,11 +67,36 @@ plt.rcParams.update({
 st.set_page_config(
     page_title="Player Comparison Tool",
     page_icon="⚽",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="collapsed"
 )
 
 # Load custom CSS
 st.markdown(f'<style>{load_css("styles.css")}</style>', unsafe_allow_html=True)
+
+# Add custom CSS to ensure full width layout
+st.markdown("""
+<style>
+    .block-container {
+        max-width: 100% !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+        padding-top: 0.5rem !important;
+    }
+    .main .block-container {
+        padding: 1rem !important;
+    }
+    /* Remove gaps between elements */
+    .row-widget.stHorizontal {
+        gap: 5px !important;
+    }
+    /* Ensure tables take full width */
+    .stats-table-container {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+</style>
+""", unsafe_allow_html=True)
 
 # Main app
 def main():
@@ -191,7 +216,15 @@ def main():
                                help="Calculate all statistics per 90 minutes of play instead of per match")
         
         if use_per90:
-            st.info("All statistics will be normalized to a 'per 90 minutes' basis for fair comparison of players with different playing times.")
+            st.info("""
+            **Per 90 Minutes Mode**: Statistics will be normalized to a 'per 90 minutes' basis for fair comparison.
+            
+            This mode:
+            - Adjusts all numeric stats based on actual minutes played (90/minutes * stat_value)
+            - Accounts for substitutions and partial appearances
+            - Makes comparisons fairer between players with different playing times
+            - Helps identify productive players who may have limited minutes
+            """)
             logger.info("Per90 mode enabled")
         else:
             logger.info("Using raw statistics (per match)")
