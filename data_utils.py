@@ -2,7 +2,36 @@ import os
 import re
 import pandas as pd
 import logging
-import scipy.stats as stats
+
+# Try to import scipy, provide fallback if not available
+try:
+    from scipy import stats
+    SCIPY_AVAILABLE = True
+except ImportError:
+    SCIPY_AVAILABLE = False
+    # Define a simple fallback function for percentile calculation
+    class StatsFallback:
+        @staticmethod
+        def percentileofscore(data, value):
+            """Simple fallback for scipy.stats.percentileofscore."""
+            if not data or len(data) == 0:
+                return 50
+            
+            # Convert to list if it's not
+            if not isinstance(data, list):
+                data = list(data)
+                
+            # Sort the data
+            sorted_data = sorted(data)
+            
+            # Count values below or equal to the given value
+            count = sum(1 for x in sorted_data if x <= value)
+            
+            # Calculate the percentile
+            return (count / len(sorted_data)) * 100
+    
+    stats = StatsFallback()
+    logging.getLogger("player_comparison_tool").warning("SciPy not available. Using custom percentile calculation as fallback.")
 
 logger = logging.getLogger("player_comparison_tool")
 

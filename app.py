@@ -9,9 +9,30 @@ import os
 import re
 import io
 import logging
+import matplotlib.image as mpimg
 from utils import load_css, get_player_image
 from data_utils import extract_player_name, extract_player_info, ensure_numeric_columns, calculate_percentile_ranks
 from visualization import generate_unified_player_chart, generate_radar_chart, generate_forward_type_scatter
+
+# Try to import scipy, provide fallback if not available
+try:
+    from scipy import stats
+    SCIPY_AVAILABLE = True
+except ImportError:
+    SCIPY_AVAILABLE = False
+    logger.warning("SciPy not available. Using custom percentile calculation as fallback.")
+    # Define a simple fallback function for percentile calculation
+    class StatsFallback:
+        @staticmethod
+        def percentileofscore(data, value):
+            """Simple fallback for scipy.stats.percentileofscore."""
+            if not data:
+                return 50
+            
+            count = sum(1 for x in data if x <= value)
+            return (count / len(data)) * 100
+    
+    stats = StatsFallback()
 
 # Configure logging
 logging.basicConfig(
