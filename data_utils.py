@@ -153,7 +153,11 @@ def extract_player_info(df):
     # Set default club values if none found in data
     club_map = {
         "Ribamar": "Dhing A Thanh Hoa",
-        "Uilliam": "Al-Fahaleel SC"
+        "Uilliam": "Al-Fahaleel SC",
+        "Gustavo Henrique": "Zhako SC",
+        "David da Silva": "Persib",
+        "Alex Martins": "Dewa United",
+        "Gustavo Almeida": "Persija"
     }
     
     player_name = df['player_name'].iloc[0] if 'player_name' in df.columns else "Unknown"
@@ -165,7 +169,11 @@ def extract_player_info(df):
     # In a real app, you would extract this from the data
     age_map = {
         "Ribamar": 27,
-        "Uilliam": 30
+        "Uilliam": 30,
+        "Gustavo Henrique": 29,
+        "David da Silva": 35,
+        "Alex Martins": 31,
+        "Gustavo Almeida": 28
     }
     
     age = age_map.get(player_name, 25)  # Default age 25 if not found
