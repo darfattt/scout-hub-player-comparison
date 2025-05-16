@@ -100,7 +100,7 @@ st.markdown("""
 
 # Main app
 def main():
-    st.markdown('<p class="title">Football Player Comparison Tool</p>', unsafe_allow_html=True)
+    st.markdown('<p class="title">Scouting Tools</p>', unsafe_allow_html=True)
     
     # Load data from the CSV files
     csv_files = glob.glob('data/wyscout/*.csv')
@@ -173,6 +173,7 @@ def main():
     player_dfs = []
     player_names = []
     player_files = {}  # Dictionary to map player names to file paths
+    player_latest_dates = {}  # Dictionary to track latest match date for each player
     
     with st.spinner("Loading player data..."):
         for file in csv_files:
@@ -180,6 +181,22 @@ def main():
                 player_name = extract_player_name(file)
                 player_names.append(player_name)
                 player_files[player_name] = file
+                
+                # Try to determine the latest match date for this player
+                try:
+                    df = pd.read_csv(file, encoding='latin1')
+                    if 'Date' in df.columns and not df['Date'].empty:
+                        # Try different date formats
+                        for date_format in ['%Y-%m-%d', '%d/%m/%Y', '%m/%d/%Y', '%d-%m-%Y', '%Y/%m/%d']:
+                            try:
+                                df['parsed_date'] = pd.to_datetime(df['Date'], format=date_format)
+                                latest_date = df['parsed_date'].max()
+                                player_latest_dates[player_name] = latest_date
+                                break
+                            except:
+                                continue
+                except Exception as e:
+                    logger.warning(f"Could not determine latest date for {player_name}: {str(e)}")
                 
                 logger.info(f"Found player data file for {player_name}: {file}")
                 #st.success(f"Found player data for {player_name}")
@@ -195,8 +212,24 @@ def main():
         </div>
         """, unsafe_allow_html=True)
         
-        # Allow user to select players to compare (multi-select with default to all if ≤ 3)
-        default_selections = player_names[:3] if len(player_names) <= 3 else []
+        # Sort players by latest match date if available
+        if player_latest_dates:
+            # Sort players by latest date (most recent first)
+            sorted_players = sorted(
+                [(name, player_latest_dates.get(name, pd.Timestamp('1970-01-01'))) for name in player_names],
+                key=lambda x: x[1],
+                reverse=True
+            )
+            # Extract just the names in sorted order
+            sorted_player_names = [name for name, _ in sorted_players]
+            # Get the 3 most recent players
+            latest_players = sorted_player_names[:3]
+            default_selections = latest_players if len(latest_players) <= 3 else []
+        else:
+            # Fallback to original behavior if dates couldn't be determined
+            default_selections = player_names[:3] if len(player_names) <= 3 else []
+        
+        # Allow user to select players to compare (multi-select with default to 3 latest players)
         selected_players = st.multiselect(
             "Select players to compare (max 3):",
             options=player_names,
