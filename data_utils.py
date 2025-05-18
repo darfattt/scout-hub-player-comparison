@@ -157,7 +157,9 @@ def extract_player_info(df):
         "Gustavo Henrique": "Zhako SC",
         "David da Silva": "Persib",
         "Alex Martins": "Dewa United",
-        "Gustavo Almeida": "Persija"
+        "Gustavo Almeida": "Persija",
+        "J. Schwarzer": "Newtown AFC",
+        "Q. Kammeraad": "One Taguig",
     }
     
     player_name = df['player_name'].iloc[0] if 'player_name' in df.columns else "Unknown"
@@ -173,7 +175,9 @@ def extract_player_info(df):
         "Gustavo Henrique": 29,
         "David da Silva": 35,
         "Alex Martins": 31,
-        "Gustavo Almeida": 28
+        "Gustavo Almeida": 28,
+         "J. Schwarzer": 25,
+        "Q. Kammeraad": 24,
     }
     
     age = age_map.get(player_name, 0)  # Default age 25 if not found
