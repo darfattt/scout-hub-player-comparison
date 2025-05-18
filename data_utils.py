@@ -146,6 +146,11 @@ def extract_player_info(df):
     if 'Goals' in df.columns:
         total_goals = pd.to_numeric(df['Goals'], errors='coerce').fillna(0).sum()
     
+    # Calculate total conceded
+    total_conceded = 0
+    if 'Conceded goals' in df.columns:
+        total_conceded = pd.to_numeric(df['Conceded goals'], errors='coerce').fillna(0).sum()
+
     # Calculate total seasons and total competitions
     total_seasons = len(seasons)
     total_competitions = len(competitions)
@@ -206,7 +211,8 @@ def extract_player_info(df):
         "total_minutes": int(total_minutes),
         "total_goals": int(total_goals),
         "total_seasons": total_seasons,
-        "total_competitions": total_competitions
+        "total_competitions": total_competitions,
+        "total_conceded": int(total_conceded),
     }
 
 # Function to handle cleaning data to ensure columns are numeric
