@@ -317,7 +317,7 @@ def main():
         logger.info(f"Selected visualization type: {viz_type}")
         
         # Category selection
-        available_categories = ["Defensive", "Progressive", "Offensive"]
+        available_categories = ["Defensive", "Progressive", "Offensive", "Goalkeeping", "Distribution"]
         selected_categories = st.multiselect(
             "Filter metrics by category:",
             options=available_categories,
@@ -496,6 +496,23 @@ def main():
             "Shots", 
             "Shots On Target", 
             "xG"
+        ],
+        "Goalkeeping": [
+            "Conceded goals",
+            "xCG",
+            "Shots against",
+            "Saves",
+            "Saves with reflexes",
+            "Exits"
+        ],
+        "Distribution": [
+            "Long passes",
+            "Long passes accurate",
+            "Short passes",
+            "Short passes accurate",
+            "Goal kicks",
+            "Short goal kicks",
+            "Long goal kicks"
         ]
     }
     
@@ -677,19 +694,55 @@ def main():
         }
     }
 
+    # Define metrics and weights for goalkeeper roles
+    goalkeeper_role_weights = {
+        "Shot Stopper": {
+            "Saves": 0.3,
+            "Saves with reflexes": 0.25,
+            "Conceded goals": -0.2,
+            "xCG": -0.15,
+            "Shots against": -0.1
+        },
+        "Sweeper Keeper": {
+            "Exits": 0.25,
+            "Recoveries": 0.2,
+            "Long passes accurate": 0.2,
+            "Short passes accurate": 0.15,
+            "Goal kicks": 0.1,
+            "Short goal kicks": 0.05,
+            "Long goal kicks": 0.05
+        }
+    }
+
+    # Combine role weights based on position
+    role_weights = {
+        "GK": goalkeeper_role_weights,
+        "Forward": forward_role_weights
+    }
+
     # Normalize and score each player for each role
     def compute_role_scores(player_actual_values, available_stats, weights):
         # Gather all unique stats from all roles
         all_stats = set()
-        for role_weights in weights.values():
-            all_stats.update(role_weights.keys())
+        for position_weights in weights.values():
+            for role_weights in position_weights.values():
+                all_stats.update(role_weights.keys())
+        
         # Normalize stats (min-max across all players for each stat)
         stat_min = {stat: min([float(df[stat].iloc[0]) if stat in df.columns else 0 for df in player_actual_values]) for stat in all_stats}
         stat_max = {stat: max([float(df[stat].iloc[0]) if stat in df.columns else 0 for df in player_actual_values]) for stat in all_stats}
+        
         scores = []
-        for df in player_actual_values:
+        for i, df in enumerate(player_actual_values):
             player_score = {}
-            for role, role_weights in weights.items():
+            
+            # Get player position
+            position = player_info[i].get('position', 'Forward')
+            
+            # Get appropriate role weights based on position
+            position_weights = weights.get(position, weights.get('Forward'))  # Default to Forward if position not found
+            
+            for role, role_weights in position_weights.items():
                 score = 0
                 for stat, w in role_weights.items():
                     if stat in df.columns:
@@ -705,8 +758,16 @@ def main():
         return scores
 
     # Compute scores for all players
-    role_scores = compute_role_scores(player_actual_values, available_numeric_stats, forward_role_weights)
-    role_names = list(forward_role_weights.keys())
+    role_scores = compute_role_scores(player_actual_values, available_numeric_stats, role_weights)
+    
+    # Get appropriate role names based on player position
+    role_names = []
+    for i, player in enumerate(selected_players):
+        position = player_info[i].get('position', 'Forward')
+        if position == 'GK':
+            role_names.append(list(goalkeeper_role_weights.keys()))
+        else:
+            role_names.append(list(forward_role_weights.keys()))
     
     # Create a row for player profiles
     player_cols = st.columns(len(selected_players))
@@ -723,7 +784,7 @@ def main():
             fig = go.Figure()
             
             # Sort role scores for this player from highest to lowest
-            sorted_roles = sorted([(role, player_score[role]) for role in role_names], key=lambda x: x[1], reverse=True)
+            sorted_roles = sorted([(role, player_score[role]) for role in role_names[i]], key=lambda x: x[1], reverse=True)
             role_labels = [role for role, _ in sorted_roles]
             role_values = [score for _, score in sorted_roles]
             
@@ -772,26 +833,39 @@ def main():
     
     st.markdown('</div>', unsafe_allow_html=True)
 
-    st.info(
-        """
+    # Add info message only for non-goalkeeper positions
+    has_goalkeeper = any(info.get('position') == 'GK' for info in player_info)
+    
+    if not has_goalkeeper:
+        st.info(
+            """
 Each player is scored for four classic forward roles based on their stats and the latest competition filter:
 
 - **Advance Forward**: Direct goal threat, excels at finishing and movement.
 - **Pressing Forward**: High work rate, presses defenders, wins duels.
 - **Deep-lying Forward**: Drops deep, creates chances, links play.
 - **Poacher**: Focuses on scoring, operates in the box, exploits chances.
-        """
-    )
+            """
+        )
+    else:
+        st.info(
+            """
+Each goalkeeper is scored for three classic goalkeeper roles based on their stats and the latest competition filter:
+
+- **Shot Stopper**: Excels at making saves and preventing goals.
+- **Sweeper Keeper**: Reads the game well and acts as an extra defender.
+            """
+        )
 
     # Add detailed weight information in a collapsible section
     with st.expander("📊 View Role Weight Details", expanded=False):
         st.markdown("""
         ### Role Weight Details
         
-        Each forward role is defined by a weighted combination of key statistics that determine the player's suitability for that role. 
+        Each player role is defined by a weighted combination of key statistics that determine the player's suitability for that role. 
         The weights below show which statistics are most important for each role type.
         
-        #### Advance Forward
+        #### Forward Roles
         """)
         
         # Create a table for Advance Forward weights
@@ -815,11 +889,26 @@ Each player is scored for four classic forward roles based on their stats and th
         # Format the weights to show negative values with a minus sign
         poacher_formatted = poacher_df.style.format({"Weight": "{:.2f}"})
         st.dataframe(poacher_formatted, use_container_width=True)
+
+        st.markdown("""
+        #### Goalkeeper Roles
+        """)
+
+        st.markdown("#### Shot Stopper")
+        ss_data = [[stat, weight] for stat, weight in goalkeeper_role_weights["Shot Stopper"].items()]
+        ss_df = pd.DataFrame(ss_data, columns=["Statistic", "Weight"])
+        st.dataframe(ss_df.style.format({"Weight": "{:.2f}"}), use_container_width=True)
+
+        st.markdown("#### Sweeper Keeper")
+        sk_data = [[stat, weight] for stat, weight in goalkeeper_role_weights["Sweeper Keeper"].items()]
+        sk_df = pd.DataFrame(sk_data, columns=["Statistic", "Weight"])
+        st.dataframe(sk_df.style.format({"Weight": "{:.2f}"}), use_container_width=True)
+
         
         st.markdown("""
         **Note on weights:**
         - Positive weights (most stats) indicate that higher values contribute more to the role score
-        - Negative weights (in Poacher role) indicate that lower values are better for that role
+        - Negative weights (in some roles) indicate that lower values are better for that role
         - The higher the weight value, the more important that statistic is for the role
         
         *These weights can be adjusted based on tactical preferences or analysis requirements.*
@@ -993,7 +1082,7 @@ Each player is scored for four classic forward roles based on their stats and th
         # Style the DataFrame
         def highlight_cells(val, stat_name=None):
             # List of negative stats where lower values are better
-            negative_stats = ["Losses", "Losses own half", "Yellow card", "Red card"]
+            negative_stats = ["Losses", "Losses own half", "Yellow card", "Red card","Conceded goals"]
             
             if isinstance(val, str) and val.endswith('%'):
                 try:
@@ -1049,6 +1138,10 @@ Each player is scored for four classic forward roles based on their stats and th
                 return ['border-left: 4px solid #8E44AD;' if col == "Metric" else '' for col in row.index]
             elif category == "Offensive":
                 return ['border-left: 4px solid #D35400;' if col == "Metric" else '' for col in row.index]
+            elif category == "Goalkeeping":
+                return ['border-left: 4px solid #9B59B6;' if col == "Metric" else '' for col in row.index]
+            elif category == "Distribution":
+                return ['border-left: 4px solid #2ECC71;' if col == "Metric" else '' for col in row.index]
             
             return [''] * len(row)
         
@@ -1127,17 +1220,22 @@ Each player is scored for four classic forward roles based on their stats and th
     
     # Add per90 indication if enabled
     if use_per90:
-        st.markdown('<p class="stats-table-header">Forward Player Type Classification (Per 90 Minutes)</p>', unsafe_allow_html=True)
+        st.markdown('<p class="stats-table-header"> Player Type Classification (Per 90 Minutes)</p>', unsafe_allow_html=True)
     else:
-        st.markdown('<p class="stats-table-header">Forward Player Type Classification</p>', unsafe_allow_html=True)
+        st.markdown('<p class="stats-table-header"> Player Type Classification</p>', unsafe_allow_html=True)
      
     # Create preset combinations for easier analysis
     preset_combinations = {
+        # Forward presets
         "Goals vs xG": ("Goals", "xG"),
         "Shots vs Passes": ("Shots", "Passes accurate"),
         "Dribbles vs Assists": ("Dribbles successful", "Assists"),
         "Duels vs Recoveries": ("Duels won", "Recoveries"),
         "Aerial Duels vs Goals": ("Aerial duels won", "Goals"),
+        # Goalkeeper presets
+        "Saves vs Conceded": ("Saves", "Conceded goals"),
+        "Distribution vs Exits": ("Long passes accurate", "Exits"),
+        "Shot Stopping vs Sweeping": ("Saves with reflexes", "Recoveries"),
         "Custom Selection": ("custom", "custom")
     }
     
@@ -1150,6 +1248,7 @@ Each player is scored for four classic forward roles based on their stats and th
     
     # Add explanation for the selected preset
     preset_explanations = {
+        # Forward explanations
         "Goals vs xG": "This perspective shows finishing efficiency. "
                       "Advanced Forwards exceed xG, Poachers match xG, "
                       "Deep-Lying Forwards create more than score, and Pressing Forwards have lower values.",
@@ -1168,7 +1267,20 @@ Each player is scored for four classic forward roles based on their stats and th
         
         "Aerial Duels vs Goals": "This shows aerial threat and finishing. "
                                 "Advanced Forwards are strong in both, Poachers focus on finishing, "
-                                "Deep-Lying Forwards create chances, and Pressing Forwards win aerial battles."
+                                "Deep-Lying Forwards create chances, and Pressing Forwards win aerial battles.",
+        
+        # Goalkeeper explanations
+        "Saves vs Conceded": "This perspective shows shot-stopping efficiency. "
+                           "Shot Stoppers excel at making saves and preventing goals, "
+                           "while Sweeper Keepers may concede more but contribute to build-up play.",
+        
+        "Distribution vs Exits": "This highlights goalkeeper's role in possession. "
+                               "Shot Stoppers focus on safe distribution, "
+                               "while Sweeper Keepers excel at both distribution and defensive exits.",
+        
+        "Shot Stopping vs Sweeping": "This shows goalkeeper's defensive style. "
+                                    "Shot Stoppers excel at making saves, "
+                                    "while Sweeper Keepers contribute more to defensive actions outside the box."
     }
     
     if selected_preset in preset_explanations:
@@ -1267,7 +1379,7 @@ Each player is scored for four classic forward roles based on their stats and th
     # Create function to generate an interactive scatter plot with hover
     def create_interactive_scatter(player_names, player_percentiles, player_actual_values, player_colors, x_stat, y_stat, per90_mode=False):
         # List of negative stats where lower values are better
-        negative_stats = ["Losses", "Losses own half"]  # Yellow card and Red card removed
+        negative_stats = ["Losses", "Losses own half","Conceded goals"]  # Yellow card and Red card removed
         
         # Extract data for the scatter plot
         data = []
@@ -1396,8 +1508,8 @@ Each player is scored for four classic forward roles based on their stats and th
             }
             
             # Check if stats are negative (where lower is better)
-            x_is_negative = x_stat in ["Losses", "Losses own half"]
-            y_is_negative = y_stat in ["Losses", "Losses own half"]
+            x_is_negative = x_stat in ["Losses", "Losses own half","Conceded goals"]
+            y_is_negative = y_stat in ["Losses", "Losses own half","Conceded goals"]
             
             # Get descriptions for each stat accounting for negative stats
             if x_is_negative:
@@ -1488,7 +1600,7 @@ Each player is scored for four classic forward roles based on their stats and th
             )
         
         # Add title with per90 indication if enabled
-        title_text = "Forward Player Type Classification"
+        title_text = "Player Type Classification"
         if per90_mode:
             title_text += " (Per 90 Minutes)"
         
@@ -1560,11 +1672,11 @@ Each player is scored for four classic forward roles based on their stats and th
             st.plotly_chart(plotly_fig, use_container_width=True)
         
         # Add information about negative stats
-        if x_stat in ["Losses", "Losses own half"] or y_stat in ["Losses", "Losses own half"]:
+        if x_stat in ["Losses", "Losses own half","Conceded goals"] or y_stat in ["Losses", "Losses own half","Conceded goals"]:
             st.info("""
             **Note about negative statistics:**
             
-            For stats like Losses, Losses own half, Yellow card, and Red card, lower values are better.
+            For stats like Losses, Losses own half, "Conceded goals", Yellow card, and Red card, lower values are better.
             These negative stats have been color-coded appropriately:
             - **Red** (0-20%): High frequency (poor performance)
             - **Green** (80-100%): Low frequency (excellent performance)
@@ -1860,6 +1972,15 @@ Each player's performance is measured across various metrics and displayed in bo
                             elif primary_role == "Poacher":
                                 role_summary += "Player demonstrates clinical finishing and efficiency in the box. "
                                 role_summary += "Should be positioned to maximize scoring opportunities with minimal defensive responsibility.\n\n"
+                            elif primary_role == "Shot Stopper":
+                                role_summary += "Player excels at making saves and preventing goals. "
+                                role_summary += "Best utilized in a system that requires strong shot-stopping ability and reflexes.\n\n"
+                            elif primary_role == "Sweeper Keeper":
+                                role_summary += "Player shows excellent ability to read the game and act as an extra defender. "
+                                role_summary += "Should be utilized in a high defensive line where their ability to sweep up behind the defense is crucial.\n\n"
+                            elif primary_role == "Ball Playing Keeper":
+                                role_summary += "Player demonstrates strong distribution and passing ability. "
+                                role_summary += "Best utilized in a possession-based system where their ability to start attacks from the back is valuable.\n\n"
                             
                         # Add secondary role if score is within 80% of primary role
                         if len(sorted_roles) > 1:

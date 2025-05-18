@@ -321,7 +321,7 @@ def calculate_percentile_ranks(dfs, numeric_stats):
                     continue
                 
                 # List of stats where lower values are better (negative stats)
-                negative_stats = ["Losses", "Losses own half", "Yellow card", "Red card"]
+                negative_stats = ["Losses", "Losses own half", "Yellow card", "Red card","Conceded goals"]
                 
                 # Get the current player's value
                 player_val = row.get(stat)

@@ -140,6 +140,23 @@ def generate_unified_player_chart(player_name, percentile_df, player_color, play
             "Shots", 
             "Shots On Target", 
             "xG"
+        ],
+        "Goalkeeping": [
+            "Conceded goals",
+            "xCG",
+            "Shots against",
+            "Saves",
+            "Saves with reflexes",
+            "Exits"
+        ],
+        "Distribution": [
+            "Long passes",
+            "Long passes accurate",
+            "Short passes",
+            "Short passes accurate",
+            "Goal kicks",
+            "Short goal kicks",
+            "Long goal kicks"
         ]
     }
     
@@ -175,35 +192,41 @@ def generate_unified_player_chart(player_name, percentile_df, player_color, play
         "Recoveries", 
         "Recoveries opp. half", 
         "Yellow card", 
-        "Red card"
+        "Red card",
+            "Conceded goals",
+            "xCG",
+            "Shots against",
+            "Saves",
+            "Saves with reflexes",
+            "Exits"
+        "Long passes",
+            "Long passes accurate",
+            "Short passes",
+            "Short passes accurate",
+            "Goal kicks",
+            "Short goal kicks",
+            "Long goal kicks"
     ]
     
     # Map original stats to categories
-    for stat in original_stats:
-        if stat in ["Match", "Competition", "Date", "Position", "Minutes played", 
-                   "Total actions", "Total actions successful"]:
-            if stat not in stat_categories["General"]:
-                stat_categories["General"].append(stat)
-        elif any(defensive_term in stat for defensive_term in 
-                ["Duel", "Interception", "Loss", "Recover", "Yellow card", "Red card"]):
-            if stat not in stat_categories["Defensive"]:
-                stat_categories["Defensive"].append(stat)
-        elif any(progressive_term in stat for progressive_term in 
-                ["Pass", "Dribble", "Cross"]):
-            if stat not in stat_categories["Progressive"]:
-                stat_categories["Progressive"].append(stat)
-        elif any(offensive_term in stat for offensive_term in 
-                ["Goal", "Assist", "Shot", "xG"]):
-            if stat not in stat_categories["Offensive"]:
-                stat_categories["Offensive"].append(stat)
+  
     
     # Categorize all stats with improved organization
     categorized_stats = []
     category_dividers = []
     current_pos = 0
     
-    # First prioritize Offensive stats (most important for forwards)
-    for category_name in ["Offensive", "Progressive", "Defensive", "General"]:
+    # Get player position from player_info
+    position = player_info.get('position', 'Forward')
+    
+    # Define category order based on position
+    if position == 'GK':
+        category_order = ["Goalkeeping", "Distribution", "General"]
+    else:
+        category_order = ["Offensive", "Progressive", "Defensive", "General"]
+    
+    # Process categories in the specified order
+    for category_name in category_order:
         category_stats = stat_categories.get(category_name, [])
         category_stats_present = [stat for stat in category_stats if stat in all_stats]
         if category_stats_present:
@@ -232,7 +255,7 @@ def generate_unified_player_chart(player_name, percentile_df, player_color, play
             
             # Special handling for zero values in positive stats to ensure they appear in 0-20% category
             # For stats like "Goals", "Assists", etc. we want 0 to be in the lowest percentile bucket
-            if val == 0 and stat not in ["Losses", "Losses own half", "Yellow card", "Red card"]:
+            if val == 0 and stat not in ["Losses", "Losses own half", "Yellow card", "Red card","Conceded goals"]:
                 # Set to 10 which is within 0-20% bucket but still visible
                 val = 10
                 logger.info(f"Zero value for positive stat {stat} set to percentile 10 for display")
@@ -271,7 +294,7 @@ def generate_unified_player_chart(player_name, percentile_df, player_color, play
     for i, val in enumerate(percentile_values):
         stat_name = valid_stats[i]
         # For zero values in positive stats, use a very small but visible width
-        if val <= 10 and stat_name not in ["Losses", "Losses own half", "Yellow card", "Red card"]:
+        if val <= 10 and stat_name not in ["Losses", "Losses own half", "Yellow card", "Red card","Conceded goals"]:
             display_percentiles.append(3)  # Just enough to be visible as a thin line
         else:
             display_percentiles.append(max(val, 0.5))
@@ -299,7 +322,7 @@ def generate_unified_player_chart(player_name, percentile_df, player_color, play
         matches = player_info.get('total_matches', 1)
         
         # For zero values in positive stats, always show the label but position it outside
-        if actual_val == 0 and percentile_val <= 10 and stat_name not in ["Losses", "Losses own half", "Yellow card", "Red card"]:
+        if actual_val == 0 and percentile_val <= 10 and stat_name not in ["Losses", "Losses own half", "Yellow card", "Red card","Conceded goals"]:
             # For zero values in positive stats like Goals, make it clear they are zero
             sum_str = "0"
             avg_str = "0"
@@ -398,7 +421,9 @@ def generate_unified_player_chart(player_name, percentile_df, player_color, play
         "Other": '#1ABC9C',    # Teal
         "Defensive": '#2E86C1', # Blue
         "Progressive": '#8E44AD', # Purple
-        "Offensive": '#D35400'  # Orange
+        "Offensive": '#D35400',  # Orange
+        "Goalkeeping": '#9B59B6', # Purple
+        "Distribution": '#2ECC71'  # Green
     }
     
     for i, (pos, category) in enumerate(category_dividers):
@@ -665,7 +690,7 @@ def generate_radar_chart(player_names, player_percentiles, player_colors, player
 # Function to generate a forward player type scatter plot
 def generate_forward_type_scatter(player_names, player_percentiles, player_actual_values, player_colors, x_stat, y_stat):
     """
-    Generate a scatter plot that categorizes forward players into four types based on their stats
+    Generate a scatter plot that categorizes players into four types based on their stats
     
     Args:
         player_names (list): List of player names
