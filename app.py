@@ -701,7 +701,7 @@ def main():
             "Saves with reflexes": 0.25,
             "Conceded goals": -0.2,
             "xCG": -0.15,
-            "Shots against": -0.1
+            "Shots against": 0.1
         },
         "Sweeper Keeper": {
             "Exits": 0.25,
@@ -1082,7 +1082,7 @@ Each goalkeeper is scored for three classic goalkeeper roles based on their stat
         # Style the DataFrame
         def highlight_cells(val, stat_name=None):
             # List of negative stats where lower values are better
-            negative_stats = ["Losses", "Losses own half", "Yellow card", "Red card","Conceded goals"]
+            negative_stats = ["Losses", "Losses own half", "Yellow card", "Red card","Conceded goals","xCG"]
             
             if isinstance(val, str) and val.endswith('%'):
                 try:
@@ -1379,7 +1379,7 @@ Each goalkeeper is scored for three classic goalkeeper roles based on their stat
     # Create function to generate an interactive scatter plot with hover
     def create_interactive_scatter(player_names, player_percentiles, player_actual_values, player_colors, x_stat, y_stat, per90_mode=False):
         # List of negative stats where lower values are better
-        negative_stats = ["Losses", "Losses own half","Conceded goals"]  # Yellow card and Red card removed
+        negative_stats = ["Losses", "Losses own half","Conceded goals","xCG"]  # Yellow card and Red card removed
         
         # Extract data for the scatter plot
         data = []
@@ -1508,8 +1508,8 @@ Each goalkeeper is scored for three classic goalkeeper roles based on their stat
             }
             
             # Check if stats are negative (where lower is better)
-            x_is_negative = x_stat in ["Losses", "Losses own half","Conceded goals"]
-            y_is_negative = y_stat in ["Losses", "Losses own half","Conceded goals"]
+            x_is_negative = x_stat in ["Losses", "Losses own half","Conceded goals","xCG"]
+            y_is_negative = y_stat in ["Losses", "Losses own half","Conceded goals","xCG"]
             
             # Get descriptions for each stat accounting for negative stats
             if x_is_negative:
@@ -1672,11 +1672,11 @@ Each goalkeeper is scored for three classic goalkeeper roles based on their stat
             st.plotly_chart(plotly_fig, use_container_width=True)
         
         # Add information about negative stats
-        if x_stat in ["Losses", "Losses own half","Conceded goals"] or y_stat in ["Losses", "Losses own half","Conceded goals"]:
+        if x_stat in ["Losses", "Losses own half","Conceded goals","xCG"] or y_stat in ["Losses", "Losses own half","Conceded goals","xCG"]:
             st.info("""
             **Note about negative statistics:**
             
-            For stats like Losses, Losses own half, "Conceded goals", Yellow card, and Red card, lower values are better.
+            For stats like Losses, Losses own half, "Conceded goals",xCG, Yellow card, and Red card, lower values are better.
             These negative stats have been color-coded appropriately:
             - **Red** (0-20%): High frequency (poor performance)
             - **Green** (80-100%): Low frequency (excellent performance)

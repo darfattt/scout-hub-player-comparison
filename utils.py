@@ -84,7 +84,7 @@ def get_percentile_color(percentile_rank, stat_name=None):
         str: Hex color code
     """
     # List of negative stats where lower values are better
-    negative_stats = ["Losses", "Losses own half", "Yellow card", "Red card","Conceded goals"]
+    negative_stats = ["Losses", "Losses own half", "Yellow card", "Red card","Conceded goals", "xCG"]
     
     # For negative stats, invert the percentile for color coding
     if stat_name in negative_stats:

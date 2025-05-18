@@ -56,9 +56,13 @@ def generate_unified_player_chart(player_name, percentile_df, player_color, play
     total_seasons = player_info.get('total_seasons', 0)
     total_minutes = player_info.get('total_minutes', 0)
     total_goals = player_info.get('total_goals', 0)
+    total_conceded = player_info.get('total_conceded', 0)
     
     # Format stats with cleaner presentation
-    stats_info_text = f"Matches: {total_matches} | Minutes: {total_minutes} | Goals: {total_goals}"
+    if position == 'GK':
+        stats_info_text = f"Matches: {total_matches} | Minutes: {total_minutes} | Goals Conceded: {total_conceded}"
+    else:
+        stats_info_text = f"Matches: {total_matches} | Minutes: {total_minutes} | Goals: {total_goals}"
     ax_info.text(0.02, 0.3, stats_info_text, fontsize=9, color="#666666")
     
     # If player image is available, add it with better positioning and styling
@@ -255,7 +259,7 @@ def generate_unified_player_chart(player_name, percentile_df, player_color, play
             
             # Special handling for zero values in positive stats to ensure they appear in 0-20% category
             # For stats like "Goals", "Assists", etc. we want 0 to be in the lowest percentile bucket
-            if val == 0 and stat not in ["Losses", "Losses own half", "Yellow card", "Red card","Conceded goals"]:
+            if val == 0 and stat not in ["Losses", "Losses own half", "Yellow card", "Red card","Conceded goals","xCG"]:
                 # Set to 10 which is within 0-20% bucket but still visible
                 val = 10
                 logger.info(f"Zero value for positive stat {stat} set to percentile 10 for display")
@@ -294,7 +298,7 @@ def generate_unified_player_chart(player_name, percentile_df, player_color, play
     for i, val in enumerate(percentile_values):
         stat_name = valid_stats[i]
         # For zero values in positive stats, use a very small but visible width
-        if val <= 10 and stat_name not in ["Losses", "Losses own half", "Yellow card", "Red card","Conceded goals"]:
+        if val <= 10 and stat_name not in ["Losses", "Losses own half", "Yellow card", "Red card","Conceded goals","xCG"]:
             display_percentiles.append(3)  # Just enough to be visible as a thin line
         else:
             display_percentiles.append(max(val, 0.5))
@@ -322,7 +326,7 @@ def generate_unified_player_chart(player_name, percentile_df, player_color, play
         matches = player_info.get('total_matches', 1)
         
         # For zero values in positive stats, always show the label but position it outside
-        if actual_val == 0 and percentile_val <= 10 and stat_name not in ["Losses", "Losses own half", "Yellow card", "Red card","Conceded goals"]:
+        if actual_val == 0 and percentile_val <= 10 and stat_name not in ["Losses", "Losses own half", "Yellow card", "Red card","Conceded goals","xCG"]:
             # For zero values in positive stats like Goals, make it clear they are zero
             sum_str = "0"
             avg_str = "0"
