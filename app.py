@@ -629,32 +629,15 @@ def main():
                     )
                 else:
                     st.warning(f"Could not generate chart for {name}. Insufficient data.")
-    else:
-        # Generate radar chart for all selected players
-        st.markdown("#### Radar Chart Comparison")
-        radar_fig = generate_radar_chart(selected_players, player_percentiles, player_colors, player_actual_values)
-        st.pyplot(radar_fig)
-        
-        # Add download button for radar chart
-        buf = io.BytesIO()
-        radar_fig.savefig(buf, format="png", dpi=300, bbox_inches="tight")
-        buf.seek(0)
-        
-        st.download_button(
-            label="📥 Download Radar Chart",
-            data=buf,
-            file_name="player_comparison_radar.png",
-            mime="image/png"
-        )
     
     # --- Forward Role Profile Scores ---
     st.markdown('<div class="stats-table-container" style="margin-bottom: 30px;">', unsafe_allow_html=True)
     
     # Add per90 indication if enabled
     if use_per90:
-        st.markdown('<p class="stats-table-header">Forward Role Profile Scores (Per 90 Minutes)</p>', unsafe_allow_html=True)
+        st.markdown('<p class="stats-table-header">Role Profile Scores (Per 90 Minutes)</p>', unsafe_allow_html=True)
     else:
-        st.markdown('<p class="stats-table-header">Forward Role Profile Scores</p>', unsafe_allow_html=True)
+        st.markdown('<p class="stats-table-header">Role Profile Scores</p>', unsafe_allow_html=True)
     
 
     # Define metrics and weights for each forward type
@@ -714,10 +697,45 @@ def main():
         }
     }
 
+    # Define metrics and weights for defender roles
+    defender_role_weights = {
+        "No-Nonsense Centre-Back": {
+            "Aerial duels won": 0.25,
+            "Duels won": 0.2,
+            "Clearances": 0.2,
+            "Interceptions": 0.15,
+            "Blocks": 0.1,
+            "Tackles won": 0.1
+        },
+        "Central Defender": {
+            "Aerial duels won": 0.2,
+            "Duels won": 0.2,
+            "Interceptions": 0.15,
+            "Clearances": 0.15,
+            "Passes accurate": 0.15,
+            "Blocks": 0.1,
+            "Tackles won": 0.05
+        },
+        "Ball Playing Defender": {
+            "Passes accurate": 0.25,
+            "Long passes accurate": 0.2,
+            "Progressive passes": 0.15,
+            "Aerial duels won": 0.15,
+            "Duels won": 0.1,
+            "Interceptions": 0.1,
+            "Clearances": 0.05
+        }
+    }
+
     # Combine role weights based on position
     role_weights = {
         "GK": goalkeeper_role_weights,
-        "Forward": forward_role_weights
+        "Forward": forward_role_weights,
+        "CB": defender_role_weights,
+        "RCB": defender_role_weights,
+        "LCB": defender_role_weights,
+        "RCB3": defender_role_weights,
+        "LCB3": defender_role_weights
     }
 
     # Normalize and score each player for each role
@@ -764,8 +782,10 @@ def main():
     role_names = []
     for i, player in enumerate(selected_players):
         position = player_info[i].get('position', 'Forward')
-        if position == 'GK':
+        if position in ['GK']:
             role_names.append(list(goalkeeper_role_weights.keys()))
+        elif position in ['CB', 'RCB', 'LCB', 'RCB3', 'LCB3']:
+            role_names.append(list(defender_role_weights.keys()))
         else:
             role_names.append(list(forward_role_weights.keys()))
     
@@ -783,8 +803,11 @@ def main():
             # Create separate figure for this player
             fig = go.Figure()
             
+            # Get available roles for this player's position
+            available_roles = role_names[i]
+            
             # Sort role scores for this player from highest to lowest
-            sorted_roles = sorted([(role, player_score[role]) for role in role_names[i]], key=lambda x: x[1], reverse=True)
+            sorted_roles = sorted([(role, player_score.get(role, 0)) for role in available_roles], key=lambda x: x[1], reverse=True)
             role_labels = [role for role, _ in sorted_roles]
             role_values = [score for _, score in sorted_roles]
             
@@ -833,27 +856,41 @@ def main():
     
     st.markdown('</div>', unsafe_allow_html=True)
 
-    # Add info message only for non-goalkeeper positions
+    # Add info message based on player positions
     has_goalkeeper = any(info.get('position') == 'GK' for info in player_info)
-    
-    if not has_goalkeeper:
+    has_defender = any(info.get('position') in ['CB', 'RCB', 'LCB', 'RCB3', 'LCB3'] for info in player_info)
+    has_forward = any(info.get('position') not in ['GK', 'CB', 'RCB', 'LCB', 'RCB3', 'LCB3'] for info in player_info)
+
+    if has_goalkeeper:
         st.info(
             """
-Each player is scored for four classic forward roles based on their stats and the latest competition filter:
+Each goalkeeper is scored for classic goalkeeper roles based on their stats and the latest competition filter:
+
+- **Shot Stopper**: Excels at making saves and preventing goals.
+- **Sweeper Keeper**: Reads the game well and acts as an extra defender.
+            """
+        )
+
+    if has_defender:
+        st.info(
+            """
+Each defender is scored for classic centre-back roles based on their stats and the latest competition filter:
+
+- **No-Nonsense Centre-Back**: Traditional defender focused on defensive solidity and physical presence.
+- **Central Defender**: Balanced approach between defensive duties and distribution.
+- **Ball Playing Defender**: Modern defender who excels in build-up play and distribution.
+            """
+        )
+
+    if has_forward:
+        st.info(
+            """
+Each forward is scored for classic forward roles based on their stats and the latest competition filter:
 
 - **Advance Forward**: Direct goal threat, excels at finishing and movement.
 - **Pressing Forward**: High work rate, presses defenders, wins duels.
 - **Deep-lying Forward**: Drops deep, creates chances, links play.
 - **Poacher**: Focuses on scoring, operates in the box, exploits chances.
-            """
-        )
-    else:
-        st.info(
-            """
-Each goalkeeper is scored for three classic goalkeeper roles based on their stats and the latest competition filter:
-
-- **Shot Stopper**: Excels at making saves and preventing goals.
-- **Sweeper Keeper**: Reads the game well and acts as an extra defender.
             """
         )
 
@@ -903,6 +940,25 @@ Each goalkeeper is scored for three classic goalkeeper roles based on their stat
         sk_data = [[stat, weight] for stat, weight in goalkeeper_role_weights["Sweeper Keeper"].items()]
         sk_df = pd.DataFrame(sk_data, columns=["Statistic", "Weight"])
         st.dataframe(sk_df.style.format({"Weight": "{:.2f}"}), use_container_width=True)
+
+        st.markdown("""
+        #### Defender Roles
+        """)
+
+        st.markdown("#### No-Nonsense Centre-Back")
+        ncb_data = [[stat, weight] for stat, weight in defender_role_weights["No-Nonsense Centre-Back"].items()]
+        ncb_df = pd.DataFrame(ncb_data, columns=["Statistic", "Weight"])
+        st.dataframe(ncb_df.style.format({"Weight": "{:.2f}"}), use_container_width=True)
+
+        st.markdown("#### Central Defender")
+        cd_data = [[stat, weight] for stat, weight in defender_role_weights["Central Defender"].items()]
+        cd_df = pd.DataFrame(cd_data, columns=["Statistic", "Weight"])
+        st.dataframe(cd_df.style.format({"Weight": "{:.2f}"}), use_container_width=True)
+
+        st.markdown("#### Ball Playing Defender")
+        bd_data = [[stat, weight] for stat, weight in defender_role_weights["Ball Playing Defender"].items()]
+        bd_df = pd.DataFrame(bd_data, columns=["Statistic", "Weight"])
+        st.dataframe(bd_df.style.format({"Weight": "{:.2f}"}), use_container_width=True)
 
         
         st.markdown("""
