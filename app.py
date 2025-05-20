@@ -1292,6 +1292,13 @@ Each forward is scored for classic forward roles based on their stats and the la
         "Saves vs Conceded": ("Saves", "Conceded goals"),
         "Distribution vs Exits": ("Long passes accurate", "Exits"),
         "Shot Stopping vs Sweeping": ("Saves with reflexes", "Recoveries"),
+        # Defender presets
+        "Aerial vs Passing": ("Aerial duels won", "Passes accurate"),
+        "Defensive vs Distribution": ("Duels won", "Long passes accurate"),
+        "Physical vs Technical": ("Clearances", "Progressive passes"),
+        "Interceptions vs Build-up": ("Interceptions", "Progressive passes"),
+        "Tackling vs Positioning": ("Tackles won", "Recoveries"),
+        "Aerial vs Ground": ("Aerial duels won", "Duels won"),
         "Custom Selection": ("custom", "custom")
     }
     
@@ -1336,7 +1343,38 @@ Each forward is scored for classic forward roles based on their stats and the la
         
         "Shot Stopping vs Sweeping": "This shows goalkeeper's defensive style. "
                                     "Shot Stoppers excel at making saves, "
-                                    "while Sweeper Keepers contribute more to defensive actions outside the box."
+                                    "while Sweeper Keepers contribute more to defensive actions outside the box.",
+        
+        # Defender explanations
+        "Aerial vs Passing": "This perspective shows the balance between aerial dominance and distribution. "
+                           "No-Nonsense Centre-Backs excel in aerial duels, "
+                           "Ball Playing Defenders focus on passing, "
+                           "and Central Defenders balance both aspects.",
+        
+        "Defensive vs Distribution": "This highlights the traditional vs modern defender debate. "
+                                   "No-Nonsense Centre-Backs prioritize defensive actions, "
+                                   "Ball Playing Defenders excel in distribution, "
+                                   "and Central Defenders maintain a balanced approach.",
+        
+        "Physical vs Technical": "This shows the contrast between physical and technical abilities. "
+                               "No-Nonsense Centre-Backs focus on physical aspects like clearances, "
+                               "Ball Playing Defenders excel in technical aspects like progressive passes, "
+                               "and Central Defenders combine both qualities.",
+        
+        "Interceptions vs Build-up": "This reveals the player's reading of the game and attacking contribution. "
+                                   "No-Nonsense Centre-Backs excel in interceptions, "
+                                   "Ball Playing Defenders contribute more to build-up play, "
+                                   "and Central Defenders balance both aspects.",
+        
+        "Tackling vs Positioning": "This shows the balance between active and passive defensive actions. "
+                                 "No-Nonsense Centre-Backs excel in tackling, "
+                                 "Ball Playing Defenders rely more on positioning, "
+                                 "and Central Defenders combine both approaches.",
+        
+        "Aerial vs Ground": "This highlights the player's defensive versatility. "
+                          "No-Nonsense Centre-Backs excel in aerial duels, "
+                          "Ball Playing Defenders focus on ground duels, "
+                          "and Central Defenders maintain balance in both areas."
     }
     
     if selected_preset in preset_explanations:
@@ -1913,7 +1951,7 @@ Each player's performance is measured across various metrics and displayed in bo
                         
                         Please provide a comprehensive analysis covering:
                         1. Performance Overview: Analyze percentile rankings and identify strengths/weaknesses
-                        2. Forward Role Assessment: Evaluate suitability for different forward roles
+                        2. Role Assessment: Evaluate suitability for different forward roles
                         3. Positional Analysis: Analyze Goals vs xG data and classify player types
                         4. Development Recommendations: Suggest specific training focus areas
                         
@@ -2000,7 +2038,7 @@ Each player's performance is measured across various metrics and displayed in bo
                         
                         performance_overview += perf_summary + "\n\n"
                     
-                    # Forward Role Assessment
+                    #  Role Assessment
                     role_assessment = ""
                     for p in player_data:
                         # Sort roles by score
@@ -2015,7 +2053,10 @@ Each player's performance is measured across various metrics and displayed in bo
                             
                             role_summary += f"**Primary Role: {primary_role}** (Score: {primary_score:.2f})\n\n"
                             
-                            # Add explanation based on role
+                            # Add explanation based on role and position
+                            position = p.get('position', 'Unknown')
+                            
+                            # Forward roles
                             if primary_role == "Advance Forward":
                                 role_summary += "Player demonstrates excellent goal-scoring ability combined with strong overall attacking presence. "
                                 role_summary += "Should be positioned as the main offensive threat with freedom to attack the goal directly.\n\n"
@@ -2028,6 +2069,8 @@ Each player's performance is measured across various metrics and displayed in bo
                             elif primary_role == "Poacher":
                                 role_summary += "Player demonstrates clinical finishing and efficiency in the box. "
                                 role_summary += "Should be positioned to maximize scoring opportunities with minimal defensive responsibility.\n\n"
+                            
+                            # Goalkeeper roles
                             elif primary_role == "Shot Stopper":
                                 role_summary += "Player excels at making saves and preventing goals. "
                                 role_summary += "Best utilized in a system that requires strong shot-stopping ability and reflexes.\n\n"
@@ -2038,6 +2081,66 @@ Each player's performance is measured across various metrics and displayed in bo
                                 role_summary += "Player demonstrates strong distribution and passing ability. "
                                 role_summary += "Best utilized in a possession-based system where their ability to start attacks from the back is valuable.\n\n"
                             
+                            # Defender roles
+                            elif primary_role == "No-Nonsense Centre-Back":
+                                role_summary += "Player excels in traditional defensive duties with strong physical presence. "
+                                role_summary += "Best utilized in a deep defensive line where their aerial dominance and tackling ability are crucial.\n\n"
+                            elif primary_role == "Central Defender":
+                                role_summary += "Player shows balanced defensive and distribution abilities. "
+                                role_summary += "Versatile defender who can adapt to different defensive systems and contribute to build-up play.\n\n"
+                            elif primary_role == "Ball Playing Defender":
+                                role_summary += "Player demonstrates excellent technical ability and distribution skills. "
+                                role_summary += "Best utilized in a possession-based system where their ability to start attacks from the back is valuable.\n\n"
+                            
+                            # Add tactical recommendations based on role and position
+                            role_summary += "**Tactical Recommendations:**\n\n"
+                            
+                            if position in ['CB', 'RCB', 'LCB', 'RCB3', 'LCB3']:
+                                if primary_role == "No-Nonsense Centre-Back":
+                                    role_summary += "- Play in a deep defensive line\n"
+                                    role_summary += "- Focus on man-marking and aerial duels\n"
+                                    role_summary += "- Minimize build-up responsibilities\n"
+                                elif primary_role == "Central Defender":
+                                    role_summary += "- Adapt to different defensive systems\n"
+                                    role_summary += "- Balance defensive duties with distribution\n"
+                                    role_summary += "- Lead defensive organization\n"
+                                elif primary_role == "Ball Playing Defender":
+                                    role_summary += "- Play in a high defensive line\n"
+                                    role_summary += "- Take responsibility for build-up play\n"
+                                    role_summary += "- Look for progressive passing opportunities\n"
+                            
+                            elif position == 'GK':
+                                if primary_role == "Shot Stopper":
+                                    role_summary += "- Stay close to goal line\n"
+                                    role_summary += "- Focus on shot-stopping and reflexes\n"
+                                    role_summary += "- Minimize sweeping responsibilities\n"
+                                elif primary_role == "Sweeper Keeper":
+                                    role_summary += "- Play with a high defensive line\n"
+                                    role_summary += "- Act as an extra defender\n"
+                                    role_summary += "- Sweep up behind defense\n"
+                                elif primary_role == "Ball Playing Keeper":
+                                    role_summary += "- Take responsibility for build-up\n"
+                                    role_summary += "- Look for long distribution options\n"
+                                    role_summary += "- Maintain possession under pressure\n"
+                            
+                            else:  # Forward positions
+                                if primary_role == "Advance Forward":
+                                    role_summary += "- Lead the attacking line\n"
+                                    role_summary += "- Focus on goal-scoring opportunities\n"
+                                    role_summary += "- Make runs behind defense\n"
+                                elif primary_role == "Pressing Forward":
+                                    role_summary += "- Lead the pressing from front\n"
+                                    role_summary += "- Focus on defensive contribution\n"
+                                    role_summary += "- Win ball in advanced areas\n"
+                                elif primary_role == "Deep-lying Forward":
+                                    role_summary += "- Drop deep to link play\n"
+                                    role_summary += "- Create chances for teammates\n"
+                                    role_summary += "- Balance scoring and creating\n"
+                                elif primary_role == "Poacher":
+                                    role_summary += "- Stay in central areas\n"
+                                    role_summary += "- Focus on finishing chances\n"
+                                    role_summary += "- Minimize defensive duties\n"
+                            
                         # Add secondary role if score is within 80% of primary role
                         if len(sorted_roles) > 1:
                             secondary_role = sorted_roles[1][0]
@@ -2045,40 +2148,93 @@ Each player's performance is measured across various metrics and displayed in bo
                             
                             if secondary_score > 0 and (primary_score == 0 or secondary_score / primary_score >= 0.8):
                                 role_summary += f"**Secondary Role: {secondary_role}** (Score: {secondary_score:.2f})\n\n"
+                                
+                                # Add explanation for secondary role compatibility
+                                if position in ['CB', 'RCB', 'LCB', 'RCB3', 'LCB3']:
+                                    if secondary_role == "No-Nonsense Centre-Back":
+                                        role_summary += "Can also excel in a more traditional defensive role when needed.\n\n"
+                                    elif secondary_role == "Central Defender":
+                                        role_summary += "Shows versatility to adapt to a balanced defensive approach.\n\n"
+                                    elif secondary_role == "Ball Playing Defender":
+                                        role_summary += "Can contribute to build-up play when tactical situation requires.\n\n"
+                                elif position == 'GK':
+                                    if secondary_role == "Shot Stopper":
+                                        role_summary += "Can adapt to a more traditional goalkeeping role when needed.\n\n"
+                                    elif secondary_role == "Sweeper Keeper":
+                                        role_summary += "Shows ability to contribute to defensive organization.\n\n"
+                                    elif secondary_role == "Ball Playing Keeper":
+                                        role_summary += "Can take on more distribution responsibilities when required.\n\n"
+                                else:  # Forward positions
+                                    if secondary_role == "Advance Forward":
+                                        role_summary += "Can lead the line effectively when needed.\n\n"
+                                    elif secondary_role == "Pressing Forward":
+                                        role_summary += "Shows ability to contribute defensively.\n\n"
+                                    elif secondary_role == "Deep-lying Forward":
+                                        role_summary += "Can drop deep to create chances when required.\n\n"
+                                    elif secondary_role == "Poacher":
+                                        role_summary += "Can focus on goal-scoring when needed.\n\n"
                             
                         role_assessment += role_summary + "\n"
                     
                     # Scatter Plot Analysis
-                    scatter_analysis = "### Position Analysis (Goals vs xG)\n\n"
+                    scatter_analysis = "### Position Analysis\n\n"
                     
                     for p in scatter_data:
                         # Quadrant determination
                         x_high = p['x_percentile'] > 50
                         y_high = p['y_percentile'] > 50
                         
-                        # Player type based on quadrant
+                        # Player type based on quadrant and position
                         player_type = ""
                         analysis = ""
                         
-                        if x_high and y_high:
-                            player_type = "Clinical Finisher"
-                            analysis = f"**{p['name']}** demonstrates excellent goal scoring ability with high xG production. "
-                            if p['x_percentile'] > p['y_percentile']:
-                                analysis += f"Outperforming expected goals ({p['x_actual']:.2f} goals vs {p['y_actual']:.2f} xG), showing clinical finishing ability."
+                        # Get player position
+                        player_position = next((pd['position'] for pd in player_data if pd['name'] == p['name']), 'Unknown')
+                        
+                        if player_position in ['CB', 'RCB', 'LCB', 'RCB3', 'LCB3']:
+                            # Defender analysis
+                            if x_high and y_high:
+                                player_type = "Complete Defender"
+                                analysis = f"**{p['name']}** demonstrates excellent all-around defensive abilities. "
+                                if p['x_stat'] == "Aerial duels won" and p['y_stat'] == "Passes accurate":
+                                    analysis += f"Strong in both aerial duels ({p['x_actual']:.2f}) and distribution ({p['y_actual']:.2f}). "
+                                    analysis += "Can play as a Ball Playing Defender or Central Defender."
+                                elif p['x_stat'] == "Duels won" and p['y_stat'] == "Long passes accurate":
+                                    analysis += f"Excels in both defensive actions ({p['x_actual']:.2f}) and distribution ({p['y_actual']:.2f}). "
+                                    analysis += "Versatile defender who can adapt to different systems."
+                            elif not x_high and y_high:
+                                player_type = "Technical Defender"
+                                analysis = f"**{p['name']}** shows strong technical ability ({p['y_actual']:.2f}) but needs improvement in defensive actions ({p['x_actual']:.2f}). "
+                                analysis += "Best suited as a Ball Playing Defender in a possession-based system."
+                            elif x_high and not y_high:
+                                player_type = "Traditional Defender"
+                                analysis = f"**{p['name']}** excels in defensive actions ({p['x_actual']:.2f}) but limited in distribution ({p['y_actual']:.2f}). "
+                                analysis += "Best utilized as a No-Nonsense Centre-Back in a deep defensive line."
                             else:
-                                analysis += f"Getting into high-quality scoring positions ({p['y_actual']:.2f} xG) and converting well ({p['x_actual']:.2f} goals)."
-                        elif not x_high and y_high:
-                            player_type = "Underperforming Finisher"
-                            analysis = f"**{p['name']}** is getting into good scoring positions ({p['y_actual']:.2f} xG) but not converting efficiently enough ({p['x_actual']:.2f} goals). "
-                            analysis += "Finishing training is recommended to improve conversion rate."
-                        elif x_high and not y_high:
-                            player_type = "Clinical Opportunist"
-                            analysis = f"**{p['name']}** is highly efficient, scoring {p['x_actual']:.2f} goals from limited xG opportunities ({p['y_actual']:.2f}). "
-                            analysis += "Very clinical finisher making the most of chances created."
+                                player_type = "Limited Defender"
+                                analysis = f"**{p['name']}** shows limited output in both {p['x_stat']} ({p['x_actual']:.2f}) and {p['y_stat']} ({p['y_actual']:.2f}). "
+                                analysis += "May need tactical adjustments or specific training focus."
                         else:
-                            player_type = "Limited Attacking Threat"
-                            analysis = f"**{p['name']}** shows limited attacking output with both goals ({p['x_actual']:.2f}) and xG ({p['y_actual']:.2f}) below average. "
-                            analysis += "May be contributing in other areas or need tactical adjustments to increase attacking involvement."
+                            # Forward analysis (existing code)
+                            if x_high and y_high:
+                                player_type = "Clinical Finisher"
+                                analysis = f"**{p['name']}** demonstrates excellent goal scoring ability with high xG production. "
+                                if p['x_percentile'] > p['y_percentile']:
+                                    analysis += f"Outperforming expected goals ({p['x_actual']:.2f} goals vs {p['y_actual']:.2f} xG), showing clinical finishing ability."
+                                else:
+                                    analysis += f"Getting into high-quality scoring positions ({p['y_actual']:.2f} xG) and converting well ({p['x_actual']:.2f} goals)."
+                            elif not x_high and y_high:
+                                player_type = "Underperforming Finisher"
+                                analysis = f"**{p['name']}** is getting into good scoring positions ({p['y_actual']:.2f} xG) but not converting efficiently enough ({p['x_actual']:.2f} goals). "
+                                analysis += "Finishing training is recommended to improve conversion rate."
+                            elif x_high and not y_high:
+                                player_type = "Clinical Opportunist"
+                                analysis = f"**{p['name']}** is highly efficient, scoring {p['x_actual']:.2f} goals from limited xG opportunities ({p['y_actual']:.2f}). "
+                                analysis += "Very clinical finisher making the most of chances created."
+                            else:
+                                player_type = "Limited Attacking Threat"
+                                analysis = f"**{p['name']}** shows limited attacking output with both goals ({p['x_actual']:.2f}) and xG ({p['y_actual']:.2f}) below average. "
+                                analysis += "May be contributing in other areas or need tactical adjustments to increase attacking involvement."
                         
                         scatter_analysis += f"**{p['name']} profile: {player_type}**\n\n{analysis}\n\n"
                     
@@ -2098,6 +2254,10 @@ Each player's performance is measured across various metrics and displayed in bo
                                     development_text += f"- 🎯 **{stat}**: Technical drills focusing on passing accuracy and decision-making\n"
                                 elif "Shot" in stat or "Goal" in stat:
                                     development_text += f"- ⚽ **{stat}**: Shooting practice and positioning training for better opportunities\n"
+                                elif "Interception" in stat or "Recovery" in stat:
+                                    development_text += f"- 🛡️ **{stat}**: Defensive positioning and anticipation training\n"
+                                elif "Clearance" in stat or "Block" in stat:
+                                    development_text += f"- 🧱 **{stat}**: Defensive organization and positioning drills\n"
                                 else:
                                     development_text += f"- 🔄 **{stat}**: Regular training focus to improve this attribute\n"
                         
@@ -2105,6 +2265,22 @@ Each player's performance is measured across various metrics and displayed in bo
                         best_role = max(p['role_scores'].items(), key=lambda x: x[1])[0] if p['role_scores'] else ""
                         
                         development_text += f"\n📋 **Recommended tactical role:** {best_role}\n\n"
+                        
+                        # Add position-specific training recommendations
+                        if p['position'] in ['CB', 'RCB', 'LCB', 'RCB3', 'LCB3']:
+                            development_text += "**Defender-specific training focus:**\n"
+                            if best_role == "No-Nonsense Centre-Back":
+                                development_text += "- Physical conditioning and strength training\n"
+                                development_text += "- Aerial duels and heading practice\n"
+                                development_text += "- Defensive positioning and organization\n"
+                            elif best_role == "Central Defender":
+                                development_text += "- Balance of defensive and technical training\n"
+                                development_text += "- Decision-making under pressure\n"
+                                development_text += "- Defensive communication and leadership\n"
+                            elif best_role == "Ball Playing Defender":
+                                development_text += "- Passing and distribution drills\n"
+                                development_text += "- Vision and decision-making training\n"
+                                development_text += "- Press resistance and composure exercises\n"
                         
                         development_recommendations += development_text + "\n\n"
                     
@@ -2200,7 +2376,7 @@ Each player's performance is measured across various metrics and displayed in bo
         **DeepSeek AI Insights** analyzes the calculated statistics for selected players and provides:
         
         1. **Performance Overview**: Analysis of percentile rankings across key metrics
-        2. **Forward Role Assessment**: Evaluation of each player's suitability for different forward roles
+        2. **Role Assessment**: Evaluation of each player's suitability for different forward roles
         3. **Player Comparison**: Side-by-side comparison highlighting relative strengths and weaknesses
         4. **Development Recommendations**: Suggestions for areas of improvement based on statistical analysis
         
