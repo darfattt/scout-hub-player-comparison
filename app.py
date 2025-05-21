@@ -610,7 +610,9 @@ def main():
                     player_colors[i % len(player_colors)], 
                     player_info[i], 
                     player_image_path,
-                    actual_values
+                    actual_values,
+                    use_per90=use_per90,
+                    selected_competitions=competition_filters.get(name, [])
                 )
                 
                 if fig:
@@ -1553,43 +1555,84 @@ Each forward is scored for classic forward roles based on their stats and the la
         def get_quadrant_descriptions(x_stat, y_stat):
             # Define role descriptions based on stat combinations
             role_descriptions = {
-                # Goals related combinations
+                # Forward presets
                 "Goals": {
-                    "high": "Clinical Finisher: High goal output",
-                    "low": "Creative Playmaker: Creates chances"
+                    "high": "Clinical Finisher: High goal output and conversion rate",
+                    "low": "Creative Playmaker: Creates chances for others"
                 },
                 "xG": {
-                    "high": "Efficient Scorer: Exceeds xG",
-                    "low": "Chance Creator: Sets up others"
+                    "high": "Efficient Scorer: Exceeds expected goals",
+                    "low": "Chance Creator: Sets up high-quality chances"
                 },
-                # Passing related combinations
+                "Shots": {
+                    "high": "Volume Shooter: Takes many shots",
+                    "low": "Selective Shooter: Takes high-quality shots"
+                },
                 "Passes accurate": {
-                    "high": "Playmaker: Excellent passing",
+                    "high": "Playmaker: Excellent passing and distribution",
                     "low": "Direct Attacker: Focuses on finishing"
                 },
+                "Dribbles successful": {
+                    "high": "Skilled Dribbler: Takes on defenders successfully",
+                    "low": "Positional Player: Relies on movement and positioning"
+                },
                 "Assists": {
-                    "high": "Creative Forward: Creates chances",
+                    "high": "Creative Forward: Creates chances for teammates",
                     "low": "Pure Finisher: Focuses on scoring"
                 },
-                # Dribbling related combinations
-                "Dribbles successful": {
-                    "high": "Skilled Dribbler: Takes on defenders",
-                    "low": "Positional Player: Relies on movement"
-                },
-                # Defensive related combinations
                 "Duels won": {
-                    "high": "Physical Forward: Wins battles",
+                    "high": "Physical Forward: Wins battles and challenges",
                     "low": "Technical Forward: Avoids physical play"
                 },
                 "Recoveries": {
-                    "high": "Pressing Forward: High work rate",
+                    "high": "Pressing Forward: High work rate and ball recovery",
                     "low": "Poacher: Minimal defensive work"
                 },
-                # Aerial related combinations
                 "Aerial duels won": {
-                    "high": "Aerial Threat: Strong in air",
+                    "high": "Aerial Threat: Strong in air and headers",
                     "low": "Technical Player: Ground-based play"
                 },
+                
+                # Goalkeeper presets
+                "Saves": {
+                    "high": "Shot Stopper: Excellent shot-stopping ability",
+                    "low": "Sweeper Keeper: Focuses on distribution"
+                },
+                "Conceded goals": {
+                    "high": "Vulnerable: Concedes many goals",
+                    "low": "Solid: Strong defensive presence"
+                },
+                "Long passes accurate": {
+                    "high": "Distributor: Excellent long distribution",
+                    "low": "Shot Stopper: Focuses on saves"
+                },
+                "Exits": {
+                    "high": "Sweeper: Active in defensive areas",
+                    "low": "Traditional: Stays close to goal"
+                },
+                "Saves with reflexes": {
+                    "high": "Reflex Keeper: Excellent reaction saves",
+                    "low": "Positional Keeper: Relies on positioning"
+                },
+                
+                # Defender presets
+                "Clearances": {
+                    "high": "No-Nonsense: Strong defensive clearance",
+                    "low": "Ball Player: Focuses on distribution"
+                },
+                "Progressive passes": {
+                    "high": "Ball Player: Excellent build-up play",
+                    "low": "Traditional: Focuses on defense"
+                },
+                "Interceptions": {
+                    "high": "Reading Game: Excellent anticipation",
+                    "low": "Positional: Relies on positioning"
+                },
+                "Tackles won": {
+                    "high": "Aggressive: Strong tackling ability",
+                    "low": "Positional: Avoids tackles"
+                },
+                
                 # Negative stats descriptions
                 "Losses": {
                     "high": "Risky: Loses possession frequently",
@@ -1602,8 +1645,8 @@ Each forward is scored for classic forward roles based on their stats and the la
             }
             
             # Check if stats are negative (where lower is better)
-            x_is_negative = x_stat in ["Losses", "Losses own half","Conceded goals","xCG"]
-            y_is_negative = y_stat in ["Losses", "Losses own half","Conceded goals","xCG"]
+            x_is_negative = x_stat in ["Losses", "Losses own half", "Conceded goals", "xCG"]
+            y_is_negative = y_stat in ["Losses", "Losses own half", "Conceded goals", "xCG"]
             
             # Get descriptions for each stat accounting for negative stats
             if x_is_negative:

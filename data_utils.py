@@ -168,7 +168,8 @@ def extract_player_info(df):
         "Kevin Mendoza": "Persib",
         "N. Kuipers": "Persib",
         "Gustavo França": "Persib",
-        "Júlio César": "Chiangrai United"
+        "Júlio César": "Chiangrai United",
+        "Lucas Cunha" : "Caxias"
     }
     
     player_name = df['player_name'].iloc[0] if 'player_name' in df.columns else "Unknown"
@@ -190,26 +191,12 @@ def extract_player_info(df):
         "Kevin Mendoza": 30,
          "N. Kuipers": 32,
         "Gustavo França": 28,
-        "Júlio César": 30
+        "Júlio César": 30,
+        "Lucas Cunha" : 30
     }
     
     age = age_map.get(player_name, 0)  # Default age 25 if not found
     
-    # Try to extract age from Age column if it exists
-    # if 'Age' in df.columns:
-    #     age_values = pd.to_numeric(df['Age'].dropna(), errors='coerce')
-    #     if not age_values.empty and age_values.notna().any():
-    #         try:
-    #             # Get the most common age value - mode() behavior changed in pandas 2.1+
-    #             # Handle different pandas versions (mode returns Series in older versions, Index in newer ones)
-    #             mode_result = age_values.mode()
-    #             if isinstance(mode_result, pd.Series):
-    #                 age = int(mode_result.iloc[0])
-    #             else:
-    #                 # In newer pandas versions, mode() returns a different type
-    #                 age = int(mode_result[0])
-    #         except:
-    #             pass
     
     return {
         "position": position,

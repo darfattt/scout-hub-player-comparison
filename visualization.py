@@ -10,7 +10,7 @@ from utils import get_player_image, get_percentile_color, get_percentile_legend_
 logger = logging.getLogger("player_comparison_tool")
 
 # Function to generate a unified player stat chart
-def generate_unified_player_chart(player_name, percentile_df, player_color, player_info, player_image_path=None, actual_values_df=None):
+def generate_unified_player_chart(player_name, percentile_df, player_color, player_info, player_image_path=None, actual_values_df=None, use_per90=False, selected_competitions=None):
     """
     Generate a unified player stat chart showing percentile ranks for various metrics.
     
@@ -21,6 +21,8 @@ def generate_unified_player_chart(player_name, percentile_df, player_color, play
         player_info (dict): Dictionary containing player information
         player_image_path (str, optional): Path to player image. Defaults to None.
         actual_values_df (pandas.DataFrame, optional): DataFrame containing actual values. Defaults to None.
+        use_per90 (bool, optional): Whether stats are per 90 minutes. Defaults to False.
+        selected_competitions (list, optional): List of selected competitions. Defaults to None.
         
     Returns:
         matplotlib.figure.Figure: The generated chart figure
@@ -64,6 +66,40 @@ def generate_unified_player_chart(player_name, percentile_df, player_color, play
     else:
         stats_info_text = f"Matches: {total_matches} | Minutes: {total_minutes} | Goals: {total_goals}"
     ax_info.text(0.02, 0.3, stats_info_text, fontsize=9, color="#666666")
+    
+    # Add stats mode and competition info
+    stats_mode = "Per 90 Minutes" if use_per90 else "Total Stats"
+    competition_info = f"{', '.join(selected_competitions)}" if selected_competitions else "All Competitions"
+    
+    # Add stats mode info
+    ax_info.text(0.02, 0.19, f"{stats_mode}", fontsize=6, color="#666666")
+    
+    # Add competition info with wrapping for long lists
+    if len(competition_info) > 40:
+        # Split competitions into multiple lines if too long
+        competitions = competition_info.split(", ")
+        # Group competitions into lines with commas
+        line_length = 0
+        current_line = []
+        lines = []
+        
+        for comp in competitions:
+            if line_length + len(comp) > 40:
+                lines.append(", ".join(current_line))
+                current_line = [comp]
+                line_length = len(comp)
+            else:
+                current_line.append(comp)
+                line_length += len(comp) + 2  # +2 for ", "
+        
+        if current_line:  # Add the last line if there are remaining competitions
+            lines.append(", ".join(current_line))
+        
+        # Display each line
+        #for i, line in enumerate(lines):
+        ax_info.text(0.02, 0.08, lines, fontsize=6, color="#666666")
+    else:
+        ax_info.text(0.02, 0.08, competition_info, fontsize=6, color="#666666")
     
     # If player image is available, add it with better positioning and styling
     if player_image_path and os.path.exists(player_image_path):
